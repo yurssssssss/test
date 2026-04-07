@@ -549,12 +549,8 @@
         <label class="form-label fw-medium" style="font-size:13px">Reason for Rejection <span class="text-danger">*</span></label>
         <select class="form-select mb-2" id="rejectReasonSelect" onchange="toggleCustomReason(this.value)">
           <option value="">Select a reason...</option>
-          <option>Incomplete requirements</option>
-          <option>Does not meet age requirements</option>
-          <option>Grade level mismatch</option>
-          <option>No available slot</option>
-          <option>Duplicate application</option>
-          <option>other">Other (specify below)</option>
+          <option>Over Age</option>
+          <option>Location</option>
         </select>
         <div id="customReasonWrap" class="d-none">
           <textarea class="form-control" id="rejectCustomReason" rows="3" placeholder="Specify the reason..."></textarea>
@@ -564,7 +560,7 @@
         <button class="btn btn-outline-secondary btn-sm" data-bs-dismiss="modal">Cancel</button>
         <button class="btn btn-danger btn-sm fw-semibold" onclick="confirmReject()">Confirm Rejection</button>
       </div>
-    </div>
+    </div>  
   </div>
 </div>
 
