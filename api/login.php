@@ -11,7 +11,7 @@
         <div class="text-muted" style="font-size:11px">Enrollment System</div>
       </div>
     </div>
-    <a href="index.php" class="text-decoration-none fw-medium d-flex align-items-center gap-1 text-navy" style="font-size:14px">
+    <a href="/index" class="text-decoration-none fw-medium d-flex align-items-center gap-1 text-navy" style="font-size:14px">
       <i class="bi bi-arrow-left"></i> Back to Home
     </a>
   </div>
@@ -21,7 +21,7 @@
   <div class="bg-white rounded-4 border shadow-sm p-4 p-md-5 w-100" style="max-width:460px;margin:40px auto">
 
     <div class="text-center mb-4">
-      <img src="logo.png" class="brand-logo mx-auto mb-3" style="width:72px;height:72px" alt="DPNHS Logo">
+      <img src="/logo.png" class="brand-logo mx-auto mb-3" style="width:72px;height:72px" alt="DPNHS Logo">
       <h3 class="fw-bold mb-1" style="color:#1e293b">Welcome Back</h3>
       <p class="text-muted" style="font-size:13.5px">Sign in to access your account</p>
     </div>
@@ -50,7 +50,7 @@
         </div>
       </div>
       <button class="btn btn-navy w-100 py-2 fw-semibold" onclick="loginStudent()">Login to Student Portal</button>
-      <p class="text-center text-muted mt-3 mb-0" style="font-size:13px">Don't have an account? <a href="admission.php" class="text-cyan text-decoration-none fw-medium">Apply for admission</a></p>
+      <p class="text-center text-muted mt-3 mb-0" style="font-size:13px">Don't have an account? <a href="/admission" class="text-cyan text-decoration-none fw-medium">Apply for admission</a></p>
     </div>
 
 
@@ -93,14 +93,14 @@
     const id = document.getElementById('stu-id').value.trim();
     if (!id) { toast('Please enter your Student ID'); return; }
     toast('Login successful! Welcome back, John Smith.', 'success');
-    setTimeout(() => window.location.href = 'student.php', 800);
+    setTimeout(() => window.location.href = '/student', 800);
   }
 
   function loginAdmin() {
     const em = document.getElementById('adm-email').value.trim();
     if (!em) { toast('Please enter your email'); return; }
     toast('Admin login successful!', 'success');
-    setTimeout(() => window.location.href = 'admin.php', 800);
+    setTimeout(() => window.location.href = '/admin', 800);
   }
 </script>
 

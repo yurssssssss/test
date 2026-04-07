@@ -4,8 +4,8 @@
 <!-- NAV -->
 <nav class="bg-white border-bottom sticky-top py-2">
   <div class="container d-flex align-items-center justify-content-between">
-    <a href="index.php" class="d-flex align-items-center gap-2 text-decoration-none">
-      <img src="logo.png" class="brand-logo" alt="DPNHS Logo" style="width: 55px; height: 55px;" >
+    <a href="/index" class="d-flex align-items-center gap-2 text-decoration-none">
+      <img src="/logo.png" class="brand-logo" alt="DPNHS Logo" style="width: 55px; height: 55px;" >
       <div>
         <div class="fw-bold text-navy" style="font-size:15px;line-height:1.2">Dela Paz National High School</div>
         <div class="text-muted" style="font-size:11px">Online Enrollment System</div>
@@ -43,7 +43,7 @@
           <div class="feature-icon text-navy fs-3 mb-3"><i class="bi bi-person-plus-fill"></i></div>
           <h5 class="fw-bold mb-2" style="color:#1e293b">Easy Application</h5>
           <p class="text-muted mb-3" style="font-size:13.5px">Simple and intuitive online admission application form for new students</p>
-          <a href="admission" class="text-decoration-none fw-semibold text-navy" style="font-size:13.5px">Apply Now →</a>
+          <a href="gtadmission" class="text-decoration-none fw-semibold text-navy" style="font-size:13.5px">Apply Now →</a>
         </div>
       </div>
       <div class="col-md-4">

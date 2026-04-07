@@ -18,7 +18,7 @@
       <div class="fw-semibold" style="font-size:14px;color:#1e293b">John Smith</div>
       <div class="text-muted" style="font-size:12px">STU2024001</div>
     </div>
-    <a href="index.php" class="topbar-icon text-decoration-none" title="Logout"><i class="bi bi-box-arrow-right"></i></a>
+    <a href="/index" class="topbar-icon text-decoration-none" title="Logout"><i class="bi bi-box-arrow-right"></i></a>
   </div>
 </div>
 

@@ -8,7 +8,7 @@
     <button class="btn btn-sm d-lg-none me-1 p-1" type="button" data-bs-toggle="offcanvas" data-bs-target="#adminSidebar" aria-controls="adminSidebar">
       <i class="bi bi-list fs-5"></i>
     </button>
-    <img src="logo.png" class="brand-logo" alt="DPNHS Logo" style="width:55px;height:55px;">
+    <img src="/logo.png" class="brand-logo" alt="DPNHS Logo" style="width:55px;height:55px;">
     <div>
       <div class="fw-bold text-navy" style="font-size:15px;line-height:1.2">DPNHS</div>
       <div class="text-muted" style="font-size:11px">Admin Dashboard</div>
@@ -22,7 +22,7 @@
       <div class="fw-semibold" style="font-size:14px;color:#1e293b">Admin User</div>
       <div class="text-muted" style="font-size:12px">admin@school.edu</div>
     </div>
-    <a href="index.php" class="topbar-icon text-decoration-none" title="Logout"><i class="bi bi-box-arrow-right"></i></a>
+    <a href="/index" class="topbar-icon text-decoration-none" title="Logout"><i class="bi bi-box-arrow-right"></i></a>
   </div>
 </div>
 
@@ -42,7 +42,7 @@
       </div>
     </div>
     <hr class="my-2">
-    <a href="index.php" class="btn btn-outline-secondary btn-sm w-100 mt-1"><i class="bi bi-box-arrow-right me-1"></i>Logout</a>
+    <a href="/index" class="btn btn-outline-secondary btn-sm w-100 mt-1"><i class="bi bi-box-arrow-right me-1"></i>Logout</a>
   </div>
 </div>
 
