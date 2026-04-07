@@ -43,7 +43,7 @@
           <div class="feature-icon text-navy fs-3 mb-3"><i class="bi bi-person-plus-fill"></i></div>
           <h5 class="fw-bold mb-2" style="color:#1e293b">Easy Application</h5>
           <p class="text-muted mb-3" style="font-size:13.5px">Simple and intuitive online admission application form for new students</p>
-          <a href="gtadmission" class="text-decoration-none fw-semibold text-navy" style="font-size:13.5px">Apply Now →</a>
+          <a href="/admission" class="text-decoration-none fw-semibold text-navy" style="font-size:13.5px">Apply Now →</a>
         </div>
       </div>
       <div class="col-md-4">

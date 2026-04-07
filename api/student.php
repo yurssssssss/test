@@ -6,7 +6,7 @@
     <button class="btn btn-sm d-lg-none me-1 p-1" type="button" data-bs-toggle="offcanvas" data-bs-target="#studentSidebar" aria-controls="studentSidebar">
       <i class="bi bi-list fs-5"></i>
     </button>
-    <img src="logo.png" class="brand-logo" alt="DPNHS Logo" style="width:55px;height:55px;">
+    <img src="/logo.png" class="brand-logo" alt="DPNHS Logo" style="width:55px;height:55px;">
     <div>
       <div class="fw-bold text-navy" style="font-size:15px;line-height:1.2">DPNHS</div>
       <div class="text-muted" style="font-size:11px">Student Portal</div>
