@@ -38,7 +38,7 @@
         <button onclick="showPanel('new-student')" class="sidebar-nav-btn active" data-panel="new-student">
           <i class="bi bi-person-plus-fill me-2"></i> New Student / Applicant
         </button>
-        <button onclick="showPanel('student-info')" class="sidebar-nav-btn" data-panel="student-info">
+        <button onclick="showPanel('student-info')" class="sidebar-nav-btn " data-panel="student-info">
           <i class="bi bi-person-lines-fill me-2"></i> Student Information
         </button>
         <button onclick="showPanel('grade-section')" class="sidebar-nav-btn" data-panel="grade-section">
