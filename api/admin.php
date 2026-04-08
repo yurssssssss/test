@@ -275,7 +275,7 @@ body { margin:0; background:#f1f5f9; }
     </div>
 
     <div class="sb-bottom">
-      <a href="index.php" class="sb-logout">
+      <a href="/api/index.php" class="sb-logout">
         <i class="bi bi-box-arrow-left"></i><span>Logout</span>
       </a>
     </div>
@@ -627,7 +627,7 @@ body { margin:0; background:#f1f5f9; }
           <h5 class="modal-title fw-bold" style="color:#1e293b"><i class="bi bi-x-circle-fill text-danger me-2"></i>Rejected Applications</h5>
           <div class="text-muted" style="font-size:13px">List of applicants who have been rejected</div>
         </div>
-        <a href="admin.php" class="btn-close" aria-label="Close"></a>
+        <a href="/api/admin.php" class="btn-close" aria-label="Close"></a>
       </div>
       <div class="modal-body pt-3">
         <?php if(empty($rejected)): ?>
@@ -655,7 +655,7 @@ body { margin:0; background:#f1f5f9; }
         <?php endif; ?>
       </div>
       <div class="modal-footer border-0">
-        <a href="admin.php" class="btn btn-outline-secondary btn-sm">Close</a>
+        <a href="/api/admin.php" class="btn btn-outline-secondary btn-sm">Close</a>
       </div>
     </div>
   </div>
@@ -668,7 +668,7 @@ body { margin:0; background:#f1f5f9; }
     <div class="modal-content">
       <div class="modal-header border-0 pb-0">
         <h5 class="modal-title fw-bold" style="color:#991b1b"><i class="bi bi-exclamation-triangle-fill me-2"></i>Reject Application</h5>
-        <a href="admin.php" class="btn-close" aria-label="Close"></a>
+        <a href="/api/admin.php" class="btn-close" aria-label="Close"></a>
       </div>
       <div class="modal-body">
         <p style="font-size:14px">You are about to reject the application of <strong><?= htmlspecialchars($appName) ?></strong> (<span><?= htmlspecialchars($appId) ?></span>).</p>
@@ -684,7 +684,7 @@ body { margin:0; background:#f1f5f9; }
         </div>
       </div>
       <div class="modal-footer border-0 pt-0">
-        <a href="admin.php" class="btn btn-outline-secondary btn-sm">Cancel</a>
+        <a href="/api/admin.php" class="btn btn-outline-secondary btn-sm">Cancel</a>
         <button class="btn btn-danger btn-sm fw-semibold" onclick="submitRejectForm()">Confirm Rejection</button>
       </div>
     </div>
@@ -707,7 +707,7 @@ $p = $profiles[$profileId] ?? null;
     <div class="modal-content border-0 shadow-lg" style="border-radius:16px;overflow:hidden">
       <?php if($p): ?>
       <div style="background:linear-gradient(135deg,#1e3a8a 0%,#0d9488 100%);padding:28px 28px 20px;position:relative">
-        <a href="admin.php" class="btn-close btn-close-white position-absolute top-0 end-0 m-3"></a>
+        <a href="/api/admin.php" class="btn-close btn-close-white position-absolute top-0 end-0 m-3"></a>
         <div class="d-flex align-items-center gap-3 flex-wrap">
           <div style="width:72px;height:72px;border-radius:50%;background:rgba(255,255,255,.2);border:3px solid rgba(255,255,255,.5);display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:800;color:#fff">
             <?= strtoupper(substr($p['fname'],0,1).substr($p['lname'],0,1)) ?>
@@ -802,7 +802,7 @@ $p = $profiles[$profileId] ?? null;
         </div>
       </div>
       <div class="modal-footer border-0" style="background:#f8fafc;padding:14px 24px">
-        <a href="admin.php" class="btn btn-light btn-sm border px-4 fw-medium"><i class="bi bi-x me-1"></i>Close</a>
+        <a href="/api/admin.php" class="btn btn-light btn-sm border px-4 fw-medium"><i class="bi bi-x me-1"></i>Close</a>
       </div>
       <?php else: ?>
       <div class="modal-body text-center py-5">
@@ -810,7 +810,7 @@ $p = $profiles[$profileId] ?? null;
         <div class="mt-2 text-muted">Profile not found.</div>
       </div>
       <div class="modal-footer border-0">
-        <a href="admin.php" class="btn btn-outline-secondary btn-sm">Close</a>
+        <a href="/api/admin.php" class="btn btn-outline-secondary btn-sm">Close</a>
       </div>
       <?php endif; ?>
     </div>
@@ -827,7 +827,7 @@ $p = $profiles[$profileId] ?? null;
           <h5 class="modal-title fw-bold" style="color:#1e293b"><i class="bi bi-person-plus-fill me-2 text-navy"></i>Add Student – Late Enrollment</h5>
           <div class="text-muted" style="font-size:13px">Admin bypass for late-enrolled students. Complete all fields below.</div>
         </div>
-        <a href="admin.php" class="btn-close" aria-label="Close"></a>
+        <a href="/api/admin.php" class="btn-close" aria-label="Close"></a>
       </div>
       <div class="modal-body">
         <div class="fw-semibold mb-2 mt-1" style="font-size:13.5px;color:#1e293b;border-left:3px solid var(--navy);padding-left:10px">School Information</div>
@@ -848,7 +848,7 @@ $p = $profiles[$profileId] ?? null;
         </div>
       </div>
       <div class="modal-footer border-0 pt-0">
-        <a href="admin.php" class="btn btn-outline-secondary btn-sm">Cancel</a>
+        <a href="/api/admin.php" class="btn btn-outline-secondary btn-sm">Cancel</a>
         <button class="btn btn-navy btn-sm fw-semibold" onclick="showToast('Student enrolled successfully!');setTimeout(()=>window.location='admin.php',1600)">
           <i class="bi bi-person-check me-1"></i>Enroll Student
         </button>
@@ -864,7 +864,7 @@ $p = $profiles[$profileId] ?? null;
     <div class="modal-content">
       <div class="modal-header border-0 pb-0">
         <h5 class="modal-title fw-bold" style="color:#1e293b"><i class="bi bi-download me-2 text-navy"></i>Export Student Data</h5>
-        <a href="admin.php" class="btn-close" aria-label="Close"></a>
+        <a href="/api/admin.php" class="btn-close" aria-label="Close"></a>
       </div>
       <div class="modal-body">
         <div class="mb-3"><label class="form-label fw-medium" style="font-size:13px">School Year</label><select class="form-select"><option>2025–2026</option><option>2024–2025</option></select></div>
@@ -872,8 +872,8 @@ $p = $profiles[$profileId] ?? null;
         <div class="mb-3"><label class="form-label fw-medium" style="font-size:13px">Format</label><select class="form-select"><option>CSV (.csv)</option><option>Excel (.xlsx)</option><option>PDF (.pdf)</option></select></div>
       </div>
       <div class="modal-footer border-0 pt-0">
-        <a href="admin.php" class="btn btn-outline-secondary btn-sm">Cancel</a>
-        <button class="btn btn-navy btn-sm fw-semibold" onclick="showToast('Export started!');setTimeout(()=>window.location='admin.php',1600)"><i class="bi bi-download me-1"></i>Export Now</button>
+        <a href="/api/admin.php" class="btn btn-outline-secondary btn-sm">Cancel</a>
+        <button class="btn btn-navy btn-sm fw-semibold" onclick="showToast('Export started!');setTimeout(()=>window.location='/api/admin.php',1600)"><i class="bi bi-download me-1"></i>Export Now</button>
       </div>
     </div>
   </div>
@@ -885,7 +885,7 @@ $p = $profiles[$profileId] ?? null;
   <div class="modal-dialog modal-dialog-centered" style="max-width:460px">
     <div class="modal-content border-0 shadow-lg" style="border-radius:16px;overflow:hidden">
       <div style="background:linear-gradient(135deg,#1e3a8a,#0d9488);padding:22px 28px 18px;position:relative">
-        <a href="admin.php" class="btn-close btn-close-white position-absolute top-0 end-0 m-3"></a>
+        <a href="/api/admin.php" class="btn-close btn-close-white position-absolute top-0 end-0 m-3"></a>
         <div class="d-flex align-items-center gap-3">
           <div style="width:44px;height:44px;border-radius:12px;background:rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;font-size:20px;color:#fff"><i class="bi bi-arrow-left-right"></i></div>
           <div>
@@ -909,7 +909,7 @@ $p = $profiles[$profileId] ?? null;
         </div>
       </div>
       <div class="modal-footer border-0 pt-0 px-4 pb-4">
-        <a href="admin.php" class="btn btn-outline-secondary btn-sm">Cancel</a>
+        <a href="/api/admin.php" class="btn btn-outline-secondary btn-sm">Cancel</a>
         <button class="btn btn-navy btn-sm fw-semibold px-4" onclick="showToast('<?= htmlspecialchars($stuName) ?> transferred successfully!');setTimeout(()=>window.location='admin.php',1800)">
           <i class="bi bi-check-circle me-1"></i>Confirm Transfer
         </button>
@@ -924,7 +924,7 @@ $p = $profiles[$profileId] ?? null;
   <div class="modal-dialog modal-dialog-centered" style="max-width:520px">
     <div class="modal-content border-0 shadow-lg" style="border-radius:18px;overflow:hidden">
       <div style="background:linear-gradient(135deg,#1e3a8a,#0d9488);padding:24px 28px 20px;position:relative">
-        <a href="admin.php" class="btn-close btn-close-white position-absolute top-0 end-0 m-3"></a>
+        <a href="/api/admin.php" class="btn-close btn-close-white position-absolute top-0 end-0 m-3"></a>
         <div class="d-flex align-items-center gap-3">
           <div style="width:44px;height:44px;border-radius:12px;background:rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;font-size:22px;color:#fff"><i class="bi bi-layout-text-sidebar-reverse"></i></div>
           <div>
@@ -958,7 +958,7 @@ $p = $profiles[$profileId] ?? null;
         </div>
       </div>
       <div class="modal-footer border-0" style="background:#f8fafc;padding:12px 24px">
-        <a href="admin.php" class="btn btn-outline-secondary btn-sm px-4">Cancel</a>
+        <a href="/api/admin.php" class="btn btn-outline-secondary btn-sm px-4">Cancel</a>
       </div>
     </div>
   </div>
