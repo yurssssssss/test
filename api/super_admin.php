@@ -139,7 +139,7 @@ body { margin:0; background:#f1f5f9; }
   <aside class="left-sidebar" id="leftSidebar">
 
     <div class="sb-brand">
-      <img src="/logo.png" alt="DPNHS Logo">
+      <img src="// logo.png" alt="DPNHS Logo">
       <div>
         <div class="sb-brand-name">DPNHS</div>
         <div class="sb-brand-sub">Super Admin Panel</div>

@@ -245,7 +245,7 @@ body { margin:0; background:#f1f5f9; }
   <!-- ── LEFT SIDEBAR ── -->
   <aside class="left-sidebar sb-admin" id="leftSidebar">
     <div class="sb-brand">
-      <img src="logo.png" alt="DPNHS Logo">
+      <img src="/logo.png" alt="DPNHS Logo">
       <div class="sb-brand-text">
         <div class="sb-brand-name">DPNHS</div>
         <div class="sb-brand-sub">Admin Dashboard</div>
