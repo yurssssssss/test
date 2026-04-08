@@ -12,14 +12,14 @@
         <div class="text-muted" style="font-size:11px">Enrollment System</div>
       </div>
     </div>
-    <a href="index.php" class="text-decoration-none fw-medium d-flex align-items-center gap-1 text-navy" style="font-size:14px">
+    <a href="/index" class="text-decoration-none fw-medium d-flex align-items-center gap-1 text-navy" style="font-size:14px">
       <i class="bi bi-arrow-left"></i> Back to Home
     </a>
   </div>
 </nav>
 
 
-<form action="admission.php" method="POST">
+<form action="/admission" method="POST">
 
 <div class="login-page-bg d-flex align-items-center justify-content-center" style="min-height:calc(100vh - 57px)">
   <div class="bg-white rounded-4 border shadow-sm p-4 p-md-5 w-100" style="max-width:460px;margin:40px auto">
@@ -350,7 +350,7 @@ const setup_pass = document.getElementById('pass');
 
 function signup() {
 
-window.location.href = 'student.php';
+window.location.href = '/student';
 
 
 }

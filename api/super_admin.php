@@ -139,7 +139,7 @@ body { margin:0; background:#f1f5f9; }
   <aside class="left-sidebar" id="leftSidebar">
 
     <div class="sb-brand">
-      <img src="logo.png" alt="DPNHS Logo">
+      <img src="/logo.png" alt="DPNHS Logo">
       <div>
         <div class="sb-brand-name">DPNHS</div>
         <div class="sb-brand-sub">Super Admin Panel</div>
@@ -174,7 +174,7 @@ body { margin:0; background:#f1f5f9; }
     </div>
 
     <div class="sb-bottom">
-      <a href="index.php" class="sb-logout">
+      <a href="/index " class="sb-logout">
         <i class="bi bi-box-arrow-left"></i>
         <span>Logout</span>
       </a>
@@ -698,7 +698,7 @@ function closeSidebar() {
   document.getElementById('sbOverlay').classList.remove('open');
 }
 
-/* ── Action menu (reuse admin.php pattern) ── */
+/* ── Action menu (reuse admin  pattern) ── */
 let _openMenuWrap = null;
 function toggleActionMenu(e, btn) {
   e.stopPropagation();
@@ -975,4 +975,4 @@ document.addEventListener('DOMContentLoaded', function() {
 </div>
 
 
-<?php include 'footer.php'; ?>
+<?php include 'footer '; ?>
