@@ -6,7 +6,7 @@
   },
   "routes": [
     { "src": "/style.css", "dest": "/style.css" },
-    { "src": "/logo.png", "dest": "/logo.png" },
+    { "src": "/logo.png", "dest": "/api/logo.png" },
     { "src": "/admin", "dest": "/api/admin.php" },
     { "src": "/student", "dest": "/api/student.php" },
     { "src": "/login", "dest": "/api/login.php" },
