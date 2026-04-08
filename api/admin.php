@@ -943,7 +943,7 @@ $p = $profiles[$profileId] ?? null;
             ['id'=>'g7', 'label'=>'Grade 7', 'count'=>64,'bg'=>'var(--g7-light)','color'=>'var(--g7-color)'],
             ['id'=>'g8', 'label'=>'Grade 8', 'count'=>58,'bg'=>'var(--g8-light)','color'=>'var(--g8-color)'],
             ['id'=>'g9', 'label'=>'Grade 9', 'count'=>82,'bg'=>'var(--g9-light)','color'=>'var(--g9-color)'],
-            ['id'=>'g10','label'=>'Grade 10','count'=>67,'bg'=>'var(--g10-light)','color'=>'var(--g10-color)'],
+            ['id'=>'g10','label'=>'Grade 1  0','count'=>67,'bg'=>'var(--g10-light)','color'=>'var(--g10-color)'],
           ];
           foreach($gp as $g): ?>
           <div class="col-6">
@@ -1023,7 +1023,7 @@ function submitRejectForm() {
   const sel = document.getElementById('rejectReasonSelect').value;
   if (!sel) { alert('Please select a reason.'); return; }
   showToast('Application rejected successfully.');
-  setTimeout(() => window.location = 'admin ', 1800);
+  setTimeout(() => window.location = '/admin ', 1800);
 }
 
 /* ── Toast helper ── */
@@ -1078,7 +1078,7 @@ function triggerAutoSection(gradeId, gradeLabel) {
   setTimeout(() => {
     showToast(`${n} section(s) created for ${gradeLabel}!`);
     // redirect back so page reloads clean
-    setTimeout(() => window.location = 'admin ', 1800);
+    setTimeout(() => window.location = '/admin ', 1800);
   }, 300);
 }
 
