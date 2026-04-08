@@ -1,5 +1,5 @@
 <?php $pageTitle = 'Student Portal – DPNHS'; ?>
-<?php include 'header.php'; ?>
+<?php include 'header.php'; ?> 
 
 
 <!-- <div class="g-recaptcha" data-sitekey="YOUR_SITE_KEY"></div> -->
