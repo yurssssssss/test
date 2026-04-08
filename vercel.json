@@ -5,13 +5,7 @@
     }
   },
   "routes": [
-    { "src": "/style.css", "dest": "/style.css" },
-    { "src": "/logo.png", "dest": "/api/logo.png" },
-    { "src": "/admission", "dest": "/api/admission.php" },
-    { "src": "/login", "dest": "/api/login.php" },
-    { "src": "/admin", "dest": "/api/admin.php" },
-    { "src": "/student", "dest": "/api/student.php" },
-       { "src": "/setup_password", "dest": "/api/setup_password.php" },
-    { "src": "/(.*)", "dest": "/api/index.php" }
+   
+    { "src": "/(.*)", "dest": "/index.php" }
   ]
 }
