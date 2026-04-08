@@ -1,6 +1,9 @@
 <?php $pageTitle = 'Student Portal – DPNHS'; ?>
 <?php include 'header.php'; ?>
 
+
+<!-- <div class="g-recaptcha" data-sitekey="YOUR_SITE_KEY"></div> -->
+
 <div class="bg-white border-bottom d-flex align-items-center justify-content-between px-4 py-2 sticky-top" style="z-index:100">
   <div class="d-flex align-items-center gap-2">
     <button class="btn btn-sm d-lg-none me-1 p-1" type="button" data-bs-toggle="offcanvas" data-bs-target="#studentSidebar" aria-controls="studentSidebar">
@@ -38,12 +41,18 @@
         <button onclick="showPanel('new-student')" class="sidebar-nav-btn active" data-panel="new-student">
           <i class="bi bi-person-plus-fill me-2"></i> New Student / Applicant
         </button>
+
+  <?php if (!$student['is_validated']): ?>
+  <div class="alert alert-warning">Your profile is locked until an admin validates your application.</div>
+  <?php else: ?>
         <button onclick="showPanel('student-info')" class="sidebar-nav-btn " data-panel="student-info">
           <i class="bi bi-person-lines-fill me-2"></i> Student Information
         </button>
         <button onclick="showPanel('grade-section')" class="sidebar-nav-btn" data-panel="grade-section">
           <i class="bi bi-grid-3x3-gap-fill me-2"></i> Grade and Section
         </button>
+<?php endif; ?>
+
       </nav>
     </div>
   </div>
