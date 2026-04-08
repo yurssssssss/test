@@ -9,7 +9,7 @@
     <button class="btn btn-sm d-lg-none me-1 p-1" type="button" data-bs-toggle="offcanvas" data-bs-target="#studentSidebar" aria-controls="studentSidebar">
       <i class="bi bi-list fs-5"></i>
     </button>
-    <img src="/logo.png" class="brand-logo" alt="DPNHS Logo" style="width:55px;height:55px;">
+    <img src="logo.png" class="brand-logo" alt="DPNHS Logo" style="width:55px;height:55px;">
     <div>
       <div class="fw-bold text-navy" style="font-size:15px;line-height:1.2">DPNHS</div>
       <div class="text-muted" style="font-size:11px">Student Portal</div>
@@ -21,7 +21,7 @@
       <div class="fw-semibold" style="font-size:14px;color:#1e293b">John Smith</div>
       <div class="text-muted" style="font-size:12px">STU2024001</div>
     </div>
-    <a href="/index" class="topbar-icon text-decoration-none" title="Logout"><i class="bi bi-box-arrow-right"></i></a>
+    <a href="index.php" class="topbar-icon text-decoration-none" title="Logout"><i class="bi bi-box-arrow-right"></i></a>
   </div>
 </div>
 
@@ -41,17 +41,13 @@
         <button onclick="showPanel('new-student')" class="sidebar-nav-btn active" data-panel="new-student">
           <i class="bi bi-person-plus-fill me-2"></i> New Student / Applicant
         </button>
-
-  <?php if (!$student['is_validated']): ?>
-  <div class="alert alert-warning">Your profile is locked until an admin validates your application.</div>
-  <?php else: ?>
         <button onclick="showPanel('student-info')" class="sidebar-nav-btn " data-panel="student-info">
           <i class="bi bi-person-lines-fill me-2"></i> Student Information
         </button>
         <button onclick="showPanel('grade-section')" class="sidebar-nav-btn" data-panel="grade-section">
           <i class="bi bi-grid-3x3-gap-fill me-2"></i> Grade and Section
         </button>
-<?php endif; ?>
+
 
       </nav>
     </div>
@@ -70,10 +66,10 @@
       <button onclick="showPanel('new-student')" class="sidebar-nav-btn active" data-panel="new-student">
         <i class="bi bi-person-plus-fill me-2"></i> New Student / Applicant
       </button>
-      <button onclick="showPanel('student-info')" class="sidebar-nav-btn" data-panel="student-info">
+      <button onclick="showPanel('student-info')" class="sidebar-nav-btn" data-panel="student-info" >
         <i class="bi bi-person-lines-fill me-2"></i> Student Information
       </button>
-      <button onclick="showPanel('grade-section')" class="sidebar-nav-btn" data-panel="grade-section">
+      <button onclick="showPanel('grade-section')" class="sidebar-nav-btn" data-panel="grade-section" >
         <i class="bi bi-grid-3x3-gap-fill me-2"></i> Grade and Section
       </button>
     </nav>
@@ -324,7 +320,7 @@
           </div>
 
         </div><!-- /single card -->
-      </div><!-- /sub-application-form -->
+      </div>
 
       <!-- SUB-PANEL: Requirements -->
       <div id="sub-requirements" class="sub-panel d-none" style="max-width:680px">
@@ -354,42 +350,7 @@
         <div class="pb-5"><button class="btn w-100 py-2 fw-semibold" style="background:#1e3a5f;color:#fff">Submit Requirements</button></div>
       </div>
 
-      <!-- SUB-PANEL: Payment -->
-      <div id="sub-payment" class="sub-panel d-none" style="max-width:680px">
-        <div class="d-flex align-items-center gap-2 mb-4">
-          <button class="btn btn-sm btn-outline-secondary" onclick="hideSubPanel()"><i class="bi bi-arrow-left"></i> Back</button>
-          <h5 class="mb-0 fw-bold" style="color:#1e293b">Upload Proof of Payment</h5>
-        </div>
-        <div class="card border rounded-3 p-4 mb-3">
-          <p class="text-muted mb-3" style="font-size:13px">Upload your payment receipt or screenshot of your transaction.</p>
-          <div class="mb-3">
-            <label class="form-label fw-medium" style="font-size:13px">Payment Method *</label>
-            <select class="form-select">
-              <option value="">Select payment method</option>
-              <option>GCash</option><option>Bank Transfer</option><option>Over the Counter</option>
-            </select>
-          </div>
-          <div class="mb-3">
-            <label class="form-label fw-medium" style="font-size:13px">Reference Number *</label>
-            <input type="text" class="form-control" placeholder="Transaction / Reference No.">
-          </div>
-          <div class="mb-3">
-            <label class="form-label fw-medium" style="font-size:13px">Amount Paid *</label>
-            <input type="number" class="form-control" placeholder="0.00">
-          </div>
-          <div class="mb-3">
-            <label class="form-label fw-medium d-block" style="font-size:13px">Proof of Payment *</label>
-            <label class="d-flex align-items-center justify-content-center p-4 rounded-2" style="background:#f8fafc;border:2px dashed #cbd5e1;cursor:pointer;flex-direction:column">
-              <i class="bi bi-cloud-upload fs-2 text-muted mb-2"></i>
-              <span class="text-muted" style="font-size:13px">Click to upload receipt</span>
-              <span class="text-muted" style="font-size:11px">JPG, PNG, PDF – Max 5MB</span>
-              <input type="file" accept=".pdf,.jpg,.png" style="display:none">
-            </label>
-          </div>
-        </div>
-        <div class="pb-5"><button class="btn w-100 py-2 fw-semibold" style="background:#1e3a5f;color:#fff">Submit Payment</button></div>
-      </div>
-
+    
       <!-- SUB-PANEL: Special Needs -->
       <div id="sub-special-needs" class="sub-panel d-none" style="max-width:680px">
         <div class="d-flex align-items-center gap-2 mb-4">
@@ -420,7 +381,7 @@
         <div class="pb-5"><button class="btn w-100 py-2 fw-semibold" style="background:#1e3a5f;color:#fff">Submit Special Needs Documents</button></div>
       </div>
 
-    </div><!-- /panel-new-student -->
+    </div>
 
 
     <!-- ===== PANEL: STUDENT INFORMATION ===== -->
@@ -504,7 +465,7 @@
           <?php endforeach; ?>
         </div>
       </div>
-    </div><!-- /panel-student-info -->
+    </div>
 
 
     <!-- ===== PANEL: GRADE AND SECTION ===== -->
@@ -560,7 +521,7 @@
           </div>
         </div>
       </div>
-    </div><!-- /panel-grade-section -->
+    </div>
 
   </div><!-- /main -->
 </div>
