@@ -80,29 +80,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <!-- <form action="submit_admission.php" method="POST">
 <div class="container py-4" style="max-width:780px">
   <div class="text-center mb-4">
@@ -328,15 +305,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
 <script>
 const setup_pass = document.getElementById('pass');
 
@@ -352,7 +320,7 @@ const setup_pass = document.getElementById('pass');
 
 function signup() {
  toast('Student login successful!', 'success');
-    setTimeout(() => window.location.href = 'student.php', 800);
+    setTimeout(() => window.location.href = 'login.php', 800);
 
 
 }

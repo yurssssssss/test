@@ -171,6 +171,7 @@ body { margin:0; background:#f1f5f9; }
 .main-area {
   margin-left: 240px;
   flex: 1;
+  width: calc(100% - 240px);
   display: flex;
   flex-direction: column;
   min-width: 0;
@@ -211,6 +212,24 @@ body { margin:0; background:#f1f5f9; }
 .admin-content {
   padding: 28px;
   flex: 1;
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+/* Tab panels & their direct cards fill full width */
+#admin-tab-applications,
+#admin-tab-students,
+#admin-tab-sections,
+#admin-tab-statistics {
+  width: 100%;
+}
+
+#admin-tab-applications > .card,
+#admin-tab-students > .card,
+#admin-tab-sections > .card {
+  width: 100%;
+  max-width: 100%;
 }
 
 /* Mobile sidebar overlay */
@@ -222,17 +241,79 @@ body { margin:0; background:#f1f5f9; }
   z-index: 199;
 }
 
+/* Clickable section row hover */
+.section-row[title] {
+  transition: background .15s, box-shadow .15s;
+}
+.section-row[title]:hover {
+  background: #f0f9ff;
+  box-shadow: 0 0 0 2px #3b82f6 inset;
+  border-radius: 10px;
+}
+
 /* ── RESPONSIVE ── */
 @media (max-width: 991px) {
   .left-sidebar { transform: translateX(-100%); }
   .left-sidebar.open { transform: translateX(0); }
   .sb-overlay.open { display: block; }
-  .main-area { margin-left: 0; }
+  .main-area { margin-left: 0; width: 100%; }
   .topbar-toggle { display: flex; align-items:center; justify-content:center; }
   .admin-content { padding: 18px; }
 }
 @media (max-width: 575px) {
   .admin-content { padding: 14px; }
+}
+
+/* ── TABLE ROW SIZING ── */
+#appTable thead th,
+#stuTable thead th {
+  padding: 10px 12px;
+  font-size: 11.5px;
+  white-space: nowrap;
+}
+
+#appTable tbody td,
+#stuTable tbody td {
+  padding: 10px 12px;
+  font-size: 13px;
+  vertical-align: middle;
+  line-height: 1.4;
+}
+
+/* Keep avatar/badge vertically centered and not too large */
+.stu-avatar {
+  width: 30px !important;
+  height: 30px !important;
+  min-width: 30px !important;
+  font-size: 11px !important;
+  margin-right: 8px !important;
+}
+
+/* Compact action button */
+.action-dots-btn {
+  padding: 3px 7px !important;
+  font-size: 13px !important;
+  line-height: 1.2 !important;
+}
+
+/* Tighter badge sizing */
+.badge-enrolled,
+.badge-pending,
+.badge-rejected,
+.badge-approved {
+  font-size: 11px !important;
+  padding: 3px 10px !important;
+  border-radius: 20px !important;
+  white-space: nowrap;
+}
+
+/* Prevent table from being too cramped on small screens */
+@media (max-width: 767px) {
+  #appTable tbody td,
+  #stuTable tbody td {
+    padding: 8px 10px;
+    font-size: 12.5px;
+  }
 }
 </style>
 
@@ -273,6 +354,9 @@ body { margin:0; background:#f1f5f9; }
     <div class="sb-nav-item" onclick="switchAdminTab('sections',this)" data-tab="sections">
       <i class="bi bi-layout-text-sidebar-reverse"></i><span>Sections</span>
     </div>
+    <div class="sb-nav-item" onclick="switchAdminTab('statistics',this)" data-tab="statistics">
+      <i class="bi bi-bar-chart-fill"></i><span>Statistics</span>
+    </div>
 
     <div class="sb-bottom">
       <a href="index.php" class="sb-logout">
@@ -301,6 +385,10 @@ body { margin:0; background:#f1f5f9; }
     <!-- ===== MAIN CONTENT ===== -->
     <div class="admin-content">
 
+      <!-- ══════════════════════════════════════
+           TAB: STATISTICS
+      ══════════════════════════════════════ -->
+      <div id="admin-tab-statistics" class="d-none">
       <!-- STAT CARDS -->
       <div class="row g-3 mb-4">
         <div class="col-md-3 col-6">
@@ -365,6 +453,29 @@ body { margin:0; background:#f1f5f9; }
         </div>
       </div>
 
+      <!-- APPLICATION STATUS BREAKDOWN -->
+      <div class="row g-3 mb-4">
+        <div class="col-md-6">
+          <div class="card border rounded-3 p-3 h-100">
+            <div class="fw-bold mb-1" style="font-size:15px;color:#1e293b">Application Status Breakdown</div>
+            <div class="text-muted mb-3" style="font-size:13px">Current SY application outcomes</div>
+            <div style="position:relative;width:100%;height:200px">
+              <canvas id="appStatusChart"></canvas>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card border rounded-3 p-3 h-100">
+            <div class="fw-bold mb-1" style="font-size:15px;color:#1e293b">Enrollment Trend (Last 3 SY)</div>
+            <div class="text-muted mb-3" style="font-size:13px">Total enrolled students per school year</div>
+            <div style="position:relative;width:100%;height:200px">
+              <canvas id="trendChart"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div><!-- /admin-tab-statistics -->
+
       <!-- ══════════════════════════════════════
            TAB: APPLICATIONS
       ══════════════════════════════════════ -->
@@ -394,11 +505,11 @@ body { margin:0; background:#f1f5f9; }
               <thead class="table-light">
                 <tr>
                   <?php foreach(['ID','Name','Grade','Date','Status','Actions'] as $h): ?>
-                  <th style="font-size:12.5px;text-transform:uppercase;letter-spacing:.04em;color:#64748b"><?= $h ?></th>
+                  <th style="text-transform:uppercase;letter-spacing:.04em;color:#64748b"><?= $h ?></th>
                   <?php endforeach; ?>
                 </tr>
               </thead>
-              <tbody style="font-size:13.5px">
+              <tbody>
                 <?php foreach($applications as $i => $app): ?>
                 <tr>
                   <td><?= $i+1 ?></td>
@@ -432,7 +543,7 @@ body { margin:0; background:#f1f5f9; }
 
           <!-- Applications Pagination (PHP-rendered) -->
           <?php
-          $appPerPage = 5;
+          $appPerPage = 10;
           $appPage    = max(1, intval($_GET['app_page'] ?? 1));
           $appTotal   = count($applications);
           $appPages   = max(1, ceil($appTotal / $appPerPage));
@@ -491,11 +602,11 @@ body { margin:0; background:#f1f5f9; }
               <thead class="table-light">
                 <tr>
                   <?php foreach(['Student ID','Name','Grade','Section','Status','Actions'] as $h): ?>
-                  <th style="font-size:12.5px;text-transform:uppercase;letter-spacing:.04em;color:#64748b"><?= $h ?></th>
+                  <th style="text-transform:uppercase;letter-spacing:.04em;color:#64748b"><?= $h ?></th>
                   <?php endforeach; ?>
                 </tr>
               </thead>
-              <tbody style="font-size:13.5px">
+              <tbody>
                 <?php foreach($students as $stu): ?>
                 <tr>
                   <td><?= $stu['id'] ?></td>
@@ -558,14 +669,26 @@ body { margin:0; background:#f1f5f9; }
       ══════════════════════════════════════ -->
       <div id="admin-tab-sections" class="d-none">
         <div class="card border rounded-3 p-3 p-md-4">
-          <div class="d-flex align-items-start justify-content-between mb-4 flex-wrap gap-2">
+          <div class="d-flex align-items-start justify-content-between mb-3 flex-wrap gap-2">
             <div>
               <div class="fw-bold mb-1" style="font-size:15px;color:#1e293b">Section Management</div>
               <div class="text-muted" style="font-size:13px">Click a grade level to view its sections</div>
             </div>
-            <a href="?modal=createSection" class="btn btn-navy btn-sm fw-semibold">
-              <i class="bi bi-plus-circle me-1"></i>Create Section
-            </a>
+            <div class="d-flex gap-2 flex-wrap">
+              <button class="btn btn-sm fw-semibold px-3" style="background:#f1f5f9;color:#475569;border:1px solid #e2e8f0" onclick="openSYArchiveModal()">
+                <i class="bi bi-archive me-1"></i>SY Archives
+              </button>
+              <a href="?modal=createSection" class="btn btn-navy btn-sm fw-semibold">
+                <i class="bi bi-plus-circle me-1"></i>Create Section
+              </a>
+            </div>
+          </div>
+
+          <!-- Current SY pill -->
+          <div class="d-flex align-items-center gap-2 mb-4 p-2 rounded-2" style="background:#eff6ff;border:1px solid #bfdbfe;font-size:13px">
+            <i class="bi bi-calendar2-week-fill" style="color:#1e40af"></i>
+            <span class="fw-semibold" style="color:#1e40af">Currently Viewing: SY 2025–2026</span>
+            <span class="badge rounded-pill ms-1" style="background:#1e3a8a;color:#fff;font-size:11px">Active</span>
           </div>
 
           <?php
@@ -965,6 +1088,32 @@ $p = $profiles[$profileId] ?? null;
 </div>
 <?php endif; ?>
 
+<!-- ===================== MODAL: SY ARCHIVES ===================== -->
+<div class="modal fade" id="syArchiveModal" tabindex="-1">
+  <div class="modal-dialog modal-lg modal-dialog-scrollable modal-dialog-centered">
+    <div class="modal-content border-0 shadow-lg" style="border-radius:18px;overflow:hidden">
+      <div style="background:linear-gradient(135deg,#1e3a8a,#0d9488);padding:24px 28px 20px;position:relative">
+        <button type="button" class="btn-close btn-close-white position-absolute top-0 end-0 m-3" data-bs-dismiss="modal"></button>
+        <div class="d-flex align-items-center gap-3">
+          <div style="width:44px;height:44px;border-radius:12px;background:rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;font-size:22px;color:#fff">
+            <i class="bi bi-archive-fill"></i>
+          </div>
+          <div>
+            <div style="font-size:17px;font-weight:800;color:#fff">School Year Archives</div>
+            <div style="font-size:12px;color:rgba(255,255,255,.7)">Past enrollment batches by school year — click a row to expand</div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-body p-4" id="syArchiveBody" style="background:#f8fafc">
+        <!-- Rendered by JS -->
+      </div>
+      <div class="modal-footer border-0 bg-white px-4 pb-4">
+        <button class="btn btn-outline-secondary btn-sm" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- Approve toast (shown via URL param) -->
 <?php if($action === 'approve' && $appId): ?>
 <div class="dpnhs-toast" id="approveToast">
@@ -994,12 +1143,13 @@ function switchAdminTab(tab, el) {
       if (item.dataset.tab === tab) item.classList.add('active');
     });
   }
-  ['applications','students','sections'].forEach(function(t) {
+  ['applications','students','sections','statistics'].forEach(function(t) {
     document.getElementById('admin-tab-'+t).classList.toggle('d-none', t !== tab);
   });
-  const titles = { applications:'Applications', students:'Students', sections:'Sections' };
+  const titles = { applications:'Applications', students:'Students', sections:'Sections', statistics:'Statistics & Analytics' };
   document.getElementById('pageTitle').textContent = titles[tab] || tab;
   if (window.innerWidth < 992) closeSidebar();
+  if (tab === 'statistics') initAdminCharts();
 }
 
 /* Restore tab on page load handled inside DOMContentLoaded below */
@@ -1046,6 +1196,79 @@ function showToast(msg) {
   setTimeout(() => t.remove(), 3500);
 }
 
+/* ── SY Archive modal ── */
+const _syArchives = [
+  {
+    sy: 'SY 2025\u20132026', status: 'active',
+    grades: [
+      { label: 'Grade 7',  sections: 2, students: 64,  cap: 90 },
+      { label: 'Grade 8',  sections: 2, students: 58,  cap: 90 },
+      { label: 'Grade 9',  sections: 2, students: 82,  cap: 90 },
+      { label: 'Grade 10', sections: 2, students: 67,  cap: 90 },
+    ]
+  },
+  {
+    sy: 'SY 2024\u20132025', status: 'archived',
+    grades: [
+      { label: 'Grade 7',  sections: 2, students: 61,  cap: 90 },
+      { label: 'Grade 8',  sections: 2, students: 55,  cap: 90 },
+      { label: 'Grade 9',  sections: 2, students: 79,  cap: 90 },
+      { label: 'Grade 10', sections: 2, students: 63,  cap: 90 },
+    ]
+  },
+  {
+    sy: 'SY 2023\u20132024', status: 'archived',
+    grades: [
+      { label: 'Grade 7',  sections: 2, students: 58,  cap: 90 },
+      { label: 'Grade 8',  sections: 2, students: 52,  cap: 90 },
+      { label: 'Grade 9',  sections: 2, students: 74,  cap: 90 },
+      { label: 'Grade 10', sections: 2, students: 60,  cap: 90 },
+    ]
+  },
+];
+
+const gradeArchiveColors = {
+  'Grade 7':  { bg: '#ccfbf1', color: '#0f766e' },
+  'Grade 8':  { bg: '#fef3c7', color: '#b45309' },
+  'Grade 9':  { bg: '#fce7f3', color: '#be185d' },
+  'Grade 10': { bg: '#eff6ff', color: '#1e40af' },
+};
+
+function openSYArchiveModal() {
+  const body = document.getElementById('syArchiveBody');
+  body.innerHTML = _syArchives.map(function(rec) {
+    var isActive = rec.status === 'active';
+    var totalStudents = rec.grades.reduce(function(s,g){ return s+g.students; }, 0);
+    var totalSections = rec.grades.reduce(function(s,g){ return s+g.sections; }, 0);
+    var gradeRows = rec.grades.map(function(g) {
+      var c = gradeArchiveColors[g.label] || { bg: '#f1f5f9', color: '#475569' };
+      var pct = Math.round((g.students / g.cap) * 100);
+      return '<div class="d-flex align-items-center gap-3 py-2" style="border-bottom:1px solid #f1f5f9">' +
+        '<span class="rounded-pill px-2" style="background:'+c.bg+';color:'+c.color+';font-size:11.5px;font-weight:700;white-space:nowrap">'+g.label+'</span>' +
+        '<div class="flex-grow-1">' +
+          '<div class="d-flex justify-content-between mb-1" style="font-size:11.5px;color:#64748b"><span>'+g.sections+' section'+(g.sections>1?'s':'')+'</span><span>'+g.students+' students</span></div>' +
+          '<div style="background:#e2e8f0;border-radius:20px;height:6px;overflow:hidden"><div style="width:'+pct+'%;height:100%;background:'+c.color+';border-radius:20px"></div></div>' +
+        '</div></div>';
+    }).join('');
+    var exportBtn = '<button class="btn btn-sm btn-outline-secondary" onclick="alert(\'Exporting '+rec.sy+' data...\')"><i class="bi bi-download me-1"></i>Export</button>';
+    var reportBtn = !isActive ? '<button class="btn btn-sm ms-2" style="background:#eff6ff;color:#1e40af;border:1px solid #bfdbfe" onclick="alert(\'Viewing '+rec.sy+' report...\')"><i class="bi bi-eye me-1"></i>View Report</button>' : '';
+    return '<div class="card border rounded-3 mb-3 overflow-hidden">' +
+      '<div class="d-flex align-items-center justify-content-between p-3 flex-wrap gap-2" style="background:'+(isActive?'linear-gradient(135deg,#1e3a8a,#0d9488)':'#f8fafc')+';cursor:pointer" onclick="this.nextElementSibling.classList.toggle(\'d-none\')">' +
+        '<div class="d-flex align-items-center gap-3">' +
+          '<div style="width:40px;height:40px;border-radius:10px;background:'+(isActive?'rgba(255,255,255,.18)':'#e2e8f0')+';display:flex;align-items:center;justify-content:center;font-size:18px;color:'+(isActive?'#fff':'#64748b')+'">' +
+            '<i class="bi bi-calendar2-week-fill"></i></div>' +
+          '<div><div class="fw-bold" style="font-size:14.5px;color:'+(isActive?'#fff':'#1e293b')+'">'+rec.sy+'</div>' +
+          '<div style="font-size:12px;color:'+(isActive?'rgba(255,255,255,.7)':'#94a3b8')+'">'+totalSections+' sections &bull; '+totalStudents+' students enrolled</div></div>' +
+        '</div>' +
+        '<span class="badge rounded-pill px-3" style="background:'+(isActive?'rgba(255,255,255,.2)':'#f1f5f9')+';color:'+(isActive?'#fff':'#64748b')+';font-size:11px">'+(isActive?'&#9679; Active':'&#9675; Archived')+'</span>' +
+      '</div>' +
+      '<div class="p-3 d-none">'+gradeRows+
+        '<div class="d-flex gap-2 mt-3 justify-content-end">'+exportBtn+reportBtn+'</div>' +
+      '</div></div>';
+  }).join('');
+  new bootstrap.Modal(document.getElementById('syArchiveModal')).show();
+}
+
 /* ── Auto section (section tab, grade picker) ── */
 const enrolledCounts = { g7:64, g8:58, g9:82, g10:67 };
 const LETTERS = ['A','B','C','D','E','F'];
@@ -1070,31 +1293,41 @@ function triggerAutoSection(gradeId, gradeLabel) {
     const pct = Math.round((sec.students/CAP)*100);
     const row = document.createElement('div');
     row.className = 'section-row';
+    row.style.cursor = 'pointer';
+    row.title = 'Click to view Master List';
     row.innerHTML = `
       <div class="section-top">
         <div class="section-icon" style="background:${c.bg};color:${c.color}"><i class="bi bi-book-fill"></i></div>
         <div><div class="section-title">${sec.name}</div></div>
-        <div style="margin-left:auto;font-size:12px;font-weight:600;color:${c.color};background:${c.bg};padding:2px 10px;border-radius:20px">${sec.students}/${CAP}</div>
+        <div style="margin-left:auto;display:flex;align-items:center;gap:8px">
+          <span style="font-size:11px;color:${c.color};background:${c.bg};padding:2px 8px;border-radius:20px"><i class="bi bi-list-ul me-1"></i>Master List</span>
+          <span style="font-size:12px;font-weight:600;color:${c.color};background:${c.bg};padding:2px 10px;border-radius:20px">${sec.students}/${CAP}</span>
+        </div>
       </div>
       <div class="cap-row"><span class="cap-label">Capacity</span><span class="cap-value">${sec.students} / ${CAP} students</span></div>
       <div class="cap-bar"><div class="fill ${c.fill}" style="width:${pct}%"></div></div>`;
+    row.addEventListener('click', function() {
+      openMasterList(gradeLabel, sec.name, sec.students, gradeId);
+    });
     wrap.appendChild(row);
   });
   document.getElementById(gradeId+'-meta').textContent = `${n} Sections • ${total} / ${n*CAP} Students`;
   document.querySelector(`#${gradeId} .grade-pill-bar .fill`).style.width = Math.round((total/(n*CAP))*100)+'%';
   document.getElementById(gradeId).classList.add('open');
-  // Close PHP modal and show toast
-  const m = bootstrap.Modal.getInstance(document.getElementById('phpModal'));
-  if (m) m.hide();
+  // Close the create-section modal
+  const phpM = document.getElementById('phpModal');
+  const bsM = phpM ? bootstrap.Modal.getInstance(phpM) : null;
+  if (bsM) bsM.hide();
   setTimeout(() => {
-    showToast(`${n} section(s) created for ${gradeLabel}!`);
-    // redirect back so page reloads clean
-    setTimeout(() => window.location = '/admin ', 1800);
+    showToast(`${n} section(s) created for ${gradeLabel}! Click a section to view Master List.`);
   }, 300);
 }
 
 /* ── Charts ── */
-document.addEventListener('DOMContentLoaded', () => {
+let _adminChartsInit = false;
+function initAdminCharts() {
+  if (_adminChartsInit) return;
+  _adminChartsInit = true;
   new Chart(document.getElementById('barChart'), {
     type:'bar',
     data:{ labels:['Grade 7','Grade 8','Grade 9','Grade 10'], datasets:[{ label:'Students', data:[170,165,195,215], backgroundColor:'#3b82f6', borderRadius:4, borderSkipped:false }] },
@@ -1105,8 +1338,142 @@ document.addEventListener('DOMContentLoaded', () => {
     data:{ labels:['Male','Female'], datasets:[{data:[640,605],backgroundColor:['#1e3a8a','#0d9488'],borderWidth:2,borderColor:'#ffffff'}] },
     options:{ responsive:true, maintainAspectRatio:false, cutout:'60%', plugins:{legend:{display:false}} }
   });
+  new Chart(document.getElementById('appStatusChart'), {
+    type:'doughnut',
+    data:{ labels:['Approved','Pending','Rejected'], datasets:[{data:[301,6,3],backgroundColor:['#22c55e','#f59e0b','#ef4444'],borderWidth:2,borderColor:'#fff'}] },
+    options:{ responsive:true, maintainAspectRatio:false, cutout:'55%', plugins:{legend:{position:'bottom',labels:{font:{size:12},padding:14}}} }
+  });
+  new Chart(document.getElementById('trendChart'), {
+    type:'line',
+    data:{ labels:['SY 2023–2024','SY 2024–2025','SY 2025–2026'], datasets:[{ label:'Enrolled', data:[244,258,271], borderColor:'#7c3aed', backgroundColor:'rgba(124,58,237,.1)', fill:true, tension:.35, pointBackgroundColor:'#7c3aed', pointRadius:5 }] },
+    options:{ responsive:true, maintainAspectRatio:false, plugins:{legend:{display:false}}, scales:{ y:{beginAtZero:false,ticks:{color:'#94a3b8',font:{size:11}},grid:{color:'rgba(148,163,184,.15)'}}, x:{ticks:{color:'#64748b',font:{size:11}},grid:{display:false}} } }
+  });
+}
 
-  // Set correct tab in sessionStorage based on URL params before tab restore fires
+/* ── Master List ── */
+// Sample student roster keyed by gradeId+sectionName
+const _masterListData = {
+  g7_Section_A: [
+    {no:1,lrn:'202600700001',name:'Aguilar, Maria C.',sex:'F',dob:'Mar 12, 2013',age:13,address:'Brgy. Centro, Minalabac'},
+    {no:2,lrn:'202600700002',name:'Bautista, Juan R.',sex:'M',dob:'Jul 5, 2013',age:12,address:'Brgy. Lupi, Naga City'},
+    {no:3,lrn:'202600700003',name:'Cruz, Ana P.',sex:'F',dob:'Jan 20, 2013',age:13,address:'Brgy. Tinalmud, Camaligan'},
+    {no:4,lrn:'202600700004',name:'De Leon, Carlos M.',sex:'M',dob:'Sep 8, 2013',age:12,address:'Brgy. Sabang, Minalabac'},
+    {no:5,lrn:'202600700005',name:'Espiritu, Rosa T.',sex:'F',dob:'Apr 15, 2013',age:13,address:'Brgy. Sta. Cruz, Naga'},
+  ],
+  g7_Section_B: [
+    {no:1,lrn:'202600700031',name:'Flores, Miguel A.',sex:'M',dob:'Feb 11, 2013',age:13,address:'Brgy. Sto. Niño, Naga'},
+    {no:2,lrn:'202600700032',name:'Garcia, Liza M.',sex:'F',dob:'Jun 22, 2013',age:12,address:'Brgy. Peñafrancia, Naga'},
+    {no:3,lrn:'202600700033',name:'Hernandez, Rey B.',sex:'M',dob:'Oct 3, 2013',age:12,address:'Brgy. Pacol, Naga'},
+  ],
+};
+
+function openMasterList(gradeLabel, sectionName, studentCount, gradeId) {
+  const key = gradeId + '_' + sectionName.replace(' ','_');
+  const students = _masterListData[key] || generateSampleStudents(studentCount, gradeLabel, sectionName);
+
+  const gradeColorMap = {
+    g7: {bg:'#ccfbf1',color:'#0f766e',gradient:'#0d9488,#065f46'},
+    g8: {bg:'#fef3c7',color:'#b45309',gradient:'#d97706,#92400e'},
+    g9: {bg:'#fce7f3',color:'#be185d',gradient:'#db2777,#9d174d'},
+    g10:{bg:'#eff6ff',color:'#1e40af',gradient:'#1e3a8a,#1e40af'},
+  };
+  const gc = gradeColorMap[gradeId] || {bg:'#f1f5f9',color:'#475569',gradient:'#475569,#1e293b'};
+
+  const rows = students.map(s =>
+    `<tr>
+      <td style="text-align:center;color:#64748b">${s.no}</td>
+      <td style="font-family:monospace;font-size:11.5px;color:#64748b">${s.lrn}</td>
+      <td style="font-weight:600;color:#1e293b">${s.name}</td>
+      <td style="text-align:center">${s.sex}</td>
+      <td style="font-size:12px;color:#475569">${s.dob}</td>
+      <td style="text-align:center">${s.age}</td>
+      <td style="font-size:12px;color:#475569">${s.address}</td>
+    </tr>`
+  ).join('');
+
+  document.getElementById('masterListContent').innerHTML = `
+    <div id="masterListPrintArea">
+      <!-- Print Header -->
+      <div class="print-only" style="text-align:center;margin-bottom:18px">
+        <div style="font-size:13px;font-weight:700;text-transform:uppercase">Don Pio Natal High School</div>
+        <div style="font-size:11px;color:#475569">Minalabac, Camarines Sur</div>
+        <div style="font-size:14px;font-weight:800;margin-top:8px;text-transform:uppercase;letter-spacing:.05em">Class Master List</div>
+        <div style="font-size:12px">${gradeLabel} – ${sectionName} &nbsp;|&nbsp; SY 2025–2026</div>
+        <div style="border-bottom:2px solid #1e293b;margin:10px 0"></div>
+      </div>
+      <!-- Screen Header -->
+      <div class="no-print d-flex align-items-center gap-3 mb-3 p-3 rounded-3" style="background:linear-gradient(135deg,${gc.gradient});color:#fff">
+        <div style="width:48px;height:48px;border-radius:12px;background:rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;font-size:22px"><i class="bi bi-list-columns-reverse"></i></div>
+        <div>
+          <div style="font-size:17px;font-weight:800">${gradeLabel} – ${sectionName}</div>
+          <div style="font-size:12px;opacity:.8">SY 2025–2026 &nbsp;|&nbsp; ${students.length} students enrolled</div>
+        </div>
+      </div>
+      <div class="table-responsive">
+        <table style="width:100%;border-collapse:collapse;font-size:13px" class="master-table">
+          <thead>
+            <tr style="background:#1e3a8a;color:#fff">
+              <th style="padding:9px 10px;text-align:center;font-size:11.5px;text-transform:uppercase;letter-spacing:.05em;width:42px">#</th>
+              <th style="padding:9px 10px;font-size:11.5px;text-transform:uppercase;letter-spacing:.05em;white-space:nowrap">LRN</th>
+              <th style="padding:9px 10px;font-size:11.5px;text-transform:uppercase;letter-spacing:.05em">Student Name</th>
+              <th style="padding:9px 10px;text-align:center;font-size:11.5px;text-transform:uppercase;letter-spacing:.05em;width:50px">Sex</th>
+              <th style="padding:9px 10px;font-size:11.5px;text-transform:uppercase;letter-spacing:.05em;white-space:nowrap">Date of Birth</th>
+              <th style="padding:9px 10px;text-align:center;font-size:11.5px;text-transform:uppercase;letter-spacing:.05em;width:50px">Age</th>
+              <th style="padding:9px 10px;font-size:11.5px;text-transform:uppercase;letter-spacing:.05em">Address</th>
+            </tr>
+          </thead>
+          <tbody>${rows}</tbody>
+        </table>
+      </div>
+      <!-- Print footer -->
+      <div class="print-only" style="margin-top:32px;display:flex;justify-content:space-between;font-size:11px">
+        <div>Prepared by: _______________________<br>Class Adviser<br>Date: _______________</div>
+        <div style="text-align:right">Noted by: _______________________<br>School Principal<br>Date: _______________</div>
+      </div>
+    </div>`;
+
+  // inject print styles
+  if (!document.getElementById('masterPrintStyle')) {
+    const s = document.createElement('style');
+    s.id = 'masterPrintStyle';
+    s.textContent = `
+      @media print {
+        body > *:not(#masterListModal) { display:none !important; }
+        #masterListModal { position:static !important; display:block !important; }
+        .modal-dialog { max-width:100% !important; margin:0 !important; }
+        .modal-content { box-shadow:none !important; border:none !important; }
+        .no-print, .modal-header, .modal-footer { display:none !important; }
+        .print-only { display:block !important; }
+        .master-table tbody tr:nth-child(even) { background:#f8fafc; }
+        .master-table td, .master-table th { border:1px solid #e2e8f0; }
+      }
+      .print-only { display:none; }
+      .master-table tbody tr:nth-child(even) { background:#f8fafc; }
+      .master-table td { padding:8px 10px; border-bottom:1px solid #f1f5f9; }
+    `;
+    document.head.appendChild(s);
+  }
+
+  new bootstrap.Modal(document.getElementById('masterListModal')).show();
+}
+
+function generateSampleStudents(count, gradeLabel, sectionName) {
+  const lastNames = ['Reyes','Santos','Cruz','Bautista','Garcia','Torres','Flores','Ramos','Lopez','Hernandez','Dela Cruz','Mendoza','Villanueva','Castillo','Aquino'];
+  const firstNames = ['Juan','Maria','Jose','Ana','Carlos','Rosa','Miguel','Liza','Pedro','Elena','Rico','Clara','Diego','Sophia','Marco'];
+  const arr = [];
+  for (let i=0;i<count;i++) {
+    const ln = lastNames[i % lastNames.length];
+    const fn = firstNames[(i+3) % firstNames.length];
+    const mi = String.fromCharCode(65+(i%26));
+    const yr = 2013 - Math.floor(i/15);
+    const mo = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][i%12];
+    const day = (i%28)+1;
+    arr.push({no:i+1, lrn:'20260'+gradeLabel.slice(-1)+'0'+String(i+1).padStart(5,'0'), name:`${ln}, ${fn} ${mi}.`, sex:i%2===0?'M':'F', dob:`${mo} ${day}, ${yr}`, age:2026-yr, address:`Brgy. ${lastNames[(i+5)%lastNames.length]}, Minalabac`});
+  }
+  return arr;
+}
+
+document.addEventListener('DOMContentLoaded', () => {
   const urlParams = new URLSearchParams(window.location.search);
   const modalParam = urlParams.get('modal');
   if (modalParam === 'addStudent' || modalParam === 'export' || modalParam === 'profile' || modalParam === 'transfer') {
@@ -1128,3 +1495,31 @@ document.addEventListener('DOMContentLoaded', () => {
   if (m) { new bootstrap.Modal(m).show(); }
 });
 </script>
+
+<!-- ===================== MODAL: MASTER LIST ===================== -->
+<div class="modal fade" id="masterListModal" tabindex="-1">
+  <div class="modal-dialog modal-xl modal-dialog-scrollable modal-dialog-centered">
+    <div class="modal-content border-0 shadow-lg" style="border-radius:16px;overflow:hidden">
+      <div class="modal-header border-0 px-4 pt-4 pb-2 no-print">
+        <div class="d-flex align-items-center gap-3">
+          <div style="width:40px;height:40px;border-radius:10px;background:#1e3a8a;display:flex;align-items:center;justify-content:center;font-size:18px;color:#fff">
+            <i class="bi bi-list-columns-reverse"></i>
+          </div>
+          <div>
+            <h5 class="modal-title fw-bold mb-0" style="color:#1e293b">Class Master List</h5>
+            <div class="text-muted" style="font-size:12px">SY 2025–2026 &nbsp;|&nbsp; DPNHS</div>
+          </div>
+        </div>
+        <div class="d-flex gap-2 align-items-center ms-auto">
+          <button class="btn btn-sm fw-semibold px-3" style="background:#1e3a8a;color:#fff" onclick="window.print()">
+            <i class="bi bi-printer-fill me-1"></i>Print Master List
+          </button>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+      </div>
+      <div class="modal-body px-4 pb-4" id="masterListContent">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+  </div>
+</div>

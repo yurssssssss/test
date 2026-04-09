@@ -84,7 +84,14 @@ body { margin:0; background:#f1f5f9; }
 .sb-logout i { font-size:16px; }
 
 /* ── RIGHT CONTENT ── */
-.main-area { margin-left:240px; flex:1; display:flex; flex-direction:column; min-width:0; }
+.main-area {
+  margin-left:240px;
+  flex:1;
+  width: calc(100% - 240px);
+  display:flex;
+  flex-direction:column;
+  min-width:0;
+}
 
 .main-topbar {
   background:#fff; border-bottom:1px solid #e2e8f0;
@@ -105,7 +112,24 @@ body { margin:0; background:#f1f5f9; }
 }
 .topbar-icon:hover { background:#f1f5f9; color:#1e293b; }
 
-.admin-content { padding:28px; flex:1; }
+.admin-content { padding:28px; flex:1; width:100%; box-sizing:border-box; }
+
+/* All tab panels and their cards stretch full width */
+#sa-tab-admins,
+#sa-tab-logs,
+#sa-tab-announcements,
+#sa-tab-history,
+#sa-tab-enrollment {
+  width: 100%;
+}
+
+#sa-tab-admins > .card,
+#sa-tab-logs > .card,
+#sa-tab-announcements > .card,
+#sa-tab-history > .card {
+  width: 100%;
+  max-width: 100%;
+}
 
 /* Overlay */
 .sb-overlay {
@@ -118,7 +142,7 @@ body { margin:0; background:#f1f5f9; }
   .left-sidebar { transform:translateX(-100%); }
   .left-sidebar.open { transform:translateX(0); }
   .sb-overlay.open { display:block; }
-  .main-area { margin-left:0; }
+  .main-area { margin-left:0; width:100%; }
   .topbar-toggle { display:flex; align-items:center; justify-content:center; }
   .admin-content { padding:18px; }
 }
@@ -167,6 +191,10 @@ body { margin:0; background:#f1f5f9; }
     <div class="sb-nav-item" onclick="switchSATab('announcements',this)" data-tab="announcements">
       <i class="bi bi-megaphone-fill"></i>
       <span>Announcements</span>
+    </div>
+    <div class="sb-nav-item" onclick="switchSATab('history',this)" data-tab="history">
+      <i class="bi bi-archive-fill"></i>
+      <span>Enrollment History</span>
     </div>
 
     <div class="sb-bottom">
@@ -498,6 +526,38 @@ body { margin:0; background:#f1f5f9; }
     </div>
   </div>
 
+  <!-- ===================== TAB: ENROLLMENT HISTORY ===================== -->
+  <div id="sa-tab-history" class="d-none">
+
+    <!-- Summary banner -->
+    <div class="card border-0 rounded-3 p-4 mb-4 position-relative overflow-hidden" style="background:linear-gradient(135deg,#7c3aed 0%,#1e3a8a 100%)">
+      <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
+        <div>
+          <div class="d-flex align-items-center gap-2 mb-1">
+            <i class="bi bi-archive-fill text-white" style="font-size:18px"></i>
+            <span class="fw-bold text-white" style="font-size:16px">Enrollment History</span>
+          </div>
+          <div class="text-white-50" style="font-size:13px">Per-school-year enrollment records across all grade levels</div>
+        </div>
+        <button class="btn btn-light btn-sm fw-semibold px-3" onclick="alert('Exporting all SY history...')">
+          <i class="bi bi-download me-1"></i>Export All
+        </button>
+      </div>
+    </div>
+
+    <!-- SY filter pills -->
+    <div class="d-flex flex-wrap gap-2 mb-4" id="syFilterPills">
+      <button class="btn btn-sm fw-semibold px-3 sy-pill active" data-sy="all" onclick="filterSYHistory('all',this)" style="background:#7c3aed;color:#fff;border:none">All Years</button>
+      <button class="btn btn-sm fw-semibold px-3 sy-pill" data-sy="2025-2026" onclick="filterSYHistory('2025-2026',this)" style="background:#f1f5f9;color:#475569;border:1px solid #e2e8f0">SY 2025–2026</button>
+      <button class="btn btn-sm fw-semibold px-3 sy-pill" data-sy="2024-2025" onclick="filterSYHistory('2024-2025',this)" style="background:#f1f5f9;color:#475569;border:1px solid #e2e8f0">SY 2024–2025</button>
+      <button class="btn btn-sm fw-semibold px-3 sy-pill" data-sy="2023-2024" onclick="filterSYHistory('2023-2024',this)" style="background:#f1f5f9;color:#475569;border:1px solid #e2e8f0">SY 2023–2024</button>
+    </div>
+
+    <!-- SY history cards -->
+    <div id="syHistoryList"></div>
+
+  </div>
+
 </div><!-- /admin-content -->
   </div><!-- /main-area -->
 </div><!-- /page-wrapper -->
@@ -640,7 +700,7 @@ body { margin:0; background:#f1f5f9; }
 /* ── Tab switching ── */
 const pageTitles = {
   admins:'Admin Accounts', enrollment:'Enrollment Settings',
-  logs:'Activity Logs', announcements:'Announcements'
+  logs:'Activity Logs', announcements:'Announcements', history:'Enrollment History'
 };
 function switchSATab(tab, el) {
   sessionStorage.setItem('saTab', tab);
@@ -652,13 +712,148 @@ function switchSATab(tab, el) {
       if (item.dataset.tab === tab) item.classList.add('active');
     });
   }
-  ['admins','logs','announcements'].forEach(function(t) {
+  ['admins','logs','announcements','history'].forEach(function(t) {
     document.getElementById('sa-tab-' + t).classList.toggle('d-none', t !== tab);
   });
   const titleEl = document.getElementById('pageTitle');
   if (titleEl) titleEl.textContent = pageTitles[tab] || tab;
   if (window.innerWidth < 992) closeSidebar();
 }
+
+/* ── Enrollment History data & render ── */
+const _saHistoryData = [
+  {
+    sy: 'SY 2025\u20132026', key: '2025-2026', status: 'active',
+    period: 'June 1, 2025 \u2013 July 31, 2025',
+    totalEnrolled: 271, totalApplications: 301, totalRejected: 18, totalSections: 8,
+    grades: [
+      { label: 'Grade 7',  students: 64,  sections: 2, approved: 66, rejected: 4 },
+      { label: 'Grade 8',  students: 58,  sections: 2, approved: 60, rejected: 5 },
+      { label: 'Grade 9',  students: 82,  sections: 2, approved: 86, rejected: 6 },
+      { label: 'Grade 10', students: 67,  sections: 2, approved: 89, rejected: 3 },
+    ]
+  },
+  {
+    sy: 'SY 2024\u20132025', key: '2024-2025', status: 'archived',
+    period: 'June 3, 2024 \u2013 July 26, 2024',
+    totalEnrolled: 258, totalApplications: 284, totalRejected: 14, totalSections: 8,
+    grades: [
+      { label: 'Grade 7',  students: 61,  sections: 2, approved: 63, rejected: 4 },
+      { label: 'Grade 8',  students: 55,  sections: 2, approved: 57, rejected: 3 },
+      { label: 'Grade 9',  students: 79,  sections: 2, approved: 82, rejected: 5 },
+      { label: 'Grade 10', students: 63,  sections: 2, approved: 82, rejected: 2 },
+    ]
+  },
+  {
+    sy: 'SY 2023\u20132024', key: '2023-2024', status: 'archived',
+    period: 'June 5, 2023 \u2013 July 28, 2023',
+    totalEnrolled: 244, totalApplications: 269, totalRejected: 11, totalSections: 8,
+    grades: [
+      { label: 'Grade 7',  students: 58,  sections: 2, approved: 60, rejected: 3 },
+      { label: 'Grade 8',  students: 52,  sections: 2, approved: 54, rejected: 3 },
+      { label: 'Grade 9',  students: 74,  sections: 2, approved: 77, rejected: 3 },
+      { label: 'Grade 10', students: 60,  sections: 2, approved: 78, rejected: 2 },
+    ]
+  },
+];
+
+const _saGradeColors = {
+  'Grade 7':  { bg: '#ccfbf1', color: '#0f766e' },
+  'Grade 8':  { bg: '#fef3c7', color: '#b45309' },
+  'Grade 9':  { bg: '#fce7f3', color: '#be185d' },
+  'Grade 10': { bg: '#eff6ff', color: '#1e40af' },
+};
+
+function renderSYHistory(filter) {
+  var list = document.getElementById('syHistoryList');
+  if (!list) return;
+  var data = filter === 'all' ? _saHistoryData : _saHistoryData.filter(function(d){ return d.key === filter; });
+  list.innerHTML = data.map(function(rec) {
+    var isActive = rec.status === 'active';
+    var headerBg = isActive ? 'linear-gradient(135deg,#7c3aed,#1e3a8a)' : '#f8fafc';
+    var headerColor = isActive ? '#fff' : '#1e293b';
+    var subColor = isActive ? 'rgba(255,255,255,.7)' : '#64748b';
+
+    var statCards = [
+      { icon: 'bi-people-fill',       label: 'Total Enrolled',      val: rec.totalEnrolled,     bg: isActive ? 'rgba(255,255,255,.15)' : '#eff6ff', c: isActive ? '#fff' : '#1e40af' },
+      { icon: 'bi-file-earmark-text', label: 'Applications',        val: rec.totalApplications, bg: isActive ? 'rgba(255,255,255,.15)' : '#fefce8', c: isActive ? '#fff' : '#713f12' },
+      { icon: 'bi-x-circle-fill',     label: 'Rejected',            val: rec.totalRejected,     bg: isActive ? 'rgba(255,255,255,.15)' : '#fee2e2', c: isActive ? '#fff' : '#991b1b' },
+      { icon: 'bi-layout-text-sidebar-reverse', label: 'Sections',  val: rec.totalSections,     bg: isActive ? 'rgba(255,255,255,.15)' : '#f0fdf4', c: isActive ? '#fff' : '#166534' },
+    ].map(function(s) {
+      return '<div class="col-6 col-md-3">' +
+        '<div class="rounded-3 p-3 text-center" style="background:'+s.bg+'">' +
+          '<i class="bi '+s.icon+'" style="font-size:18px;color:'+s.c+'"></i>' +
+          '<div class="fw-bold mt-1" style="font-size:20px;color:'+s.c+'">'+s.val+'</div>' +
+          '<div style="font-size:11.5px;color:'+s.c+';opacity:.8">'+s.label+'</div>' +
+        '</div></div>';
+    }).join('');
+
+    var gradeRows = rec.grades.map(function(g) {
+      var c = _saGradeColors[g.label] || { bg: '#f1f5f9', color: '#475569' };
+      var rate = Math.round((g.students / g.approved) * 100);
+      return '<tr style="font-size:13px">' +
+        '<td><span class="badge rounded-pill px-3" style="background:'+c.bg+';color:'+c.color+';font-weight:700">'+g.label+'</span></td>' +
+        '<td class="text-center">'+g.sections+'</td>' +
+        '<td class="text-center">'+g.approved+'</td>' +
+        '<td class="text-center text-danger fw-semibold">'+g.rejected+'</td>' +
+        '<td class="text-center fw-bold" style="color:#166534">'+g.students+'</td>' +
+        '<td><div style="display:flex;align-items:center;gap:8px"><div style="flex:1;background:#e2e8f0;border-radius:20px;height:7px;overflow:hidden"><div style="width:'+rate+'%;height:100%;background:'+c.color+';border-radius:20px"></div></div><span style="font-size:11.5px;color:#64748b;white-space:nowrap">'+rate+'%</span></div></td>' +
+      '</tr>';
+    }).join('');
+
+    return '<div class="card border rounded-3 mb-4 overflow-hidden" data-sy-key="'+rec.key+'">' +
+      '<div class="d-flex align-items-center justify-content-between p-3 flex-wrap gap-2" style="background:'+headerBg+';cursor:pointer" onclick="this.nextElementSibling.classList.toggle(\'d-none\')">' +
+        '<div class="d-flex align-items-center gap-3">' +
+          '<div style="width:42px;height:42px;border-radius:10px;background:'+(isActive?'rgba(255,255,255,.18)':'#e2e8f0')+';display:flex;align-items:center;justify-content:center;font-size:18px;color:'+(isActive?'#fff':'#64748b')+'">' +
+            '<i class="bi bi-calendar2-week-fill"></i></div>' +
+          '<div>' +
+            '<div class="fw-bold" style="font-size:15px;color:'+headerColor+'">'+rec.sy+'</div>' +
+            '<div style="font-size:12px;color:'+subColor+'"><i class="bi bi-calendar3 me-1"></i>'+rec.period+'</div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="d-flex align-items-center gap-2">' +
+          '<span class="badge rounded-pill px-3" style="background:'+(isActive?'rgba(255,255,255,.2)':'#f1f5f9')+';color:'+(isActive?'#fff':'#64748b')+';font-size:11px">'+(isActive?'&#9679; Current SY':'&#9675; Archived')+'</span>' +
+          '<i class="bi bi-chevron-down" style="color:'+headerColor+'"></i>' +
+        '</div>' +
+      '</div>' +
+      '<div class="d-none" style="background:#fff">' +
+        '<div class="row g-3 p-3">'+statCards+'</div>' +
+        '<div class="px-3 pb-3">' +
+          '<div class="table-responsive">' +
+            '<table class="table table-hover align-middle mb-0" style="border-top:1px solid #f1f5f9">' +
+              '<thead class="table-light">' +
+                '<tr><th style="font-size:12px;text-transform:uppercase;color:#64748b">Grade</th>' +
+                '<th class="text-center" style="font-size:12px;text-transform:uppercase;color:#64748b">Sections</th>' +
+                '<th class="text-center" style="font-size:12px;text-transform:uppercase;color:#64748b">Approved</th>' +
+                '<th class="text-center" style="font-size:12px;text-transform:uppercase;color:#64748b">Rejected</th>' +
+                '<th class="text-center" style="font-size:12px;text-transform:uppercase;color:#64748b">Enrolled</th>' +
+                '<th style="font-size:12px;text-transform:uppercase;color:#64748b;min-width:140px">Rate</th></tr>' +
+              '</thead>' +
+              '<tbody>'+gradeRows+'</tbody>' +
+            '</table>' +
+          '</div>' +
+          '<div class="d-flex gap-2 mt-3 justify-content-end">' +
+            '<button class="btn btn-sm btn-outline-secondary" onclick="alert(\'Exporting '+rec.sy+'...\')"><i class="bi bi-download me-1"></i>Export</button>' +
+            (!isActive ? '<button class="btn btn-sm" style="background:#eff6ff;color:#1e40af;border:1px solid #bfdbfe" onclick="alert(\'Full report for '+rec.sy+'...\')"><i class="bi bi-eye me-1"></i>Full Report</button>' : '') +
+          '</div>' +
+        '</div>' +
+      '</div>' +
+    '</div>';
+  }).join('') || '<div class="text-center text-muted py-5"><i class="bi bi-archive" style="font-size:40px"></i><div class="mt-2">No records for this school year.</div></div>';
+}
+
+function filterSYHistory(sy, btn) {
+  document.querySelectorAll('.sy-pill').forEach(function(p) {
+    p.style.background = '#f1f5f9';
+    p.style.color = '#475569';
+    p.style.border = '1px solid #e2e8f0';
+  });
+  btn.style.background = '#7c3aed';
+  btn.style.color = '#fff';
+  btn.style.border = 'none';
+  renderSYHistory(sy);
+}
+
 
 /* Sidebar mobile toggle */
 function openSidebar() {
@@ -882,6 +1077,7 @@ function toggleAnnStatus(id) {
 
 document.addEventListener('DOMContentLoaded', function() {
   renderAnnouncements();
+  renderSYHistory('all');
   var savedTab = sessionStorage.getItem('saTab') || 'admins';
   switchSATab(savedTab, null);
 });
