@@ -170,7 +170,7 @@ body { margin:0; background:#f1f5f9; }
     </div>
 
     <div class="sb-bottom">
-      <a href="/index " class="sb-logout">
+      <a href="index.php" class="sb-logout">
         <i class="bi bi-box-arrow-left"></i>
         <span>Logout</span>
       </a>
