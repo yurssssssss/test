@@ -160,10 +160,6 @@ body { margin:0; background:#f1f5f9; }
       <i class="bi bi-shield-lock"></i>
       <span>Admin Accounts</span>
     </div>
-    <div class="sb-nav-item" onclick="switchSATab('enrollment',this)" data-tab="enrollment">
-      <i class="bi bi-calendar-check"></i>
-      <span>Enrollment Settings</span>
-    </div>
     <div class="sb-nav-item" onclick="switchSATab('logs',this)" data-tab="logs">
       <i class="bi bi-clock-history"></i>
       <span>Activity Logs</span>
@@ -385,38 +381,7 @@ body { margin:0; background:#f1f5f9; }
     <div class="row g-3">
 
       <!-- Enrollment Period Card -->
-      <div class="col-lg-6">
-        <div class="card border rounded-3 p-4">
-          <div class="fw-bold mb-1" style="font-size:15px;color:#1e293b"><i class="bi bi-calendar3 me-2 text-navy"></i>Enrollment Period</div>
-          <div class="text-muted mb-4" style="font-size:13px">Set the open and close dates for online enrollment</div>
-
-          <div class="mb-3">
-            <label class="form-label fw-medium" style="font-size:13px">School Year</label>
-            <input type="text" class="form-control" value="2025–2026" placeholder="e.g., 2025–2026">
-          </div>
-          <div class="row g-3 mb-3">
-            <div class="col-6">
-              <label class="form-label fw-medium" style="font-size:13px">Start Date</label>
-              <input type="date" class="form-control" value="2025-06-01">
-            </div>
-            <div class="col-6">
-              <label class="form-label fw-medium" style="font-size:13px">End Date</label>
-              <input type="date" class="form-control" value="2025-07-31">
-            </div>
-          </div>
-          <div class="mb-4">
-            <label class="form-label fw-medium" style="font-size:13px">Status</label>
-            <div class="d-flex gap-3 mt-1">
-              <label style="font-size:14px;cursor:pointer"><input type="radio" name="enrollStatus" value="open" checked> Open</label>
-              <label style="font-size:14px;cursor:pointer"><input type="radio" name="enrollStatus" value="closed"> Closed</label>
-            </div>
-          </div>
-          <button class="btn btn-navy btn-sm fw-semibold w-100" onclick="saveEnrollmentSettings()">
-            <i class="bi bi-save me-1"></i>Save Enrollment Settings
-          </button>
-        </div>
-      </div>
-
+     
       <!-- Grade-level toggles -->
       <div class="col-lg-6">
         <div class="card border rounded-3 p-4">
@@ -678,9 +643,16 @@ const pageTitles = {
   logs:'Activity Logs', announcements:'Announcements'
 };
 function switchSATab(tab, el) {
+  sessionStorage.setItem('saTab', tab);
   document.querySelectorAll('.sb-nav-item').forEach(t => t.classList.remove('active'));
-  if (el) el.classList.add('active');
-  ['admins','enrollment','logs','announcements'].forEach(t => {
+  if (el) {
+    el.classList.add('active');
+  } else {
+    document.querySelectorAll('.sb-nav-item[data-tab]').forEach(function(item) {
+      if (item.dataset.tab === tab) item.classList.add('active');
+    });
+  }
+  ['admins','logs','announcements'].forEach(function(t) {
     document.getElementById('sa-tab-' + t).classList.toggle('d-none', t !== tab);
   });
   const titleEl = document.getElementById('pageTitle');
@@ -910,6 +882,8 @@ function toggleAnnStatus(id) {
 
 document.addEventListener('DOMContentLoaded', function() {
   renderAnnouncements();
+  var savedTab = sessionStorage.getItem('saTab') || 'admins';
+  switchSATab(savedTab, null);
 });
 </script>
 
@@ -975,4 +949,4 @@ document.addEventListener('DOMContentLoaded', function() {
 </div>
 
 
-<?php include 'footer '; ?>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

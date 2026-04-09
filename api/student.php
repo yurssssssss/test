@@ -606,6 +606,76 @@ function toggleReturning(show) {
   if (show) { el.classList.remove('d-none'); el.classList.add('col-md-9'); }
   else { el.classList.add('d-none'); el.classList.remove('col-md-9'); }
 }
+
+/* ── Enrollment Announcement Popup ── */
+// In production, this data would come from the DB / PHP session.
+// For now we simulate the active announcement from super_admin.
+const _enrollmentAnnouncement = {
+  title: 'Welcome to SY 2025–2026 Enrollment!',
+  message: 'Online enrollment for SY 2025–2026 is now open. Please complete all steps and submit the required documents before the deadline.',
+  from: 'June 1, 2025',
+  until: 'July 31, 2025'
+};
+
+document.addEventListener('DOMContentLoaded', function() {
+  // Show once per session (won't re-appear if dismissed already)
+  if (!sessionStorage.getItem('annDismissed')) {
+    const modal = new bootstrap.Modal(document.getElementById('enrollmentAnnouncementModal'), { backdrop: 'static', keyboard: false });
+    modal.show();
+  }
+});
+
+function dismissAnnouncement() {
+  sessionStorage.setItem('annDismissed', '1');
+  bootstrap.Modal.getInstance(document.getElementById('enrollmentAnnouncementModal')).hide();
+}
 </script>
 
-<?php include 'footer.php'; ?>
+
+<!-- ===== ENROLLMENT ANNOUNCEMENT POPUP ===== -->
+<div class="modal fade" id="enrollmentAnnouncementModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
+  <div class="modal-dialog modal-dialog-centered" style="max-width:500px">
+    <div class="modal-content border-0 shadow-lg" style="border-radius:20px;overflow:hidden">
+      <!-- Header -->
+      <div style="background:linear-gradient(135deg,#1e3a8a 0%,#0d9488 100%);padding:28px 28px 22px;position:relative">
+        <div class="d-flex align-items-center gap-3">
+          <div style="width:50px;height:50px;border-radius:14px;background:rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;font-size:24px;color:#fff;flex-shrink:0">
+            <i class="bi bi-megaphone-fill"></i>
+          </div>
+          <div>
+            <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.6);margin-bottom:2px">Announcement</div>
+            <div style="font-size:18px;font-weight:800;color:#fff;line-height:1.2">Welcome to SY 2025–2026 Enrollment!</div>
+          </div>
+        </div>
+        <!-- Decorative circles -->
+        <div style="position:absolute;width:100px;height:100px;border-radius:50%;background:rgba(255,255,255,.06);top:-20px;right:-20px"></div>
+        <div style="position:absolute;width:60px;height:60px;border-radius:50%;background:rgba(255,255,255,.06);bottom:-10px;right:60px"></div>
+      </div>
+      <!-- Body -->
+      <div class="modal-body p-4">
+        <div style="background:#f0fdf4;border-left:4px solid #0d9488;border-radius:8px;padding:14px 16px;margin-bottom:18px">
+          <div class="fw-semibold mb-1" style="font-size:13px;color:#065f46"><i class="bi bi-calendar-check me-2"></i>Enrollment Schedule</div>
+          <div style="font-size:13.5px;color:#1e293b">
+            <span class="fw-bold">Start:</span> June 1, 2025 &nbsp;&bull;&nbsp; <span class="fw-bold">End:</span> July 31, 2025
+          </div>
+        </div>
+        <div style="font-size:14px;color:#374151;line-height:1.7">
+          Online enrollment for SY 2025–2026 is now open. Please complete all steps and submit the required documents before the deadline.
+        </div>
+        <div class="mt-3 d-flex gap-2 align-items-center" style="font-size:12.5px;color:#64748b">
+          <i class="bi bi-info-circle"></i>
+          <span>Make sure to complete all 3 enrollment steps in the portal.</span>
+        </div>
+      </div>
+      <!-- Footer -->
+      <div class="modal-footer border-0 px-4 pb-4 pt-0 gap-2">
+        <button class="btn btn-outline-secondary btn-sm" onclick="dismissAnnouncement()">Dismiss</button>
+        <button class="btn btn-sm fw-semibold px-4" style="background:#1e3a8a;color:#fff" onclick="dismissAnnouncement(); showPanel('new-student');">
+          <i class="bi bi-pencil-fill me-1"></i>Start Enrollment
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

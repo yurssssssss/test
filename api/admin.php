@@ -974,7 +974,7 @@ $p = $profiles[$profileId] ?? null;
 <script>setTimeout(()=>{ const t=document.getElementById('approveToast'); if(t) t.remove(); }, 3500);</script>
 <?php endif; ?>
 
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <script>
 
@@ -984,14 +984,25 @@ function closeSidebar() { document.getElementById('leftSidebar').classList.remov
 
 /* ── Tab switching ── */
 function switchAdminTab(tab, el) {
+  sessionStorage.setItem('adminTab', tab);
   document.querySelectorAll('.sb-nav-item').forEach(t => t.classList.remove('active'));
-  if (el) el.classList.add('active');
-  ['applications','students','sections'].forEach(t =>
-    document.getElementById('admin-tab-'+t).classList.toggle('d-none', t !== tab));
+  if (el) {
+    el.classList.add('active');
+  } else {
+    // find and activate the matching nav item
+    document.querySelectorAll('.sb-nav-item[data-tab]').forEach(function(item) {
+      if (item.dataset.tab === tab) item.classList.add('active');
+    });
+  }
+  ['applications','students','sections'].forEach(function(t) {
+    document.getElementById('admin-tab-'+t).classList.toggle('d-none', t !== tab);
+  });
   const titles = { applications:'Applications', students:'Students', sections:'Sections' };
   document.getElementById('pageTitle').textContent = titles[tab] || tab;
   if (window.innerWidth < 992) closeSidebar();
 }
+
+/* Restore tab on page load handled inside DOMContentLoaded below */
 
 /* ── Action dropdown ── */
 let _openMenuWrap = null;
@@ -1095,9 +1106,25 @@ document.addEventListener('DOMContentLoaded', () => {
     options:{ responsive:true, maintainAspectRatio:false, cutout:'60%', plugins:{legend:{display:false}} }
   });
 
+  // Set correct tab in sessionStorage based on URL params before tab restore fires
+  const urlParams = new URLSearchParams(window.location.search);
+  const modalParam = urlParams.get('modal');
+  if (modalParam === 'addStudent' || modalParam === 'export' || modalParam === 'profile' || modalParam === 'transfer') {
+    sessionStorage.setItem('adminTab', 'students');
+  } else if (modalParam === 'createSection') {
+    sessionStorage.setItem('adminTab', 'sections');
+  } else if (modalParam === 'rejected' || modalParam === 'reject') {
+    sessionStorage.setItem('adminTab', 'applications');
+  }
+  if (urlParams.get('app_page')) sessionStorage.setItem('adminTab', 'applications');
+  if (urlParams.get('stu_page')) sessionStorage.setItem('adminTab', 'students');
+
+  // Restore saved tab
+  var savedTab = sessionStorage.getItem('adminTab') || 'applications';
+  switchAdminTab(savedTab, null);
+
   // Auto-open modal if ?modal= is set
   const m = document.getElementById('phpModal');
   if (m) { new bootstrap.Modal(m).show(); }
 });
 </script>
-<?php include 'footer.php'; ?>
