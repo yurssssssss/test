@@ -6,7 +6,7 @@
 <nav class="bg-white border-bottom sticky-top py-2">
   <div class="container d-flex align-items-center justify-content-between">
     <div class="d-flex align-items-center gap-2">
-      <img src="/logo.png" class="brand-logo" alt="DPNHS Logo" style="width: 55px; height: 55px;" >
+      <img src="logo.png" class="brand-logo" alt="DPNHS Logo" style="width: 55px; height: 55px;" >
       <div>
         <div class="fw-bold text-navy" style="font-size:15px;line-height:1.2">DPNHS</div>
         <div class="text-muted" style="font-size:11px">Enrollment System</div>
@@ -25,7 +25,7 @@
   <div class="bg-white rounded-4 border shadow-sm p-4 p-md-5 w-100" style="max-width:460px;margin:40px auto">
 
     <div class="text-center mb-4">
-      <img src="/ logo.png" class="brand-logo mx-auto mb-3" style="width:72px;height:72px" alt="DPNHS Logo">
+      <img src="logo.png" class="brand-logo mx-auto mb-3" style="width:72px;height:72px" alt="DPNHS Logo">
       <h3 class="fw-bold mb-1" style="color:#1e293b">Welcome</h3>
       <p class="text-muted" style="font-size:13.5px">Create Account</p>
     </div>
@@ -76,6 +76,8 @@
   </div>
 </div>
 </form>
+
+
 
 
 
@@ -349,8 +351,8 @@ const setup_pass = document.getElementById('pass');
 
 
 function signup() {
-
-window.location.href = '/student';
+ toast('Student login successful!', 'success');
+    setTimeout(() => window.location.href = 'student.php', 800);
 
 
 }
@@ -358,3 +360,4 @@ window.location.href = '/student';
 
 </script>
 
+<?php include 'footer.php'; ?>

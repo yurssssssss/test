@@ -93,14 +93,16 @@
     const id = document.getElementById('stu-id').value.trim();
     if (!id) { toast('Please enter your Student ID'); return; }
     toast('Login successful! Welcome back, John Smith.', 'success');
-    setTimeout(() => window.location.href = '/student', 800);
+    // Set flag so student.php knows this is a fresh login and shows the announcement
+    localStorage.setItem('dpnhs_just_logged_in', '1');
+    setTimeout(() => window.location.href = 'student.php', 800);
   }
 
   function loginAdmin() {
     const em = document.getElementById('adm-email').value.trim();
     if (!em) { toast('Please enter your email'); return; }
     toast('Admin login successful!', 'success');
-    setTimeout(() => window.location.href = '/admin', 800);
+    setTimeout(() => window.location.href = 'admin.php', 800);
   }
 </script>
 

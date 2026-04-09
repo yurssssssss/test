@@ -607,28 +607,8 @@ function toggleReturning(show) {
   else { el.classList.add('d-none'); el.classList.remove('col-md-9'); }
 }
 
-/* ── Enrollment Announcement Popup ── */
-// In production, this data would come from the DB / PHP session.
-// For now we simulate the active announcement from super_admin.
-const _enrollmentAnnouncement = {
-  title: 'Welcome to SY 2025–2026 Enrollment!',
-  message: 'Online enrollment for SY 2025–2026 is now open. Please complete all steps and submit the required documents before the deadline.',
-  from: 'June 1, 2025',
-  until: 'July 31, 2025'
-};
+/* ── Enrollment Announcement Popup logic is at the bottom after Bootstrap loads ── */
 
-document.addEventListener('DOMContentLoaded', function() {
-  // Show once per session (won't re-appear if dismissed already)
-  if (!sessionStorage.getItem('annDismissed')) {
-    const modal = new bootstrap.Modal(document.getElementById('enrollmentAnnouncementModal'), { backdrop: 'static', keyboard: false });
-    modal.show();
-  }
-});
-
-function dismissAnnouncement() {
-  sessionStorage.setItem('annDismissed', '1');
-  bootstrap.Modal.getInstance(document.getElementById('enrollmentAnnouncementModal')).hide();
-}
 </script>
 
 
@@ -678,4 +658,38 @@ function dismissAnnouncement() {
   </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<?php include 'footer.php'; ?>
+
+<!-- ── Enrollment Announcement Popup ── -->
+<!-- MUST be after footer.php because that's where bootstrap.bundle.min.js loads -->
+<script>
+(function() {
+  // login.php sets this flag right before redirecting to student.php.
+  // We read it and delete it immediately — so it only ever fires once per login.
+  var justLoggedIn = localStorage.getItem('dpnhs_just_logged_in') === '1';
+  if (justLoggedIn) {
+    localStorage.removeItem('dpnhs_just_logged_in');
+  }
+
+  function showAnnouncementPopup() {
+    if (!justLoggedIn) return;
+    var el = document.getElementById('enrollmentAnnouncementModal');
+    if (!el) return;
+    new bootstrap.Modal(el, { backdrop: 'static', keyboard: false }).show();
+  }
+
+  // Bootstrap is already loaded at this point (footer.php loads it above),
+  // but the DOM may still be painting — use DOMContentLoaded as safety net.
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', showAnnouncementPopup);
+  } else {
+    showAnnouncementPopup();
+  }
+
+  window.dismissAnnouncement = function() {
+    var el = document.getElementById('enrollmentAnnouncementModal');
+    var instance = bootstrap.Modal.getInstance(el);
+    if (instance) instance.hide();
+  };
+})();
+</script>
