@@ -80,7 +80,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           <button class="btn position-absolute top-50 end-0 translate-middle-y me-1 p-1 text-secondary border-0" onclick="togglePw('stu-pw',this)"><i class="bi bi-eye"></i></button>
         </div>
       </div>
-        <div class="g-recaptcha mb-3" data-sitekey="6LdK3q8sAAAAAKZnGROM62vr4qP3qSXTKpajBpxs"></div>
+        <div class="g-recaptcha mb-3" data-sitekey="6Lcj6a8sAAAAAKwL4mDM_KFSN0N8to2YI1RnjGLT"></div>
       <button class="btn btn-navy w-100 py-2 fw-semibold" type="submit" onclick="loginStudent()">Login to Student Portal</button>
       <p class="text-center text-muted mt-3 mb-0" style="font-size:13px">Don't have an account? <a href="/admission" class="text-cyan text-decoration-none fw-medium">Apply for admission</a></p>
     </div>
@@ -103,7 +103,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           <button class="btn position-absolute top-50 end-0 translate-middle-y me-1 p-1 text-secondary border-0" onclick="togglePw('adm-pw',this)"><i class="bi bi-eye"></i></button>
         </div>
       </div>
-       <div class="g-recaptcha mb-3" data-sitekey="6LdK3q8sAAAAAKZnGROM62vr4qP3qSXTKpajBpxs"></div>
+       <div class="g-recaptcha mb-3" data-sitekey="6Lcj6a8sAAAAAKwL4mDM_KFSN0N8to2YI1RnjGLT"></div>
       <button class="btn btn-navy w-100 py-2 fw-semibold" type="submit" name="submit" >Login to Admin Dashboard</button>
     </div>
 
@@ -146,18 +146,18 @@ if (!data.success || data.score < 0.5) {
 // ✅ ONLY HERE you proceed
 // create account OR login user
 
-function handleSubmit(event) {
-  event.preventDefault();
+// function handleSubmit(event) {
+//   event.preventDefault();
 
-  grecaptcha.ready(function() {
-    grecaptcha.execute('6LdK3q8sAAAAAKZnGROM62vr4qP3qSXTKpajBpxs', { action: 'login' }).then(function(token) {
+//   grecaptcha.ready(function() {
+//     grecaptcha.execute('6LdK3q8sAAAAAKZnGROM62vr4qP3qSXTKpajBpxs', { action: 'login' }).then(function(token) {
 
-      document.getElementById("recaptchaToken").value = token;
+//       document.getElementById("recaptchaToken").value = token;
 
-      event.target.submit();
-    });
-  });
-}
+//       event.target.submit();
+//     });
+//   });
+// }
 
 </script>
 

@@ -1,7 +1,7 @@
 <?php 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    $secret = "6LdK3q8sAAAAAG2dUb10lRSypnuILa9o-RwVxf6T";
+    $secret = "6Lcj6a8sAAAAAKlA5f2cLlOnrAswQMKRC1kvVZFm";
     $token = $_POST['recaptcha_token'] ?? '';
 
     $response = file_get_contents(
@@ -28,6 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   transform-origin: left;
 }
 </style>
+
 <nav class="bg-white border-bottom sticky-top py-2">
   <div class="container d-flex align-items-center justify-content-between">
     <div class="d-flex align-items-center gap-2">
@@ -91,7 +92,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           <button class="btn position-absolute top-50 end-0 translate-middle-y me-1 p-1 text-secondary border-0" onclick="togglePw('stu-cpw',this)"><i class="bi bi-eye"></i></button>
         </div>
       </div>
-      <div class="g-recaptcha mb-3" data-sitekey="YOUR_SITE_KEY"></div>
+      <div class="g-recaptcha mb-3" data-sitekey="6Lcj6a8sAAAAAKwL4mDM_KFSN0N8to2YI1RnjGLT "></div>
       <button class="btn btn-navy w-100 py-2 fw-semibold" type="submit" name="create" >Create Account</button>
       
     </div>
@@ -128,18 +129,18 @@ if (!data.success || data.score < 0.5) {
 }
 
 
-function handleSubmit(event) {
-  event.preventDefault();
+// function handleSubmit(event) {
+//   event.preventDefault();
 
-  grecaptcha.ready(function() {
-    grecaptcha.execute('6LdK3q8sAAAAAKZnGROM62vr4qP3qSXTKpajBpxs', { action: 'register' }).then(function(token) {
+//   grecaptcha.ready(function() {
+//     grecaptcha.execute('6LdK3q8sAAAAAKZnGROM62vr4qP3qSXTKpajBpxs', { action: 'register' }).then(function(token) {
 
-      document.getElementById("recaptchaToken").value = token;
+//       document.getElementById("recaptchaToken").value = token;
 
-      event.target.submit();
-    });
-  });
-}
+//       event.target.submit();
+//     });
+//   });
+// }
 
 </script>
 
