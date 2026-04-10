@@ -1146,7 +1146,7 @@ function switchAdminTab(tab, el) {
       if (item.dataset.tab === tab) item.classList.add('active');
     });
   }
-  ['statistics','applications','students','sections'].forEach(function(t) {
+  ['statistics','applications ','students','sections'].forEach(function(t) {
     document.getElementById('admin-tab-'+t).classList.toggle('d-none', t !== tab);
   });
   const titles = { applications:'Applications', students:'Students', sections:'Sections', statistics:'Statistics & Analytics' };
