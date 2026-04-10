@@ -1,28 +1,3 @@
-<?php 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
-    $secret = "6LdK3q8sAAAAAG2dUb10lRSypnuILa9o-RwVxf6T";
-    $token = $_POST['g-recaptcha-response'] ?? '';
-
-    if (empty($token)) {
-        die("Please complete the CAPTCHA before submitting.");
-    }
-
-    $response = file_get_contents(
-      "https://www.google.com/recaptcha/api/siteverify?secret=$secret&response=$token"
-    );
-
-    $data = json_decode($response);
-
-    if (!$data->success) {
-        die("Captcha verification failed. Please try again.");
-    }
-
-    // ✅ Captcha passed — add your real login logic here
-    // e.g. check credentials against DB, start session, redirect
-}
-?>
-
 <?php $pageTitle = 'Login – DPNHS'; ?>
 <?php include 'header.php'; ?>
 
@@ -41,116 +16,99 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   </div>
 </nav>
 
-<form method="POST" id="loginForm" onsubmit="return handleSubmit(event)">
-  <div class="login-page-bg d-flex align-items-center justify-content-center" style="min-height:calc(100vh - 57px)">
-    <div class="bg-white rounded-4 border shadow-sm p-4 p-md-5 w-100" style="max-width:460px;margin:40px auto">
+<div class="login-page-bg d-flex align-items-center justify-content-center" style="min-height:calc(100vh - 57px)">
+  <div class="bg-white rounded-4 border shadow-sm p-4 p-md-5 w-100" style="max-width:460px;margin:40px auto">
 
-      <div class="text-center mb-4">
-        <img src="logo.png" class="brand-logo mx-auto mb-3" style="width:72px;height:72px" alt="DPNHS Logo">
-        <h3 class="fw-bold mb-1" style="color:#1e293b">Welcome Back</h3>
-        <p class="text-muted" style="font-size:13.5px">Sign in to access your account</p>
-      </div>
-
-      <div class="bg-light rounded-3 d-flex p-1 mb-4" id="loginTabs">
-        <button type="button" class="btn flex-fill rounded-2 fw-semibold login-tab-btn active" id="tab-student" onclick="switchLoginTab('student')" style="font-size:14px">Student</button>
-        <button type="button" class="btn flex-fill rounded-2 fw-semibold login-tab-btn" id="tab-admin" onclick="switchLoginTab('admin')" style="font-size:14px">Admin</button>
-      </div>
-
-      <!-- Student Panel -->
-      <div id="login-student-panel">
-        <p class="fw-bold mb-1" style="font-size:15px;color:#1e293b">Student Login</p>
-        <p class="text-muted mb-3" style="font-size:13px">Enter your credentials to access your student portal</p>
-        <div class="mb-3">
-          <label class="form-label fw-semibold" style="font-size:13px">Student ID</label>
-          <input type="text" class="form-control" name="student_id" id="stu-id" placeholder="Enter your student ID" required>
-        </div>
-        <div class="mb-3">
-          <div class="d-flex justify-content-between align-items-center mb-1">
-            <label class="form-label fw-semibold mb-0" style="font-size:13px">Password</label>
-            <a href="#" class="text-decoration-none text-cyan" style="font-size:13px">Forgot password?</a>
-          </div>
-          <div class="position-relative">
-            <input type="password" class="form-control pe-5" name="student_password" id="stu-pw" placeholder="Enter your password" required>
-            <button type="button" class="btn position-absolute top-50 end-0 translate-middle-y me-1 p-1 text-secondary border-0" onclick="togglePw('stu-pw',this)"><i class="bi bi-eye"></i></button>
-          </div>
-        </div>
-
-        <!-- reCAPTCHA v2 — rendered manually via JS so we can track widget IDs -->
-        <div id="recaptcha-student" class="mb-3"></div>
-
-        <button type="submit" class="btn btn-navy w-100 py-2 fw-semibold">Login to Student Portal</button>
-        <p class="text-center text-muted mt-3 mb-0" style="font-size:13px">Don't have an account? <a href="/admission" class="text-cyan text-decoration-none fw-medium">Apply for admission</a></p>
-      </div>
-
-      <!-- Admin Panel -->
-      <div id="login-admin-panel" class="d-none">
-        <p class="fw-bold mb-1" style="font-size:15px;color:#1e293b">Admin Login</p>
-        <p class="text-muted mb-3" style="font-size:13px">Enter your credentials to access admin dashboard</p>
-        <div class="mb-3">
-          <label class="form-label fw-semibold" style="font-size:13px">Email Address</label>
-          <input type="text" class="form-control" name="admin_email" id="adm-email" placeholder="admin@school.edu">
-        </div>
-        <div class="mb-3">
-          <div class="d-flex justify-content-between align-items-center mb-1">
-            <label class="form-label fw-semibold mb-0" style="font-size:13px">Password</label>
-            <a href="#" class="text-decoration-none text-cyan" style="font-size:13px">Forgot password?</a>
-          </div>
-          <div class="position-relative">
-            <input type="password" class="form-control pe-5" name="admin_password" id="adm-pw" placeholder="Enter your password">
-            <button type="button" class="btn position-absolute top-50 end-0 translate-middle-y me-1 p-1 text-secondary border-0" onclick="togglePw('adm-pw',this)"><i class="bi bi-eye"></i></button>
-          </div>
-        </div>
-
-        <!-- reCAPTCHA v2 — rendered manually via JS so we can track widget IDs -->
-        <div id="recaptcha-admin" class="mb-3"></div>
-
-        <button type="submit" class="btn btn-navy w-100 py-2 fw-semibold">Login to Admin Dashboard</button>
-      </div>
-
+    <div class="text-center mb-4">
+      <img src="logo.png" class="brand-logo mx-auto mb-3" style="width:72px;height:72px" alt="DPNHS Logo">
+      <h3 class="fw-bold mb-1" style="color:#1e293b">Welcome Back</h3>
+      <p class="text-muted" style="font-size:13.5px">Sign in to access your account</p>
     </div>
+
+    <div class="bg-light rounded-3 d-flex p-1 mb-4" id="loginTabs">
+      <button type="button" class="btn flex-fill rounded-2 fw-semibold login-tab-btn active" id="tab-student" onclick="switchLoginTab('student')" style="font-size:14px">Student</button>
+      <button type="button" class="btn flex-fill rounded-2 fw-semibold login-tab-btn" id="tab-admin" onclick="switchLoginTab('admin')" style="font-size:14px">Admin</button>
+    </div>
+
+    <!-- Student Panel -->
+    <div id="login-student-panel">
+      <p class="fw-bold mb-1" style="font-size:15px;color:#1e293b">Student Login</p>
+      <p class="text-muted mb-3" style="font-size:13px">Enter your credentials to access your student portal</p>
+      <div class="mb-3">
+        <label class="form-label fw-semibold" style="font-size:13px">Student ID</label>
+        <input type="text" class="form-control" id="stu-id" placeholder="Enter your student ID">
+      </div>
+      <div class="mb-3">
+        <div class="d-flex justify-content-between align-items-center mb-1">
+          <label class="form-label fw-semibold mb-0" style="font-size:13px">Password</label>
+          <a href="#" class="text-decoration-none text-cyan" style="font-size:13px">Forgot password?</a>
+        </div>
+        <div class="position-relative">
+          <input type="password" class="form-control pe-5" id="stu-pw" placeholder="Enter your password">
+          <button type="button" class="btn position-absolute top-50 end-0 translate-middle-y me-1 p-1 text-secondary border-0" onclick="togglePw('stu-pw',this)"><i class="bi bi-eye"></i></button>
+        </div>
+      </div>
+
+      <!-- Dummy reCAPTCHA (UI only, not verified) -->
+      <div class="g-recaptcha mb-3" data-sitekey="6Lcj6a8sAAAAAKwL4mDM_KFSN0N8to2YI1RnjGLT"></div>
+
+      <button type="button" class="btn btn-navy w-100 py-2 fw-semibold" onclick="loginStudent()">Login to Student Portal</button>
+      <p class="text-center text-muted mt-3 mb-0" style="font-size:13px">Don't have an account? <a href="/admission" class="text-cyan text-decoration-none fw-medium">Apply for admission</a></p>
+    </div>
+
+    <!-- Admin Panel -->
+    <div id="login-admin-panel" class="d-none">
+      <p class="fw-bold mb-1" style="font-size:15px;color:#1e293b">Admin Login</p>
+      <p class="text-muted mb-3" style="font-size:13px">Enter your credentials to access admin dashboard</p>
+      <div class="mb-3">
+        <label class="form-label fw-semibold" style="font-size:13px">Email Address</label>
+        <input type="text" class="form-control" id="adm-email" placeholder="admin@school.edu">
+      </div>
+      <div class="mb-3">
+        <div class="d-flex justify-content-between align-items-center mb-1">
+          <label class="form-label fw-semibold mb-0" style="font-size:13px">Password</label>
+          <a href="#" class="text-decoration-none text-cyan" style="font-size:13px">Forgot password?</a>
+        </div>
+        <div class="position-relative">
+          <input type="password" class="form-control pe-5" id="adm-pw" placeholder="Enter your password">
+          <button type="button" class="btn position-absolute top-50 end-0 translate-middle-y me-1 p-1 text-secondary border-0" onclick="togglePw('adm-pw',this)"><i class="bi bi-eye"></i></button>
+        </div>
+      </div>
+
+      <!-- Dummy reCAPTCHA (UI only, not verified) -->
+      <div class="g-recaptcha mb-3" data-sitekey="6Lcj6a8sAAAAAKwL4mDM_KFSN0N8to2YI1RnjGLT"></div>
+
+      <button type="button" class="btn btn-navy w-100 py-2 fw-semibold" onclick="loginAdmin()">Login to Admin Dashboard</button>
+    </div>
+
   </div>
-</form>
+</div>
 
-<!-- onload= callback tells reCAPTCHA to call our function once the API is ready -->
-<script src="https://www.google.com/recaptcha/api.js?onload=onRecaptchaLoad&render=explicit" async defer></script>
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 <script>
-  const SITE_KEY = '6Lcj6a8sAAAAAKwL4mDM_KFSN0N8to2YI1RnjGLT';
-  let widgetStudent = null;
-  let widgetAdmin = null;
-  let activeTab = 'student';
-
-  // Called automatically by reCAPTCHA once the API script is fully loaded
-  function onRecaptchaLoad() {
-    widgetStudent = grecaptcha.render('recaptcha-student', { sitekey: SITE_KEY });
-    widgetAdmin   = grecaptcha.render('recaptcha-admin',   { sitekey: SITE_KEY });
-  }
-
-  // Switch between Student / Admin tab
   const params = new URLSearchParams(window.location.search);
   if (params.get('tab') === 'admin') switchLoginTab('admin');
 
   function switchLoginTab(tab) {
-    activeTab = tab;
     document.getElementById('tab-student').classList.toggle('active', tab === 'student');
     document.getElementById('tab-admin').classList.toggle('active', tab === 'admin');
     document.getElementById('login-student-panel').classList.toggle('d-none', tab !== 'student');
     document.getElementById('login-admin-panel').classList.toggle('d-none', tab === 'student');
   }
 
-  // Called when the form is submitted
-  function handleSubmit(event) {
-    // Pick the widget that belongs to the currently visible tab
-    const widgetId = activeTab === 'student' ? widgetStudent : widgetAdmin;
-    const captchaResponse = grecaptcha.getResponse(widgetId);
+  function loginStudent() {
+    const id = document.getElementById('stu-id').value.trim();
+    if (!id) { toast('Please enter your Student ID'); return; }
+    toast('Login successful! Welcome back.', 'success');
+    localStorage.setItem('dpnhs_just_logged_in', '1');
+    setTimeout(() => window.location.href = '/student', 800);
+  }
 
-    if (!captchaResponse) {
-      event.preventDefault();
-      toast('Please complete the CAPTCHA before logging in.', 'error');
-      return false;
-    }
-
-    // ✅ CAPTCHA is checked — allow the form to submit normally to PHP
-    return true;
+  function loginAdmin() {
+    const em = document.getElementById('adm-email').value.trim();
+    if (!em) { toast('Please enter your email'); return; }
+    toast('Admin login successful!', 'success');
+    setTimeout(() => window.location.href = '/admin', 800);
   }
 </script>
 
