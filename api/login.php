@@ -1,3 +1,23 @@
+<?php 
+$secret = "6LdK3q8sAAAAAG2dUb10lRSypnuILa9o-RwVxf6T";
+$token = $_POST['recaptcha_token'];
+
+$response = file_get_contents(
+  "https://www.google.com/recaptcha/api/siteverify?secret=$secret&response=$token"
+);
+
+$data = json_decode($response);
+
+if (!$data->success || $data->score < 0.5) {
+    die("Captcha verification failed");
+}
+
+?>
+
+
+
+
+
 <?php $pageTitle = 'Login – DPNHS'; ?>
 <?php include 'header.php'; ?>
 
@@ -17,6 +37,8 @@
   </div>
 </nav>
 
+<form method="POST"  method="POST" action="/api/verify-recaptcha" onsubmit="handleSubmit(event)">
+<input type="hidden" name="recaptcha_token" id="recaptchaToken">
 <div class="login-page-bg d-flex align-items-center justify-content-center" style="min-height:calc(100vh - 57px)">
   <div class="bg-white rounded-4 border shadow-sm p-4 p-md-5 w-100" style="max-width:460px;margin:40px auto">
 
@@ -76,6 +98,7 @@
 
   </div>
 </div>
+</form>
 
 <script>
 
@@ -104,6 +127,28 @@
     toast('Admin login successful!', 'success');
     setTimeout(() => window.location.href = 'admin.php', 800);
   }
+
+if (!data.success || data.score < 0.5) {
+  return res.status(400).json({ error: "Captcha failed" });
+}
+
+// ✅ ONLY HERE you proceed
+// create account OR login user
+
+function handleSubmit(event) {
+  event.preventDefault();
+
+  grecaptcha.ready(function() {
+    grecaptcha.execute('6LdK3q8sAAAAAKZnGROM62vr4qP3qSXTKpajBpxs', { action: 'submit' }).then(function(token) {
+
+      document.getElementById("recaptchaToken").value = token;
+
+      // submit form AFTER token is ready
+      event.target.submit();
+    });
+  });
+}
+
 </script>
 
 <?php include 'footer.php'; ?>

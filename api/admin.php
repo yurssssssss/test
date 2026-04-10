@@ -343,6 +343,11 @@ body { margin:0; background:#f1f5f9; }
 
     <div class="sb-section-label">Main Menu</div>
 
+ <div class="sb-nav-item" onclick="switchAdminTab('statistics',this)" data-tab="statistics">
+      <i class="bi bi-bar-chart-fill"></i>
+      <span>Statistics</span>
+    </div>
+
     <div class="sb-nav-item active" onclick="switchAdminTab('applications',this)" data-tab="applications">
       <i class="bi bi-file-earmark-text"></i>
       <span>Applications</span>
@@ -354,9 +359,7 @@ body { margin:0; background:#f1f5f9; }
     <div class="sb-nav-item" onclick="switchAdminTab('sections',this)" data-tab="sections">
       <i class="bi bi-layout-text-sidebar-reverse"></i><span>Sections</span>
     </div>
-    <div class="sb-nav-item" onclick="switchAdminTab('statistics',this)" data-tab="statistics">
-      <i class="bi bi-bar-chart-fill"></i><span>Statistics</span>
-    </div>
+   
 
     <div class="sb-bottom">
       <a href="index.php" class="sb-logout">
@@ -1143,7 +1146,7 @@ function switchAdminTab(tab, el) {
       if (item.dataset.tab === tab) item.classList.add('active');
     });
   }
-  ['applications','students','sections','statistics'].forEach(function(t) {
+  ['statistics','applications','students','sections'].forEach(function(t) {
     document.getElementById('admin-tab-'+t).classList.toggle('d-none', t !== tab);
   });
   const titles = { applications:'Applications', students:'Students', sections:'Sections', statistics:'Statistics & Analytics' };
