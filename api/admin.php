@@ -21,9 +21,9 @@ $students = [
 ];
 
 $rejected = [
-  ['id'=>'APP007','name'=>'Rico Fernandez','grade'=>'Grade 7', 'date'=>'March 14, 2026','by'=>'Admin User','reason'=>'Incomplete requirements'],
+  ['id'=>'APP007','name'=>'Rico Fernandez','grade'=>'Grade 7', 'date'=>'March 14, 2026','by'=>'Admin User','reason'=>'Does not meet age requirements'],
   ['id'=>'APP008','name'=>'Maria Santos',  'grade'=>'Grade 9', 'date'=>'March 13, 2026','by'=>'Admin User','reason'=>'Does not meet age requirements'],
-  ['id'=>'APP009','name'=>'Kevin Lim',     'grade'=>'Grade 10','date'=>'March 12, 2026','by'=>'Admin User','reason'=>'Duplicate application'],
+  ['id'=>'APP009','name'=>'Kevin Lim',     'grade'=>'Grade 10','date'=>'March 12, 2026','by'=>'Admin User','reason'=>'Location exceeds proximity requirements'],
 ];
 
 /* Action from URL param — simulates PHP processing without full form POST for demo */
@@ -801,8 +801,8 @@ body { margin:0; background:#f1f5f9; }
         <label class="form-label fw-medium" style="font-size:13px">Reason for Rejection <span class="text-danger">*</span></label>
         <select class="form-select mb-2" id="rejectReasonSelect" onchange="toggleCustomReason(this.value)">
           <option value="">Select a reason...</option>
-          <option>Over Age</option>
-          <option>Location</option>
+          <option>Does not meet age requirements</option>
+          <option>Location exceeds proximity requirements</option>
           <option value="other">Other (specify)</option>
         </select>
         <div id="customReasonWrap" class="d-none">

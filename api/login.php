@@ -83,7 +83,7 @@
 
   </div>
 </div>
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 <script>
   const params = new URLSearchParams(window.location.search);
@@ -110,6 +110,25 @@
     toast('Admin login successful!', 'success');
     setTimeout(() => window.location.href = '/admin', 800);
   }
+ function toast(msg, type = '') {
+    const c = document.getElementById('toastContainer');
+    const t = document.createElement('div');
+    t.className = 'toast-msg ' + (type === 'success' ? 'bg-success' : 'bg-dark') + ' text-white rounded-3 px-3 py-2 mb-2 d-flex align-items-center gap-2 shadow';
+    t.style.animation = 'slideIn .3s ease';
+    t.innerHTML = '<i class="bi bi-check-circle-fill"></i> ' + msg;
+    c.appendChild(t);
+    setTimeout(() => t.remove(), 3500);
+  }
+
+  function togglePw(id, btn) {
+    const inp = document.getElementById(id);
+    if (inp.type === 'password') {
+      inp.type = 'text';
+      btn.innerHTML = '<i class="bi bi-eye-slash"></i>';
+    } else {
+      inp.type = 'password';
+      btn.innerHTML = '<i class="bi bi-eye"></i>';
+    }
+  }
 </script>
 
-<?php include 'footer.php'; ?>
