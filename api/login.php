@@ -1,19 +1,22 @@
 <?php 
-$secret = "6LdK3q8sAAAAAG2dUb10lRSypnuILa9o-RwVxf6T";
-$token = $_POST['recaptcha_token'];
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-$response = file_get_contents(
-  "https://www.google.com/recaptcha/api/siteverify?secret=$secret&response=$token"
-);
+    $secret = "6LdK3q8sAAAAAG2dUb10lRSypnuILa9o-RwVxf6T";
+    $token = $_POST['recaptcha_token'] ?? '';
 
-$data = json_decode($response);
+    $response = file_get_contents(
+      "https://www.google.com/recaptcha/api/siteverify?secret=$secret&response=$token"
+    );
 
-if (!$data->success || $data->score < 0.5) {
-    die("Captcha verification failed");
+    $data = json_decode($response);
+
+    if (!$data->success || $data->score < 0.5) {
+        die("Captcha verification failed");
+    }
+
+    // ✅ your login logic here
 }
-
 ?>
-
 
 
 
@@ -21,6 +24,12 @@ if (!$data->success || $data->score < 0.5) {
 <?php $pageTitle = 'Login – DPNHS'; ?>
 <?php include 'header.php'; ?>
 
+<style>
+.g-recaptcha {
+  transform: scale(0.95);
+  transform-origin: left;
+}
+</style>
 
 <nav class="bg-white border-bottom py-2">
   <div class="container d-flex align-items-center justify-content-between">
@@ -37,8 +46,8 @@ if (!$data->success || $data->score < 0.5) {
   </div>
 </nav>
 
-<form method="POST"  method="POST" action="/api/verify-recaptcha" onsubmit="handleSubmit(event)">
-<input type="hidden" name="recaptcha_token" id="recaptchaToken">
+<form method="POST" onsubmit="handleSubmit(event)">
+<input type="hidden" name="recaptcha_token" id="recaptchaToken"> 
 <div class="login-page-bg d-flex align-items-center justify-content-center" style="min-height:calc(100vh - 57px)">
   <div class="bg-white rounded-4 border shadow-sm p-4 p-md-5 w-100" style="max-width:460px;margin:40px auto">
 
@@ -71,7 +80,8 @@ if (!$data->success || $data->score < 0.5) {
           <button class="btn position-absolute top-50 end-0 translate-middle-y me-1 p-1 text-secondary border-0" onclick="togglePw('stu-pw',this)"><i class="bi bi-eye"></i></button>
         </div>
       </div>
-      <button class="btn btn-navy w-100 py-2 fw-semibold" onclick="loginStudent()">Login to Student Portal</button>
+        <div class="g-recaptcha mb-3" data-sitekey="6LdK3q8sAAAAAKZnGROM62vr4qP3qSXTKpajBpxs"></div>
+      <button class="btn btn-navy w-100 py-2 fw-semibold" type="submit" onclick="loginStudent()">Login to Student Portal</button>
       <p class="text-center text-muted mt-3 mb-0" style="font-size:13px">Don't have an account? <a href="/admission" class="text-cyan text-decoration-none fw-medium">Apply for admission</a></p>
     </div>
 
@@ -93,7 +103,8 @@ if (!$data->success || $data->score < 0.5) {
           <button class="btn position-absolute top-50 end-0 translate-middle-y me-1 p-1 text-secondary border-0" onclick="togglePw('adm-pw',this)"><i class="bi bi-eye"></i></button>
         </div>
       </div>
-      <button class="btn btn-navy w-100 py-2 fw-semibold" onclick="loginAdmin()">Login to Admin Dashboard</button>
+       <div class="g-recaptcha mb-3" data-sitekey="6LdK3q8sAAAAAKZnGROM62vr4qP3qSXTKpajBpxs"></div>
+      <button class="btn btn-navy w-100 py-2 fw-semibold" type="submit" name="submit" >Login to Admin Dashboard</button>
     </div>
 
   </div>
@@ -139,11 +150,10 @@ function handleSubmit(event) {
   event.preventDefault();
 
   grecaptcha.ready(function() {
-    grecaptcha.execute('6LdK3q8sAAAAAKZnGROM62vr4qP3qSXTKpajBpxs', { action: 'submit' }).then(function(token) {
+    grecaptcha.execute('6LdK3q8sAAAAAKZnGROM62vr4qP3qSXTKpajBpxs', { action: 'login' }).then(function(token) {
 
       document.getElementById("recaptchaToken").value = token;
 
-      // submit form AFTER token is ready
       event.target.submit();
     });
   });
