@@ -6,7 +6,7 @@
 
       <div class="col-lg-4 col-md-6">
         <div class="d-flex align-items-center gap-3 mb-3">
-          <img src="logo.png" class="footer-logo" alt="DPNHS Logo">
+          <img src="/logo.png" class="footer-logo" alt="DPNHS Logo">
           <div>
             <div class="footer-brand-name">Dela Paz National High School</div>
             <div class="footer-brand-sub">Online Enrollment System</div>

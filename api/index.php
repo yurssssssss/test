@@ -5,7 +5,7 @@
 <nav class="bg-white border-bottom sticky-top py-2">
   <div class="container d-flex align-items-center justify-content-between">
     <a href="/index" class="d-flex align-items-center gap-2 text-decoration-none">
-      <img src="logo.png" class="brand-logo" alt="DPNHS Logo" style="width: 55px; height: 55px;" >
+      <img src="/logo.png" class="brand-logo" alt="DPNHS Logo" style="width: 55px; height: 55px;" >
       <div>
         <div class="fw-bold text-navy" style="font-size:15px;line-height:1.2">Dela Paz National High School</div>
         <div class="text-muted" style="font-size:11px">Online Enrollment System</div>
