@@ -1,22 +1,22 @@
-<?php 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+<!-- <?php 
+// if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    $secret = "6LdK3q8sAAAAAG2dUb10lRSypnuILa9o-RwVxf6T";
-    $token = $_POST['recaptcha_token'] ?? '';
+//     $secret = "6LdK3q8sAAAAAG2dUb10lRSypnuILa9o-RwVxf6T";
+//     $token = $_POST['recaptcha_token'] ?? '';
 
-    $response = file_get_contents(
-      "https://www.google.com/recaptcha/api/siteverify?secret=$secret&response=$token"
-    );
+//     $response = file_get_contents(
+//       "https://www.google.com/recaptcha/api/siteverify?secret=$secret&response=$token"
+//     );
 
-    $data = json_decode($response);
+//     $data = json_decode($response);
 
-    if (!$data->success || $data->score < 0.5) {
-        die("Captcha verification failed");
-    }
+//     if (!$data->success || $data->score < 0.5) {
+//         die("Captcha verification failed");
+//     }
 
-    // ✅ your login logic here
-}
-?>
+
+// }
+?> -->
 
 
 
