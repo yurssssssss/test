@@ -75,8 +75,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           </div>
         </div>
 
-        <!-- reCAPTCHA v2 checkbox widget -->
-        <div class="g-recaptcha mb-3" data-sitekey="6Lcj6a8sAAAAAKwL4mDM_KFSN0N8to2YI1RnjGLT"></div>
+        <!-- reCAPTCHA v2 — rendered manually via JS so we can track widget IDs -->
+        <div id="recaptcha-student" class="mb-3"></div>
 
         <button type="submit" class="btn btn-navy w-100 py-2 fw-semibold">Login to Student Portal</button>
         <p class="text-center text-muted mt-3 mb-0" style="font-size:13px">Don't have an account? <a href="/admission" class="text-cyan text-decoration-none fw-medium">Apply for admission</a></p>
@@ -101,8 +101,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           </div>
         </div>
 
-        <!-- reCAPTCHA v2 checkbox widget -->
-        <div class="g-recaptcha mb-3" data-sitekey="6Lcj6a8sAAAAAKwL4mDM_KFSN0N8to2YI1RnjGLT"></div>
+        <!-- reCAPTCHA v2 — rendered manually via JS so we can track widget IDs -->
+        <div id="recaptcha-admin" class="mb-3"></div>
 
         <button type="submit" class="btn btn-navy w-100 py-2 fw-semibold">Login to Admin Dashboard</button>
       </div>
@@ -111,30 +111,42 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   </div>
 </form>
 
-<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+<!-- onload= callback tells reCAPTCHA to call our function once the API is ready -->
+<script src="https://www.google.com/recaptcha/api.js?onload=onRecaptchaLoad&render=explicit" async defer></script>
 <script>
+  const SITE_KEY = '6Lcj6a8sAAAAAKwL4mDM_KFSN0N8to2YI1RnjGLT';
+  let widgetStudent = null;
+  let widgetAdmin = null;
+  let activeTab = 'student';
+
+  // Called automatically by reCAPTCHA once the API script is fully loaded
+  function onRecaptchaLoad() {
+    widgetStudent = grecaptcha.render('recaptcha-student', { sitekey: SITE_KEY });
+    widgetAdmin   = grecaptcha.render('recaptcha-admin',   { sitekey: SITE_KEY });
+  }
+
   // Switch between Student / Admin tab
   const params = new URLSearchParams(window.location.search);
   if (params.get('tab') === 'admin') switchLoginTab('admin');
 
   function switchLoginTab(tab) {
+    activeTab = tab;
     document.getElementById('tab-student').classList.toggle('active', tab === 'student');
     document.getElementById('tab-admin').classList.toggle('active', tab === 'admin');
     document.getElementById('login-student-panel').classList.toggle('d-none', tab !== 'student');
     document.getElementById('login-admin-panel').classList.toggle('d-none', tab === 'student');
-
-    // Reset captcha when switching tabs so the user re-checks it
-    if (typeof grecaptcha !== 'undefined') grecaptcha.reset();
   }
 
   // Called when the form is submitted
   function handleSubmit(event) {
-    const captchaResponse = grecaptcha.getResponse();
+    // Pick the widget that belongs to the currently visible tab
+    const widgetId = activeTab === 'student' ? widgetStudent : widgetAdmin;
+    const captchaResponse = grecaptcha.getResponse(widgetId);
 
     if (!captchaResponse) {
-      event.preventDefault(); // Stop form submission
+      event.preventDefault();
       toast('Please complete the CAPTCHA before logging in.', 'error');
-      return false; // Block submission
+      return false;
     }
 
     // ✅ CAPTCHA is checked — allow the form to submit normally to PHP

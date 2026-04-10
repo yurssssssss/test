@@ -93,8 +93,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           </div>
         </div>
 
-        <!-- reCAPTCHA v2 checkbox widget -->
-        <div class="g-recaptcha mb-3" data-sitekey="6Lcj6a8sAAAAAKwL4mDM_KFSN0N8to2YI1RnjGLT"></div>
+        <!-- reCAPTCHA v2 — rendered explicitly via JS so widget ID is tracked -->
+        <div id="recaptcha-admission" class="mb-3"></div>
 
         <button type="submit" class="btn btn-navy w-100 py-2 fw-semibold">Create Account</button>
 
@@ -104,11 +104,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   </div>
 </form>
 
-<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+<!-- onload= ensures the API is fully ready before rendering the widget -->
+<script src="https://www.google.com/recaptcha/api.js?onload=onRecaptchaLoad&render=explicit" async defer></script>
 <script>
+  const SITE_KEY = '6Lcj6a8sAAAAAKwL4mDM_KFSN0N8to2YI1RnjGLT';
+  let widgetAdmission = null;
+
+  // Called automatically by reCAPTCHA once the API script is fully loaded
+  function onRecaptchaLoad() {
+    widgetAdmission = grecaptcha.render('recaptcha-admission', { sitekey: SITE_KEY });
+  }
+
   // Called when the form is submitted
   function handleSubmit(event) {
-    // Check passwords match before anything
+    // Check passwords match first
     const pw = document.getElementById('stu-pw').value;
     const cpw = document.getElementById('stu-cpw').value;
     if (pw !== cpw) {
@@ -117,8 +126,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       return false;
     }
 
-    // Check CAPTCHA is completed
-    const captchaResponse = grecaptcha.getResponse();
+    // Check CAPTCHA is completed using the explicit widget ID
+    const captchaResponse = grecaptcha.getResponse(widgetAdmission);
     if (!captchaResponse) {
       event.preventDefault();
       toast('Please complete the CAPTCHA before creating your account.', 'error');
