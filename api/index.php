@@ -51,7 +51,7 @@
           <div class="feature-icon text-cyan fs-3 mb-3"><i class="bi bi-box-arrow-in-right"></i></div>
           <h5 class="fw-bold mb-2" style="color:#1e293b">Existing Student Login</h5>
           <p class="text-muted mb-3" style="font-size:13.5px">Secure login for existing students to manage enrollment and view sections</p>
-          <a href="/  login" class="text-decoration-none fw-semibold text-cyan" style="font-size:13.5px">Login Now →</a>
+          <a href="/login" class="text-decoration-none fw-semibold text-cyan" style="font-size:13.5px">Login Now →</a>
         </div>
       </div>
       <div class="col-md-4">
@@ -59,7 +59,7 @@
           <div class="feature-icon text-orange fs-3 mb-3"><i class="bi bi-shield-fill"></i></div>
           <h5 class="fw-bold mb-2" style="color:#1e293b">Admin Dashboard</h5>
           <p class="text-muted mb-3" style="font-size:13.5px">Comprehensive dashboard for administrators to manage students and sections</p>
-          <a href="/login#admin" class="text-decoration-none fw-semibold text-orange" style="font-size:13.5px">Admin Access →</a>
+          <a href="/login" class="text-decoration-none fw-semibold text-orange" style="font-size:13.5px">Admin Access →</a>
         </div>
       </div>
     </div>

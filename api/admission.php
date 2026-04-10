@@ -93,7 +93,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
       </div>
       <div class="g-recaptcha mb-3" data-sitekey="6Lcj6a8sAAAAAKwL4mDM_KFSN0N8to2YI1RnjGLT "></div>
-      <button class="btn btn-navy w-100 py-2 fw-semibold" type="submit" name="create" >Create Account</button>
+      <button class="btn btn-navy w-100 py-2 fw-semibold" type="submit" onclick="signup()" >Create Account</button>
       
     </div>
 
@@ -120,7 +120,7 @@ const setup_pass = document.getElementById('pass');
 
 function signup() {
  toast('Student login successful!', 'success');
-    setTimeout(() => window.location.href = 'login.php', 800);
+    setTimeout(() => window.location.href = '/login', 800);
 
 
 }

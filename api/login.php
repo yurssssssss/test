@@ -104,7 +104,7 @@
         </div>
       </div>
        <div class="g-recaptcha mb-3" data-sitekey="6Lcj6a8sAAAAAKwL4mDM_KFSN0N8to2YI1RnjGLT"></div>
-      <button class="btn btn-navy w-100 py-2 fw-semibold" type="submit" name="submit" >Login to Admin Dashboard</button>
+      <button class="btn btn-navy w-100 py-2 fw-semibold" type="submit" onclick="loginAdmin()" >Login to Admin Dashboard</button>
     </div>
 
   </div>
@@ -129,18 +129,18 @@
     toast('Login successful! Welcome back, John Smith.', 'success');
     // Set flag so student.php knows this is a fresh login and shows the announcement
     localStorage.setItem('dpnhs_just_logged_in', '1');
-    setTimeout(() => window.location.href = 'student.php', 800);
+    setTimeout(() => window.location.href = '/student', 800);
   }
 
   function loginAdmin() {
     const em = document.getElementById('adm-email').value.trim();
     if (!em) { toast('Please enter your email'); return; }
     toast('Admin login successful!', 'success');
-    setTimeout(() => window.location.href = 'admin.php', 800);
+    setTimeout(() => window.location.href = '/admin', 800);
   }
 
 if (!data.success || data.score < 0.5) {
-  return res.status(400).json({ error: "Captcha failed" });
+  return res.status(400).json({ error: "/Captcha failed" });
 }
 
 // ✅ ONLY HERE you proceed
