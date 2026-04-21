@@ -821,6 +821,8 @@ body { margin:0; background:#f1f5f9; }
 <!-- MODAL: VIEW PROFILE -->
 <?php
 $profileId = $_GET['app_id'] ?? $_GET['stu_id'] ?? '';
+$isFromApp  = isset($_GET['app_id']);
+$closeHref  = $isFromApp ? '?tab=applications' : '?tab=students';
 $profiles  = [
   'APP001'=>['sy'=>'2025–2026','grade'=>'Grade 10','lrn'=>'202600100001','lname'=>'Johnson','fname'=>'Emma',   'mname'=>'Grace',   'dob'=>'March 1, 2010',   'age'=>16,'sex'=>'Female','pob'=>'Naga City',  'tongue'=>'Bikol','ip'=>'No','fours'=>'No', 'address'=>'12 Rizal St., Brgy. Concepcion, Naga City, Camarines Sur, Philippines','father'=>'Robert Johnson','fcontact'=>'09171234567','mother'=>'Mary Johnson','mcontact'=>'09181234567','guardian'=>'N/A','enrolled'=>false,
     'docs'=>[
@@ -851,7 +853,7 @@ $p = $profiles[$profileId] ?? null;
     <div class="modal-content border-0 shadow-lg" style="border-radius:16px;overflow:hidden">
       <?php if($p): ?>
       <div style="background:linear-gradient(135deg,#1e3a8a 0%,#0d9488 100%);padding:28px 28px 20px;position:relative">
-        <a href="/admin" class="btn-close btn-close-white position-absolute top-0 end-0 m-3"></a>
+        <a href="<?= $closeHref ?>" class="btn-close btn-close-white position-absolute top-0 end-0 m-3"></a>
         <div class="d-flex align-items-center gap-3 flex-wrap">
           <div style="width:72px;height:72px;border-radius:50%;background:rgba(255,255,255,.2);border:3px solid rgba(255,255,255,.5);display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:800;color:#fff">
             <?= strtoupper(substr($p['fname'],0,1).substr($p['lname'],0,1)) ?>
@@ -1077,7 +1079,7 @@ $p = $profiles[$profileId] ?? null;
       <div class="modal-footer border-0" style="background:#f8fafc;padding:14px 24px">
         <?php if(!$p['enrolled']): ?>
         <?php endif; ?>
-        <a href="/admin" class="btn btn-light btn-sm border px-4 fw-medium"><i class="bi bi-x me-1"></i>Close</a>
+        <a href="<?= $closeHref ?>" class="btn btn-light btn-sm border px-4 fw-medium"><i class="bi bi-x me-1"></i>Close</a>
       </div>
       <?php else: ?>
       <div class="modal-body text-center py-5">
@@ -1085,7 +1087,7 @@ $p = $profiles[$profileId] ?? null;
         <div class="mt-2 text-muted">Profile not found.</div>
       </div>
       <div class="modal-footer border-0">
-        <a href="/admin" class="btn btn-outline-secondary btn-sm">Close</a>
+        <a href="<?= $closeHref ?>" class="btn btn-outline-secondary btn-sm">Close</a>
       </div>
       <?php endif; ?>
     </div>
@@ -1628,8 +1630,15 @@ function generateSampleStudents(count, gradeLabel, sectionName) {
 document.addEventListener('DOMContentLoaded', () => {
   const urlParams = new URLSearchParams(window.location.search);
   const modalParam = urlParams.get('modal');
-  if (modalParam === 'addStudent' || modalParam === 'export' || modalParam === 'profile' || modalParam === 'transfer') {
+  if (modalParam === 'addStudent' || modalParam === 'export' || modalParam === 'transfer') {
     sessionStorage.setItem('adminTab', 'students');
+  } else if (modalParam === 'profile') {
+    // Stay on applications if opened from an application, students if opened from a student record
+    if (urlParams.get('app_id')) {
+      sessionStorage.setItem('adminTab', 'applications');
+    } else {
+      sessionStorage.setItem('adminTab', 'students');
+    }
   } else if (modalParam === 'createSection') {
     sessionStorage.setItem('adminTab', 'sections');
   } else if (modalParam === 'rejected' || modalParam === 'reject') {
@@ -1637,6 +1646,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   if (urlParams.get('app_page')) sessionStorage.setItem('adminTab', 'applications');
   if (urlParams.get('stu_page')) sessionStorage.setItem('adminTab', 'students');
+  if (urlParams.get('tab')) sessionStorage.setItem('adminTab', urlParams.get('tab'));
 
   // Restore saved tab
   var savedTab = sessionStorage.getItem('adminTab') || 'statistics';
