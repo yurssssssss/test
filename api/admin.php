@@ -992,8 +992,8 @@ $p = $profiles[$profileId] ?? null;
                     <button onclick="verifyDoc(this,<?= $di ?>)" style="background:#f0fdf4;color:#166534;border:1px solid #bbf7d0;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;cursor:pointer">
                       <i class="bi bi-check-circle me-1"></i>Mark Verified
                     </button>
-                    <button onclick="rejectDoc(this,<?= $di ?>)" style="background:#fef2f2;color:#991b1b;border:1px solid #fecaca;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;cursor:pointer">
-                      <i class="bi bi-x-circle me-1"></i>Reject
+                    <button onclick="retakeDoc(this,<?= $di ?>)" style="background:#fef2f2;color:#991b1b;border:1px solid #d1ae64;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;cursor:pointer">
+                      <i class="bi bi-x-circle me-1"></i>Request Resubmission
                     </button>
                   </div>
                   <?php endif; ?>
@@ -1066,11 +1066,11 @@ $p = $profiles[$profileId] ?? null;
         btn.closest('[style*="border:1px solid"]').style.borderColor = '#bbf7d0';
         showToast('Document marked as verified!');
       }
-      function rejectDoc(btn, idx) {
+      function retakeDoc(btn, idx) {
         var wrap = btn.closest('div[style*="display:flex"]');
-        wrap.innerHTML = '<span style="background:#fef2f2;color:#991b1b;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px"><i class="bi bi-x-circle-fill me-1"></i>Rejected</span>';
+        wrap.innerHTML = '<span style="background:#fef2f2;color:#991b1b;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px"><i class="bi bi-x-circle-fill me-1"></i>Resubmit Required</span>';
         btn.closest('[style*="border:1px solid"]').style.borderColor = '#fecaca';
-        showToast('Document marked as rejected.');
+        showToast('This document requires resubmission.');
       }
       </script>
 
