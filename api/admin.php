@@ -822,9 +822,27 @@ body { margin:0; background:#f1f5f9; }
 <?php
 $profileId = $_GET['app_id'] ?? $_GET['stu_id'] ?? '';
 $profiles  = [
-  'APP001'=>['sy'=>'2025–2026','grade'=>'Grade 10','lrn'=>'202600100001','lname'=>'Johnson','fname'=>'Emma',   'mname'=>'Grace',   'dob'=>'March 1, 2010',   'age'=>16,'sex'=>'Female','pob'=>'Naga City',  'tongue'=>'Bikol','ip'=>'No','fours'=>'No', 'address'=>'12 Rizal St., Brgy. Concepcion, Naga City, Camarines Sur, Philippines','father'=>'Robert Johnson','fcontact'=>'09171234567','mother'=>'Mary Johnson','mcontact'=>'09181234567','guardian'=>'N/A','enrolled'=>false],
-  'APP002'=>['sy'=>'2025–2026','grade'=>'Grade 9', 'lrn'=>'202600100002','lname'=>'Chen',   'fname'=>'Michael','mname'=>'Tan',     'dob'=>'June 14, 2011',   'age'=>15,'sex'=>'Male',  'pob'=>'Minalabac',  'tongue'=>'Tagalog','ip'=>'No','fours'=>'Yes','address'=>'45 Magsaysay Ave., Brgy. Centro, Minalabac, Camarines Sur, Philippines','father'=>'James Chen','fcontact'=>'09271234567','mother'=>'Li Chen','mcontact'=>'09291234567','guardian'=>'N/A','enrolled'=>false],
-  'STU2024001'=>['sy'=>'2025–2026','grade'=>'Grade 10','section'=>'Section A','stuid'=>'STU2024001','lrn'=>'202400100001','lname'=>'Smith','fname'=>'John','mname'=>'Paul','dob'=>'Feb 10, 2009','age'=>17,'sex'=>'Male','pob'=>'Naga City','tongue'=>'Bikol','ip'=>'No','fours'=>'No','address'=>'55 P. Burgos St., Brgy. Triangulo, Naga City, Camarines Sur, Philippines','father'=>'Henry Smith','fcontact'=>'09111234567','mother'=>'Grace Smith','mcontact'=>'09121234567','guardian'=>'N/A','enrolled'=>true],
+  'APP001'=>['sy'=>'2025–2026','grade'=>'Grade 10','lrn'=>'202600100001','lname'=>'Johnson','fname'=>'Emma',   'mname'=>'Grace',   'dob'=>'March 1, 2010',   'age'=>16,'sex'=>'Female','pob'=>'Naga City',  'tongue'=>'Bikol','ip'=>'No','fours'=>'No', 'address'=>'12 Rizal St., Brgy. Concepcion, Naga City, Camarines Sur, Philippines','father'=>'Robert Johnson','fcontact'=>'09171234567','mother'=>'Mary Johnson','mcontact'=>'09181234567','guardian'=>'N/A','enrolled'=>false,
+    'docs'=>[
+      ['label'=>'PSA Birth Certificate',   'file'=>'psa_emma_johnson.jpg',   'type'=>'image','status'=>'submitted','uploaded'=>'March 18, 2026'],
+      ['label'=>'Form 138 (Report Card)',   'file'=>'form138_emma_johnson.jpg','type'=>'image','status'=>'submitted','uploaded'=>'March 18, 2026'],
+      ['label'=>'Good Moral Certificate',  'file'=>'goodmoral_emma_johnson.pdf','type'=>'pdf', 'status'=>'submitted','uploaded'=>'March 18, 2026'],
+    ]
+  ],
+  'APP002'=>['sy'=>'2025–2026','grade'=>'Grade 9', 'lrn'=>'202600100002','lname'=>'Chen',   'fname'=>'Michael','mname'=>'Tan',     'dob'=>'June 14, 2011',   'age'=>15,'sex'=>'Male',  'pob'=>'Minalabac',  'tongue'=>'Tagalog','ip'=>'No','fours'=>'Yes','address'=>'45 Magsaysay Ave., Brgy. Centro, Minalabac, Camarines Sur, Philippines','father'=>'James Chen','fcontact'=>'09271234567','mother'=>'Li Chen','mcontact'=>'09291234567','guardian'=>'N/A','enrolled'=>false,
+    'docs'=>[
+      ['label'=>'PSA Birth Certificate',   'file'=>'psa_michael_chen.jpg',    'type'=>'image','status'=>'submitted','uploaded'=>'March 18, 2026'],
+      ['label'=>'Form 138 (Report Card)',   'file'=>'',                        'type'=>'image','status'=>'missing',  'uploaded'=>''],
+      ['label'=>'Good Moral Certificate',  'file'=>'goodmoral_michael_chen.jpg','type'=>'image','status'=>'submitted','uploaded'=>'March 18, 2026'],
+    ]
+  ],
+  'STU2024001'=>['sy'=>'2025–2026','grade'=>'Grade 10','section'=>'Section A','stuid'=>'STU2024001','lrn'=>'202400100001','lname'=>'Smith','fname'=>'John','mname'=>'Paul','dob'=>'Feb 10, 2009','age'=>17,'sex'=>'Male','pob'=>'Naga City','tongue'=>'Bikol','ip'=>'No','fours'=>'No','address'=>'55 P. Burgos St., Brgy. Triangulo, Naga City, Camarines Sur, Philippines','father'=>'Henry Smith','fcontact'=>'09111234567','mother'=>'Grace Smith','mcontact'=>'09121234567','guardian'=>'N/A','enrolled'=>true,
+    'docs'=>[
+      ['label'=>'PSA Birth Certificate',   'file'=>'psa_john_smith.jpg',      'type'=>'image','status'=>'verified', 'uploaded'=>'Jan 10, 2024'],
+      ['label'=>'Form 138 (Report Card)',   'file'=>'form138_john_smith.jpg',  'type'=>'image','status'=>'verified', 'uploaded'=>'Jan 10, 2024'],
+      ['label'=>'Good Moral Certificate',  'file'=>'goodmoral_john_smith.jpg','type'=>'image','status'=>'verified', 'uploaded'=>'Jan 10, 2024'],
+    ]
+  ],
 ];
 $p = $profiles[$profileId] ?? null;
 ?>
@@ -925,9 +943,140 @@ $p = $profiles[$profileId] ?? null;
               <?php endforeach; ?>
             </div>
           </div>
+          <!-- Submitted Documents -->
+          <?php if(!empty($p['docs'])): ?>
+          <div style="background:#fff;border:1px solid #e2e8f0;border-radius:12px;overflow:hidden">
+            <div style="padding:12px 16px;background:#f1f5f9;border-bottom:1px solid #e2e8f0;display:flex;align-items:center;justify-content:space-between;gap:8px">
+              <div style="display:flex;align-items:center;gap:8px">
+                <div style="width:28px;height:28px;border-radius:8px;background:#7c3aed;display:flex;align-items:center;justify-content:center;font-size:13px;color:#fff"><i class="bi bi-folder2-open"></i></div>
+                <span style="font-size:13px;font-weight:700;color:#1e293b">Submitted Requirements</span>
+              </div>
+              <?php
+                $missingCount = count(array_filter($p['docs'], fn($d) => $d['status'] === 'missing'));
+              ?>
+              <?php if($missingCount > 0): ?>
+              <span style="background:#fef2f2;color:#991b1b;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;border:1px solid #fecaca">
+                <i class="bi bi-exclamation-circle me-1"></i><?= $missingCount ?> Missing
+              </span>
+              <?php else: ?>
+              <span style="background:#f0fdf4;color:#166534;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;border:1px solid #bbf7d0">
+                <i class="bi bi-check-circle me-1"></i>All Submitted
+              </span>
+              <?php endif; ?>
+            </div>
+            <div style="padding:16px;display:flex;flex-direction:column;gap:12px">
+              <?php foreach($p['docs'] as $di => $doc): ?>
+              <div style="border:1px solid <?= $doc['status']==='missing' ? '#fecaca' : ($doc['status']==='verified' ? '#bbf7d0' : '#e2e8f0') ?>;border-radius:10px;overflow:hidden;background:<?= $doc['status']==='missing' ? '#fff5f5' : '#fff' ?>">
+                <div style="padding:10px 14px;display:flex;align-items:center;justify-content:space-between;gap:8px;border-bottom:1px solid <?= $doc['status']==='missing' ? '#fecaca' : '#f1f5f9' ?>">
+                  <div style="display:flex;align-items:center;gap:8px">
+                    <div style="width:30px;height:30px;border-radius:8px;background:<?= $doc['status']==='missing' ? '#fef2f2' : ($doc['status']==='verified' ? '#f0fdf4' : '#eff6ff') ?>;display:flex;align-items:center;justify-content:center;font-size:14px;color:<?= $doc['status']==='missing' ? '#dc2626' : ($doc['status']==='verified' ? '#16a34a' : '#2563eb') ?>">
+                      <i class="bi bi-<?= $doc['type']==='pdf' ? 'file-earmark-pdf' : 'file-earmark-image' ?>"></i>
+                    </div>
+                    <div>
+                      <div style="font-size:13px;font-weight:600;color:#1e293b"><?= htmlspecialchars($doc['label']) ?></div>
+                      <?php if($doc['uploaded']): ?>
+                      <div style="font-size:11px;color:#94a3b8">Uploaded: <?= $doc['uploaded'] ?></div>
+                      <?php endif; ?>
+                    </div>
+                  </div>
+                  <?php if($doc['status'] === 'missing'): ?>
+                  <span style="background:#fef2f2;color:#991b1b;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px">
+                    <i class="bi bi-x-circle me-1"></i>Not Submitted
+                  </span>
+                  <?php elseif($doc['status'] === 'verified'): ?>
+                  <span style="background:#f0fdf4;color:#166534;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px">
+                    <i class="bi bi-patch-check-fill me-1"></i>Verified
+                  </span>
+                  <?php else: ?>
+                  <div style="display:flex;align-items:center;gap:6px">
+                    <button onclick="verifyDoc(this,<?= $di ?>)" style="background:#f0fdf4;color:#166534;border:1px solid #bbf7d0;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;cursor:pointer">
+                      <i class="bi bi-check-circle me-1"></i>Mark Verified
+                    </button>
+                    <button onclick="rejectDoc(this,<?= $di ?>)" style="background:#fef2f2;color:#991b1b;border:1px solid #fecaca;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;cursor:pointer">
+                      <i class="bi bi-x-circle me-1"></i>Reject
+                    </button>
+                  </div>
+                  <?php endif; ?>
+                </div>
+                <?php if($doc['status'] !== 'missing' && $doc['type'] === 'image'): ?>
+                <div style="padding:12px 14px;background:#f8fafc">
+                  <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:#64748b;margin-bottom:8px">
+                    <i class="bi bi-eye me-1"></i>Document Preview
+                  </div>
+                  <div style="border:2px dashed #cbd5e1;border-radius:8px;overflow:hidden;background:#fff;cursor:pointer;position:relative"
+                       onclick="openDocViewer('<?= htmlspecialchars($doc['label']) ?>','/uploads/requirements/<?= htmlspecialchars($doc['file']) ?>')">
+                    <img
+                      src="/uploads/requirements/<?= htmlspecialchars($doc['file']) ?>"
+                      alt="<?= htmlspecialchars($doc['label']) ?>"
+                      onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+                      style="width:100%;max-height:200px;object-fit:contain;display:block;padding:8px">
+                    <div style="display:none;flex-direction:column;align-items:center;justify-content:center;padding:32px;color:#94a3b8;gap:6px">
+                      <i class="bi bi-image" style="font-size:32px"></i>
+                      <div style="font-size:12px;font-weight:500"><?= htmlspecialchars($doc['file']) ?></div>
+                      <div style="font-size:11px">Preview unavailable — file stored at /uploads/requirements/</div>
+                    </div>
+                    <div style="position:absolute;top:8px;right:8px;background:rgba(0,0,0,.5);color:#fff;font-size:10px;padding:3px 8px;border-radius:20px">
+                      <i class="bi bi-arrows-fullscreen me-1"></i>Click to expand
+                    </div>
+                  </div>
+                </div>
+                <?php elseif($doc['status'] !== 'missing' && $doc['type'] === 'pdf'): ?>
+                <div style="padding:12px 14px;background:#f8fafc">
+                  <a href="/uploads/requirements/<?= htmlspecialchars($doc['file']) ?>" target="_blank"
+                     style="display:inline-flex;align-items:center;gap:6px;background:#eff6ff;color:#1e40af;border:1px solid #bfdbfe;font-size:12px;font-weight:600;padding:6px 14px;border-radius:8px;text-decoration:none">
+                    <i class="bi bi-file-earmark-pdf me-1"></i>Open PDF — <?= htmlspecialchars($doc['file']) ?>
+                    <i class="bi bi-box-arrow-up-right"></i>
+                  </a>
+                </div>
+                <?php endif; ?>
+              </div>
+              <?php endforeach; ?>
+            </div>
+          </div>
+          <?php endif; ?>
+
         </div>
       </div>
+
+      <!-- Lightbox overlay for document fullscreen view -->
+      <div id="docViewerOverlay" onclick="closeDocViewer()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:9999;align-items:center;justify-content:center;flex-direction:column;gap:14px">
+        <div style="display:flex;align-items:center;justify-content:space-between;width:90%;max-width:860px">
+          <span id="docViewerLabel" style="color:#fff;font-size:14px;font-weight:700"></span>
+          <button onclick="closeDocViewer()" style="background:rgba(255,255,255,.15);border:none;color:#fff;font-size:18px;width:36px;height:36px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center">
+            <i class="bi bi-x-lg"></i>
+          </button>
+        </div>
+        <img id="docViewerImg" src="" alt="" style="max-width:90%;max-height:80vh;border-radius:10px;border:2px solid rgba(255,255,255,.15);object-fit:contain">
+        <div style="font-size:12px;color:rgba(255,255,255,.4)">Click anywhere to close</div>
+      </div>
+      <script>
+      function openDocViewer(label, src) {
+        document.getElementById('docViewerLabel').textContent = label;
+        document.getElementById('docViewerImg').src = src;
+        var o = document.getElementById('docViewerOverlay');
+        o.style.display = 'flex';
+        event.stopPropagation();
+      }
+      function closeDocViewer() {
+        document.getElementById('docViewerOverlay').style.display = 'none';
+      }
+      function verifyDoc(btn, idx) {
+        var wrap = btn.closest('div[style*="display:flex"]');
+        wrap.innerHTML = '<span style="background:#f0fdf4;color:#166534;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px"><i class="bi bi-patch-check-fill me-1"></i>Verified</span>';
+        btn.closest('[style*="border:1px solid"]').style.borderColor = '#bbf7d0';
+        showToast('Document marked as verified!');
+      }
+      function rejectDoc(btn, idx) {
+        var wrap = btn.closest('div[style*="display:flex"]');
+        wrap.innerHTML = '<span style="background:#fef2f2;color:#991b1b;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px"><i class="bi bi-x-circle-fill me-1"></i>Rejected</span>';
+        btn.closest('[style*="border:1px solid"]').style.borderColor = '#fecaca';
+        showToast('Document marked as rejected.');
+      }
+      </script>
+
       <div class="modal-footer border-0" style="background:#f8fafc;padding:14px 24px">
+        <?php if(!$p['enrolled']): ?>
+        <?php endif; ?>
         <a href="/admin" class="btn btn-light btn-sm border px-4 fw-medium"><i class="bi bi-x me-1"></i>Close</a>
       </div>
       <?php else: ?>
