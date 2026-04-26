@@ -29,18 +29,10 @@
     <div id="login-student-panel">
      
       <div class="mb-3">
-        <label class="form-label fw-semibold" style="font-size:13px">Email</label>
-        <input type="text" class="form-control" id="stu-email" placeholder="Enter your email" value="">
+        <label class="form-label fw-semibold" style="font-size:13px">LRN</label>
+        <input type="text" class="form-control" id="stu-email" placeholder="Enter your LRN" value="">
       </div>
-      <div class="mb-3">
-        <div class="d-flex justify-content-between align-items-center mb-1">
-          <label class="form-label fw-semibold mb-0" style="font-size:13px">LRN</label>
-       
-        </div>
-        <div class="position-relative">
-          <input type="password" class="form-control pe-5" id="stu-lrn" placeholder="Enter your LRN" value="">
-        </div>
-      </div>
+
       <button type="button" class="btn btn-navy w-100 py-2 fw-semibold" onclick="verifyEmail()">Verify</button>
       
     </div>
