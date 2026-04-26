@@ -93,7 +93,7 @@
 <script>
     function loginStudent(){
        toast('Password setup successful!', 'success');
-    setTimeout(() => window.location.href = 'login.php', 2500);
+    setTimeout(() => window.location.href = '/login', 2500);
 
   }
 
