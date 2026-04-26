@@ -36,12 +36,12 @@
       <p class="text-muted mb-3" style="font-size:13px">Enter your credentials to access your student portal</p>
       <div class="mb-3">
         <label class="form-label fw-semibold" style="font-size:13px">Student ID</label>
-        <input type="text" class="form-control" id="stu-id" placeholder="Enter your student ID">
+        <input type="text" class="form-control" id="stu-id" placeholder="Enter your student ID"> 
       </div>
       <div class="mb-3">
         <div class="d-flex justify-content-between align-items-center mb-1">
           <label class="form-label fw-semibold mb-0" style="font-size:13px">Password</label>
-          <a href="#" class="text-decoration-none text-cyan" style="font-size:13px">Forgot password?</a>
+          <a href="/forgotpass" class="text-decoration-none text-cyan" style="font-size:13px">Forgot password?</a>
         </div>
         <div class="position-relative">
           <input type="password" class="form-control pe-5" id="stu-pw" placeholder="Enter your password">
@@ -67,7 +67,7 @@
       <div class="mb-3">
         <div class="d-flex justify-content-between align-items-center mb-1">
           <label class="form-label fw-semibold mb-0" style="font-size:13px">Password</label>
-          <a href="#" class="text-decoration-none text-cyan" style="font-size:13px">Forgot password?</a>
+
         </div>
         <div class="position-relative">
           <input type="password" class="form-control pe-5" id="adm-pw" placeholder="Enter your password">

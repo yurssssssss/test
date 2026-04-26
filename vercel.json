@@ -12,6 +12,8 @@
     { "src": "/login", "dest": "/api/login.php" },
     { "src": "/admission", "dest": "/api/admission.php" },
     { "src": "/super-admin", "dest": "/api/super_admin.php" },
+    { "src": "/forgotpass", "dest": "/api/forgotpass.php" },  
     { "src": "/(.*)", "dest": "/api/index.php" }
+
   ]
 }

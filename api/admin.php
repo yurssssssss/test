@@ -3,7 +3,7 @@ $pageTitle = 'Admin Dashboard – DPNHS';
 include 'header.php';
 
 /* ── Sample data (replace with DB queries in production) ── */
-$applications = [
+$allApplications = [
   ['id'=>'APP001','name'=>'Emma Johnson',   'grade'=>'Grade 10','date'=>'March 18, 2026','status'=>'Pending'],
   ['id'=>'APP002','name'=>'Michael Chen',   'grade'=>'Grade 9', 'date'=>'March 18, 2026','status'=>'Pending'],
   ['id'=>'APP003','name'=>'Sarah Williams', 'grade'=>'Grade 8', 'date'=>'March 17, 2026','status'=>'Pending'],
@@ -11,20 +11,26 @@ $applications = [
   ['id'=>'APP005','name'=>'Lisa Davis',     'grade'=>'Grade 7', 'date'=>'March 16, 2026','status'=>'Pending'],
   ['id'=>'APP006','name'=>'Carlos Reyes',   'grade'=>'Grade 7', 'date'=>'March 15, 2026','status'=>'Pending'],
 ];
+/* Grade 7 Admin — filter to Grade 7 only */
+$applications = array_values(array_filter($allApplications, fn($a) => $a['grade'] === 'Grade 7'));
 
-$students = [
+$allStudents = [
   ['id'=>'STU2024001','name'=>'John Smith',    'init'=>'JS','color'=>'av-blue',   'grade'=>'Grade 10','section'=>'Section A','status'=>'Enrolled'],
   ['id'=>'STU2024002','name'=>'Alice Cooper',  'init'=>'AC','color'=>'av-teal',   'grade'=>'Grade 9', 'section'=>'Section B','status'=>'Enrolled'],
   ['id'=>'STU2024003','name'=>'Bob Wilson',    'init'=>'BW','color'=>'av-orange', 'grade'=>'Grade 9', 'section'=>'Section A','status'=>'Enrolled'],
   ['id'=>'STU2024004','name'=>'Carol Martinez','init'=>'CM','color'=>'av-green',  'grade'=>'Grade 10','section'=>'Section C','status'=>'Enrolled'],
   ['id'=>'STU2024005','name'=>'David Lee',     'init'=>'DL','color'=>'av-purple', 'grade'=>'Grade 8', 'section'=>'Section B','status'=>'Enrolled'],
 ];
+/* Grade 7 Admin — filter to Grade 7 only */
+$students = array_values(array_filter($allStudents, fn($s) => $s['grade'] === 'Grade 7'));
 
-$rejected = [
+$allRejected = [
   ['id'=>'APP007','name'=>'Rico Fernandez','grade'=>'Grade 7', 'date'=>'March 14, 2026','by'=>'Admin User','reason'=>'Does not meet age requirements'],
   ['id'=>'APP008','name'=>'Maria Santos',  'grade'=>'Grade 9', 'date'=>'March 13, 2026','by'=>'Admin User','reason'=>'Does not meet age requirements'],
   ['id'=>'APP009','name'=>'Kevin Lim',     'grade'=>'Grade 10','date'=>'March 12, 2026','by'=>'Admin User','reason'=>'Location exceeds proximity requirements'],
 ];
+/* Grade 7 Admin — filter to Grade 7 only */
+$rejected = array_values(array_filter($allRejected, fn($r) => $r['grade'] === 'Grade 7'));
 
 /* Action from URL param — simulates PHP processing without full form POST for demo */
 $action  = $_GET['action']  ?? '';
@@ -337,7 +343,7 @@ body { margin:0; background:#f1f5f9; }
       <div class="sb-avatar av-navy">AD</div>
       <div>
         <div class="sb-user-name">Admin User</div>
-        <div class="sb-user-role">admin@school.edu</div>
+        <div class="sb-user-role">Grade 7 Admin</div>
       </div>
     </div>
 
@@ -695,17 +701,12 @@ body { margin:0; background:#f1f5f9; }
           </div>
 
           <?php
+          /* Grade 7 Admin — only Grade 7 shown */
           $gradeConfig = [
             'g7'  => ['label'=>'Grade 7',  'icon'=>'teal',  'fill'=>'fill-teal'],
-            'g8'  => ['label'=>'Grade 8',  'icon'=>'amber', 'fill'=>'fill-amber'],
-            'g9'  => ['label'=>'Grade 9',  'icon'=>'rose',  'fill'=>'fill-rose'],
-            'g10' => ['label'=>'Grade 10', 'icon'=>'navy',  'fill'=>'fill-navy'],
           ];
           $emptyBg = [
             'g7'=>['background'=>'var(--teal-light)','color'=>'var(--teal)'],
-            'g8'=>['background'=>'#fef3c7','color'=>'#b45309'],
-            'g9'=>['background'=>'#fce7f3','color'=>'#be185d'],
-            'g10'=>['background'=>'var(--navy-light)','color'=>'var(--navy)'],
           ];
           foreach($gradeConfig as $gid => $gc): ?>
           <div class="grade-card" id="<?= $gid ?>">
@@ -1110,7 +1111,7 @@ $p = $profiles[$profileId] ?? null;
         <div class="fw-semibold mb-2 mt-1" style="font-size:13.5px;color:#1e293b;border-left:3px solid var(--navy);padding-left:10px">School Information</div>
         <div class="row g-3 mb-3">
           <div class="col-md-4"><label class="form-label fw-medium" style="font-size:13px">School Year *</label><input type="text" class="form-control" value="2025-2026"></div>
-          <div class="col-md-4"><label class="form-label fw-medium" style="font-size:13px">Grade Level *</label><select class="form-select"><option>Grade 7</option><option>Grade 8</option><option>Grade 9</option><option>Grade 10</option></select></div>
+          <div class="col-md-4"><label class="form-label fw-medium" style="font-size:13px">Grade Level *</label><select class="form-select" disabled><option selected>Grade 7</option></select></div>
           <div class="col-md-4"><label class="form-label fw-medium" style="font-size:13px">Section *</label><input type="text" class="form-control" placeholder="e.g., Section A"></div>
         </div>
         <div class="fw-semibold mb-2" style="font-size:13.5px;color:#1e293b;border-left:3px solid var(--navy);padding-left:10px">Learner Information</div>
@@ -1176,7 +1177,7 @@ $p = $profiles[$profileId] ?? null;
           <i class="bi bi-info-circle me-1"></i>Transferring: <strong><?= htmlspecialchars($stuName) ?></strong>
         </div>
         <div class="mb-3"><label class="form-label fw-medium" style="font-size:13px">New Grade Level *</label>
-          <select class="form-select"><option>Grade 7</option><option>Grade 8</option><option>Grade 9</option><option selected>Grade 10</option></select>
+          <select class="form-select" disabled><option selected>Grade 7</option></select>
         </div>
         <div class="mb-3"><label class="form-label fw-medium" style="font-size:13px">New Section *</label>
           <input type="text" class="form-control" placeholder="e.g., Section B">
@@ -1206,24 +1207,22 @@ $p = $profiles[$profileId] ?? null;
           <div style="width:44px;height:44px;border-radius:12px;background:rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;font-size:22px;color:#fff"><i class="bi bi-layout-text-sidebar-reverse"></i></div>
           <div>
             <div style="font-size:17px;font-weight:800;color:#fff">Auto Create Section</div>
-            <div style="font-size:12px;color:rgba(255,255,255,.7)">Select a grade level to begin auto-sectioning</div>
+            <div style="font-size:12px;color:rgba(255,255,255,.7)">Auto-section Grade 7 students</div>
           </div>
         </div>
       </div>
       <div class="modal-body p-4" style="background:#f8fafc">
         <div style="font-size:13px;color:#64748b;margin-bottom:18px;text-align:center">
-          Choose a grade level. The system distributes students into sections automatically.
+          Click below to auto-distribute Grade 7 students into sections.
         </div>
-        <div class="row g-3">
+        <div class="row g-3 justify-content-center">
           <?php
+          /* Grade 7 Admin — only Grade 7 available for section creation */
           $gp = [
             ['id'=>'g7', 'label'=>'Grade 7', 'count'=>64,'bg'=>'var(--g7-light)','color'=>'var(--g7-color)'],
-            ['id'=>'g8', 'label'=>'Grade 8', 'count'=>58,'bg'=>'var(--g8-light)','color'=>'var(--g8-color)'],
-            ['id'=>'g9', 'label'=>'Grade 9', 'count'=>82,'bg'=>'var(--g9-light)','color'=>'var(--g9-color)'],
-            ['id'=>'g10','label'=>'Grade 10','count'=>67,'bg'=>'var(--g10-light)','color'=>'var(--g10-color)'],
           ];
           foreach($gp as $g): ?>
-          <div class="col-6">
+          <div class="col-8">
             <button class="grade-pick-btn w-100" onclick="triggerAutoSection('<?= $g['id'] ?>','<?= $g['label'] ?>')">
               <div class="grade-pick-icon" style="background:<?= $g['bg'] ?>;color:<?= $g['color'] ?>"><i class="bi bi-mortarboard-fill"></i></div>
               <div class="grade-pick-name"><?= $g['label'] ?></div>
@@ -1622,7 +1621,7 @@ function generateSampleStudents(count, gradeLabel, sectionName) {
     const yr = 2013 - Math.floor(i/15);
     const mo = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][i%12];
     const day = (i%28)+1;
-    arr.push({no:i+1, lrn:'20260'+gradeLabel.slice(-1)+'0'+String(i+1).padStart(5,'0'), name:`${ln}, ${fn} ${mi}.`, sex:i%2===0?'M':'F', dob:`${mo} ${day}, ${yr}`, age:2026-yr, address:`Brgy. ${lastNames[(i+5)%lastNames.length]}, Minalabac`});
+    arr.push({no:i+1, lrn:'20260'+gradeLabel.slice(-1)+'0'+String(i+1).padStart(5,'0'), name:`${ln}, ${fn} ${mi}.`, sex:i %2===0?'M':'F', dob:`${mo} ${day}, ${yr}`, age:2026-yr, address:`Brgy. ${lastNames[(i+5)%lastNames.length]}, Minalabac`});
   }
   return arr;
 }
@@ -1684,4 +1683,4 @@ document.addEventListener('DOMContentLoaded', () => {
       </div>
     </div>
   </div>
-</div>
+</div>  
