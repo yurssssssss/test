@@ -1,0 +1,524 @@
+/* ============================================================
+   style.css — DPNHS Online Enrollment System
+   ============================================================ */
+
+
+/* ============================================================
+   1. CSS VARIABLES
+   ============================================================ */
+:root {
+
+  /* brand colors */
+  --navy:        #1e3a8a;
+  --navy-dark:   #162c6e;
+  --navy-light:  #e8edf7;
+  --cyan:        #0d9488;
+  --teal:        #0d9488;
+  --teal-light:  #e0f2f0;
+  --orange:      #d97706;
+
+  /* grade level colors
+     G7 = teal, G8 = amber, G9 = rose, G10 = navy
+     used in grade accordion + auto-section modal in admin.php */
+  --g7-color:    #0d9488;
+  --g7-light:    #e0f2f0;
+  --g8-color:    #b45309;
+  --g8-light:    #fef3c7;
+  --g9-color:    #be185d;
+  --g9-light:    #fce7f3;
+  --g10-color:   #1e3a8a;
+  --g10-light:   #e8edf7;
+
+  /* layout & ui */
+  --bg:          #f1f5f9;
+  --card-bg:     #ffffff;
+  --text-dark:   #1e293b;
+  --text-muted:  #64748b;
+  --border:      #e2e8f0;
+  --radius:      14px;
+}
+
+
+/* ============================================================
+   2. RESET
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; }
+
+
+/* ============================================================
+   3. COLOR UTILITIES
+   used in index.php, admin.php, student.php
+   ============================================================ */
+.text-navy   { color: var(--navy)   !important; }
+.text-cyan   { color: var(--cyan)   !important; }
+.text-orange { color: var(--orange) !important; }
+.bg-navy     { background-color: var(--navy)   !important; }
+.bg-cyan     { background-color: var(--cyan)   !important; }
+.bg-orange   { background-color: var(--orange) !important; }
+
+
+/* ============================================================
+   4. BRAND LOGO
+   used in every page's topbar and footer
+   ============================================================ */
+.brand-logo {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--navy), var(--cyan));
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 800; color: #fff; font-size: 13px; flex-shrink: 0;
+}
+img.brand-logo {
+  object-fit: cover;
+  background: none;
+  border: 2px solid #e2e8f0;
+}
+
+
+/* ============================================================
+   5. BUTTONS
+   ============================================================ */
+
+/* Navy button — used in admin.php, student.php, login.php, admission.php */
+.btn-navy,
+.btn.btn-navy {
+  background-color: var(--navy) !important;
+  border-color:     var(--navy) !important;
+  color: #fff !important;
+}
+.btn-navy:hover,
+.btn.btn-navy:hover {
+  background-color: var(--navy-dark) !important;
+  border-color:     var(--navy-dark) !important;
+  color: #fff !important;
+}
+.btn.btn-navy:focus {
+  box-shadow: 0 0 0 .25rem rgba(30,58,138,.35);
+}
+
+/* Hero buttons — used in index.php */
+.btn-hero-outline {
+  border: 2px solid rgba(255,255,255,.8);
+  color: #fff; background: transparent;
+  padding: 10px 28px; border-radius: 8px;
+  font-size: 14px; font-weight: 600;
+  display: inline-flex; align-items: center; gap: 8px;
+  text-decoration: none; transition: background .2s;
+}
+.btn-hero-outline:hover { background: rgba(255,255,255,.15); color: #fff; }
+
+.btn-hero-filled {
+  border: 2px solid rgba(255,255,255,.9);
+  color: var(--navy); background: #fff;
+  padding: 10px 28px; border-radius: 8px;
+  font-size: 14px; font-weight: 600;
+  display: inline-flex; align-items: center; gap: 8px;
+  text-decoration: none; transition: background .2s;
+}
+.btn-hero-filled:hover { background: #e2e8f0; color: var(--navy); }
+
+
+/* ============================================================
+   6. HERO SECTION
+   used in index.php
+   ============================================================ */
+.hero-section {
+  background: linear-gradient(135deg, var(--navy) 0%, #1a5c6e 50%, var(--cyan) 100%);
+  padding: 100px 0 120px;
+  position: relative; overflow: hidden;
+}
+.hero-section::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+.hero-wave { position: absolute; bottom: 0; left: 0; right: 0; }
+
+
+/* ============================================================
+   7. FEATURE CARDS
+   used in index.php
+   ============================================================ */
+.feature-card {
+  border: 1px solid #e2e8f0; border-radius: 12px;
+  padding: 32px 28px; transition: box-shadow .2s;
+}
+.feature-card:hover { box-shadow: 0 4px 24px rgba(0,0,0,.08); }
+
+
+/* ============================================================
+   8. LOGIN PAGE
+   used in login.php, setup_password.php
+   ============================================================ */
+.login-page-bg {
+  background: linear-gradient(135deg, #e0f2fe 0%, #f0fdf9 50%, #fff 100%);
+}
+.login-tab-btn {
+  color: #64748b !important; background: transparent !important;
+  border: none !important; transition: all .2s;
+}
+.login-tab-btn.active {
+  background: #fff !important; color: #1e293b !important;
+  box-shadow: 0 1px 4px rgba(0,0,0,.1) !important;
+}
+.login-tab-btn:hover:not(.active) { color: #1e293b !important; }
+
+
+/* ============================================================
+   9. TOPBAR ICON
+   used in admin.php, student.php
+   ============================================================ */
+.topbar-icon {
+  font-size: 20px; color: #64748b; cursor: pointer;
+  padding: 6px; border-radius: 8px; transition: background .15s;
+}
+.topbar-icon:hover { background: #f1f5f9; }
+
+
+/* ============================================================
+   10. TOAST ANIMATION
+   used in footer.php
+   ============================================================ */
+@keyframes slideIn {
+  from { transform: translateX(60px); opacity: 0; }
+  to   { transform: translateX(0);    opacity: 1; }
+}
+
+
+/* ============================================================
+   11. STAT CARDS (ADMIN DASHBOARD)
+   used in admin.php
+   ============================================================ */
+.stat-icon {
+  width: 44px; height: 44px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px;
+}
+.stat-icon.blue   { background: var(--navy);  color: #fff; }
+.stat-icon.orange { background: var(--orange); color: #fff; }
+.stat-icon.teal   { background: var(--cyan);   color: #fff; }
+.stat-icon.green  { background: #16a34a;       color: #fff; }
+
+
+/* ============================================================
+   12. ADMIN TABS
+   used in admin.php
+   ============================================================ */
+.admin-tab {
+  padding: 10px 20px; font-size: 14px; font-weight: 500; color: #64748b;
+  cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1px;
+  transition: all .15s; white-space: nowrap;
+}
+.admin-tab.active { color: var(--navy); border-bottom-color: var(--navy); font-weight: 600; }
+.admin-tab:hover:not(.active) { color: #1e293b; }
+
+
+/* ============================================================
+   13. ADMIN CONTENT WRAPPER
+   used in admin.php
+   ============================================================ */
+.admin-content { padding: 32px 24px; max-width: 1280px; margin: 0 auto; }
+
+@media (max-width: 575.98px) {
+  .admin-content { padding: 16px 12px; }
+}
+
+
+/* ============================================================
+   14. STATUS BADGES
+   used in admin.php
+   ============================================================ */
+.badge-pending  { background: #fef3c7; color: #92400e; font-size: 12px; font-weight: 600; padding: 4px 12px; border-radius: 20px; }
+.badge-approved { background: #dcfce7; color: #166534; font-size: 12px; font-weight: 600; padding: 4px 12px; border-radius: 20px; }
+.badge-enrolled { background: #dbeafe; color: #1e40af; font-size: 12px; font-weight: 600; padding: 4px 12px; border-radius: 20px; }
+.badge-rejected { background: #fee2e2; color: #991b1b; font-size: 12px; font-weight: 600; padding: 4px 12px; border-radius: 20px; }
+
+
+/* ============================================================
+   15. STUDENT AVATARS (table initials circles)
+   used in admin.php student table
+   ============================================================ */
+.stu-avatar {
+  width: 28px; height: 28px; border-radius: 50%;
+  font-size: 11px; font-weight: 700; color: #fff;
+  display: inline-flex; align-items: center; justify-content: center;
+  margin-right: 8px; flex-shrink: 0;
+}
+.av-blue   { background: var(--navy);  }
+.av-teal   { background: var(--cyan);  }
+.av-orange { background: var(--orange);}
+.av-green  { background: #16a34a;      }
+.av-purple { background: #7c3aed;      }
+
+
+/* ============================================================
+   16. THREE-DOT ACTION DROPDOWN
+   used in admin.php
+   ============================================================ */
+.action-dropdown {
+  display: none;
+  position: absolute; right: 0; top: calc(100% + 4px);
+  z-index: 9999;
+  background: #fff; border: 1px solid #e2e8f0;
+  border-radius: 10px; min-width: 170px;
+  padding: 6px 0; overflow: hidden;
+}
+.action-menu-wrap.open .action-dropdown { display: block; }
+
+.action-item {
+  display: flex; align-items: center; gap: 9px;
+  width: 100%; padding: 9px 14px;
+  font-size: 13px; font-weight: 500; color: #1e293b;
+  background: none; border: none; text-align: left;
+  cursor: pointer; transition: background .12s;
+}
+.action-item:hover { background: #f1f5f9; }
+.action-item i { font-size: 14px; width: 16px; text-align: center; }
+
+
+/* ============================================================
+   17. GRADE / SECTION ACCORDION
+   used in admin.php sections tab
+   ============================================================ */
+
+/* Outer card */
+.grade-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 12px; overflow: hidden;
+  transition: box-shadow .2s;
+}
+.grade-card:hover { box-shadow: 0 2px 12px rgba(0,0,0,.06); }
+.grade-card:last-child { margin-bottom: 0; }
+
+/* Clickable header row */
+.grade-header {
+  display: flex; align-items: center; flex-wrap: nowrap;
+  gap: 14px; padding: 16px 20px;
+  cursor: pointer; user-select: none; overflow: hidden;
+  transition: background .15s;
+}
+.grade-header:hover { background: #fafcff; }
+
+/* Grade icon badge */
+.grade-icon {
+  width: 40px; height: 40px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; flex-shrink: 0;
+}
+.grade-icon.navy  { background: var(--navy-light); color: var(--navy); }
+.grade-icon.teal  { background: var(--teal-light); color: var(--teal); }
+.grade-icon.amber { background: #fef3c7;            color: #b45309;     }
+.grade-icon.rose  { background: #fce7f3;            color: #be185d;     }
+
+/* Grade title & meta */
+.grade-info  { flex: 1 1 0; min-width: 0; overflow: hidden; }
+.grade-title {
+  font-size: 15px; font-weight: 700; color: var(--text-dark);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.grade-meta {
+  font-size: 12.5px; color: var(--text-muted); margin-top: 2px;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+
+/* Mini progress bar in header */
+.grade-bar-wrap { flex: 0 1 120px; min-width: 40px; display: flex; align-items: center; gap: 10px; margin-left: auto; }
+.grade-pill-bar { width: 120px; height: 8px; background: #e2e8f0; border-radius: 99px; overflow: hidden; }
+.grade-pill-bar .fill { height: 100%; border-radius: 99px; transition: width .5s ease; }
+
+@media (max-width: 400px) {
+  .grade-bar-wrap { display: none; }
+}
+
+/* Chevron arrow */
+.chevron {
+  font-size: 14px; color: var(--text-muted);
+  margin-left: 10px; transition: transform .25s;
+}
+.grade-card.open .chevron { transform: rotate(180deg); }
+
+/* Collapsible sections container */
+.sections-wrap {
+  max-height: 0; overflow: hidden;
+  transition: max-height .35s ease;
+  padding: 0 16px;
+}
+.grade-card.open .sections-wrap { max-height: 800px; padding-bottom: 16px; }
+
+/* Individual section row */
+.section-row {
+  background: #f8fafc; border: 1px solid var(--border);
+  border-radius: 10px; padding: 14px 16px; margin-bottom: 10px;
+  transition: background .15s;
+}
+.section-row:last-child { margin-bottom: 0; }
+.section-row:hover { background: #f0f4fa; }
+
+/* Section top row (icon + name + menu) */
+.section-top { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+.section-icon {
+  width: 34px; height: 34px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 15px; flex-shrink: 0;
+}
+.section-title   { font-size: 14px; font-weight: 600; color: var(--text-dark); }
+.section-teacher { font-size: 12px; color: var(--text-muted); margin-top: 1px; }
+.section-menu {
+  margin-left: auto; background: none; border: none;
+  font-size: 18px; color: var(--text-muted);
+  cursor: pointer; padding: 2px 6px; border-radius: 6px; line-height: 1;
+}
+.section-menu:hover { background: #e2e8f0; }
+
+/* Capacity label + value */
+.cap-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
+.cap-label { font-size: 12.5px; color: var(--text-muted); }
+.cap-value  { font-size: 12.5px; font-weight: 600; color: var(--text-dark); }
+
+/* Capacity progress bar */
+.cap-bar { width: 100%; height: 7px; background: #e2e8f0; border-radius: 99px; overflow: hidden; }
+.cap-bar .fill { height: 100%; border-radius: 99px; transition: width .5s ease; }
+
+/* Shared fill colors */
+.fill-navy  { background: var(--navy);  }
+.fill-teal  { background: var(--teal);  }
+.fill-amber { background: #f59e0b;      }
+.fill-rose  { background: #ec4899;      }
+
+
+/* ============================================================
+   18. GRADE PICKER BUTTONS (auto-section modal)
+   used in admin.php create section modal
+   ============================================================ */
+.grade-pick-btn {
+  background: #fff; border: 2px solid #e2e8f0;
+  border-radius: 14px; padding: 20px 12px;
+  cursor: pointer; text-align: center; transition: all .18s ease;
+}
+.grade-pick-btn:hover {
+  border-color: #1e3a8a;
+  box-shadow: 0 4px 18px rgba(30,58,138,.12);
+  transform: translateY(-2px);
+}
+.grade-pick-btn:active { transform: translateY(0); }
+
+.grade-pick-icon {
+  width: 48px; height: 48px; border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px; margin: 0 auto 10px;
+}
+.grade-pick-name { font-weight: 800; font-size: 16px; color: #1e293b; }
+.grade-pick-meta { font-size: 11px; color: #64748b; margin-top: 3px; }
+.grade-pick-badge {
+  display: inline-block; margin-top: 10px;
+  font-size: 11px; font-weight: 700;
+  padding: 3px 10px; border-radius: 20px;
+}
+
+
+/* ============================================================
+   19. EMPTY SECTION STATE
+   used in admin.php sections tab
+   ============================================================ */
+.empty-section-state {
+  display: flex; flex-direction: column; align-items: center;
+  justify-content: center; padding: 36px 20px;
+  text-align: center; gap: 10px;
+}
+.empty-section-icon {
+  width: 56px; height: 56px; border-radius: 16px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 26px; margin-bottom: 4px;
+}
+.empty-section-title { font-size: 14px; font-weight: 700; color: #1e293b; }
+.empty-section-sub   { font-size: 12.5px; color: #94a3b8; max-width: 300px; line-height: 1.6; }
+
+
+/* ============================================================
+   20. STUDENT PORTAL
+   used in student.php
+   ============================================================ */
+
+/* Profile avatar circle */
+.stu-profile-avatar {
+  width: 72px; height: 72px; border-radius: 50%;
+  background: #e2e8f0; display: flex; align-items: center; justify-content: center;
+  font-size: 22px; font-weight: 700; color: #64748b;
+  cursor: pointer; border: 2px dashed #cbd5e1; position: relative;
+}
+.stu-profile-avatar:hover::after {
+  content: 'Upload'; position: absolute; inset: 0;
+  background: rgba(0,0,0,.35); border-radius: 50%;
+  color: #fff; font-size: 12px;
+  display: flex; align-items: center; justify-content: center;
+}
+
+/* Schedule row icon */
+.sched-icon {
+  width: 42px; height: 42px; border-radius: 10px;
+  background: var(--navy); color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; flex-shrink: 0;
+}
+
+
+/* ============================================================
+   21. FOOTER
+   used in footer.php (every page)
+   ============================================================ */
+.site-footer {
+  background: linear-gradient(160deg, var(--navy) 0%, #162c6e 60%, #0f2057 100%);
+  color: #cbd5e1;
+  padding: 56px 0 0;
+  margin-top: auto;
+}
+.border-footer { border-color: rgba(255,255,255,.1) !important; }
+
+.footer-logo {
+  width: 56px; height: 56px; border-radius: 50%;
+  object-fit: cover; border: 2px solid rgba(255,255,255,.2); flex-shrink: 0;
+}
+.footer-brand-name { font-size: 14px; font-weight: 700; color: #fff; line-height: 1.3; }
+.footer-brand-sub  { font-size: 11px; color: #94a3b8; }
+.footer-desc       { font-size: 13px; color: #94a3b8; line-height: 1.7; margin: 0; }
+
+.footer-social {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: rgba(255,255,255,.08); color: #cbd5e1;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 15px; text-decoration: none;
+  border: 1px solid rgba(255,255,255,.12); transition: all .2s;
+}
+.footer-social:hover { background: var(--cyan); border-color: var(--cyan); color: #fff; }
+
+.footer-heading {
+  font-size: 12px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .08em; color: #fff; margin-bottom: 16px;
+}
+
+.footer-links { list-style: none; padding: 0; margin: 0; }
+.footer-links li { margin-bottom: 10px; }
+.footer-links a {
+  font-size: 13px; color: #94a3b8; text-decoration: none;
+  display: flex; align-items: center; gap: 5px; transition: color .2s;
+}
+.footer-links a i  { font-size: 11px; color: var(--cyan); }
+.footer-links a:hover { color: #fff; }
+
+.footer-contact {
+  list-style: none; padding: 0; margin: 0;
+  display: flex; flex-direction: column; gap: 12px;
+}
+.footer-contact li {
+  display: flex; align-items: flex-start; gap: 10px;
+  font-size: 13px; color: #94a3b8; line-height: 1.5;
+}
+.footer-contact-icon { color: var(--cyan); font-size: 14px; margin-top: 2px; flex-shrink: 0; }
+
+.footer-bottom {
+  font-size: 12.5px; color: #64748b; padding-bottom: 20px;
+}
+.footer-bottom-links a { color: #64748b; text-decoration: none; transition: color .2s; }
+.footer-bottom-links a:hover { color: #cbd5e1; }
