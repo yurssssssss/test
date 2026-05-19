@@ -23,8 +23,9 @@
 <section class="hero-section text-white text-center position-relative overflow-hidden">
   <div class="container position-relative" style="z-index:1">
     <h1 class="fw-bold mb-3" style="font-size:2.8rem">Welcome to Dela Paz National<br>High School</h1>
-    <p class="lead opacity-90 mb-2">Streamline Your Enrollment Process with Our Modern Online System</p>
-    <p class="opacity-75 mx-auto mb-4" style="max-width:540px;font-size:.95rem">A comprehensive platform designed for students, parents, and administrators to simplify the admission and enrollment process.</p>
+      <p class="lead opacity-90 mb-2">Come as a student. Leave as a leader.</p>
+    <p class="opacity-75 mx-auto mb-4" style="max-width:620px;font-size:.95rem">Your future is too important to leave to chance choose a school that has been shaping futures, building character, and turning students into leaders for generations. Choose Dela Paz National High School, and take the first step toward the life you have always dreamed of.</p>
+      
    
   </div>
   <svg class="hero-wave" viewBox="0 0 1440 60" fill="none" xmlns="http://www.w3.org/2000/svg">
