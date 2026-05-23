@@ -196,6 +196,10 @@ body { margin:0; background:#f1f5f9; }
       <i class="bi bi-archive-fill"></i>
       <span>Enrollment History</span>
     </div>
+     <div class="sb-nav-item" onclick="switchSATab('profile',this)" data-tab="profile">
+      <i class="bi bi-person-circle"></i>
+      <span>Profile</span>
+    </div>
 
     <div class="sb-bottom">
       <a href="index.php" class="sb-logout">
@@ -555,6 +559,14 @@ body { margin:0; background:#f1f5f9; }
     <div id="syHistoryList"></div>
 
   </div>
+    <div id="sa-tab-profile" class=" d-none">
+      <div class="card border rounded-3 p-4">
+        <div class="d-flex align-items-center gap-4 mb-4">
+          <div>
+                <div class="sb-avatar">SA</div>
+            <div class="text-muted" style="font-size:13px">
+
+      </div>
 
 </div><!-- /admin-content -->
   </div><!-- /main-area -->
@@ -698,7 +710,7 @@ body { margin:0; background:#f1f5f9; }
 /* ── Tab switching ── */
 const pageTitles = {
   admins:'Admin Accounts', enrollment:'Enrollment Settings',
-  logs:'Activity Logs', announcements:'Announcements', history:'Enrollment History'
+  logs:'Activity Logs', announcements:'Announcements', history:'Enrollment History', profile:'Profile'
 };
 function switchSATab(tab, el) {
   sessionStorage.setItem('saTab', tab);
@@ -710,7 +722,7 @@ function switchSATab(tab, el) {
       if (item.dataset.tab === tab) item.classList.add('active');
     });
   }
-  ['admins','logs','announcements','history'].forEach(function(t) {
+  ['admins','logs','announcements','history','profile'].forEach(function(t) {
     document.getElementById('sa-tab-' + t).classList.toggle('d-none', t !== tab);
   });
   const titleEl = document.getElementById('pageTitle');

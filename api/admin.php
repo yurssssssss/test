@@ -20,6 +20,11 @@ $allStudents = [
   ['id'=>'STU2024003','name'=>'Bob Wilson',    'init'=>'BW','color'=>'av-orange', 'grade'=>'Grade 9', 'section'=>'Section A','status'=>'Enrolled'],
   ['id'=>'STU2024004','name'=>'Carol Martinez','init'=>'CM','color'=>'av-green',  'grade'=>'Grade 10','section'=>'Section C','status'=>'Enrolled'],
   ['id'=>'STU2024005','name'=>'David Lee',     'init'=>'DL','color'=>'av-purple', 'grade'=>'Grade 8', 'section'=>'Section B','status'=>'Enrolled'],
+  ['id'=>'STU2026701','name'=>'Ana Flores',    'init'=>'AF','color'=>'av-teal',   'grade'=>'Grade 7', 'section'=>'Section A','status'=>'Approved'],
+  ['id'=>'STU2026702','name'=>'Marco Reyes',   'init'=>'MR','color'=>'av-blue',   'grade'=>'Grade 7', 'section'=>'Section A','status'=>'Approved'],
+  ['id'=>'STU2026703','name'=>'Sofia Santos',  'init'=>'SS','color'=>'av-green',  'grade'=>'Grade 7', 'section'=>'Section B','status'=>'Approved'],
+  ['id'=>'STU2026704','name'=>'Liam Bautista', 'init'=>'LB','color'=>'av-orange', 'grade'=>'Grade 7', 'section'=>'Section B','status'=>'Approved'],
+  ['id'=>'STU2026705','name'=>'Elena Cruz',    'init'=>'EC','color'=>'av-purple', 'grade'=>'Grade 7', 'section'=>'Section A','status'=>'Approved'],
 ];
 /* Grade 7 Admin — filter to Grade 7 only */
 $students = array_values(array_filter($allStudents, fn($s) => $s['grade'] === 'Grade 7'));
@@ -311,7 +316,13 @@ body { margin:0; background:#f1f5f9; }
   padding: 3px 10px !important;
   border-radius: 20px !important;
   white-space: nowrap;
+  font-weight: 700;
+  display: inline-block;
 }
+.badge-enrolled  { background:#dcfce7; color:#166534; }
+.badge-approved  { background:#dbeafe; color:#1e40af; }
+.badge-pending   { background:#fef3c7; color:#92400e; }
+.badge-rejected  { background:#fee2e2; color:#991b1b; }
 
 /* Prevent table from being too cramped on small screens */
 @media (max-width: 767px) {
@@ -622,7 +633,7 @@ body { margin:0; background:#f1f5f9; }
                   <td><span class="stu-avatar <?= $stu['color'] ?>"><?= $stu['init'] ?></span><?= htmlspecialchars($stu['name']) ?></td>
                   <td><?= $stu['grade'] ?></td>
                   <td><?= $stu['section'] ?></td>
-                  <td><span class="badge-enrolled">Enrolled</span></td>
+                  <td><span class="badge-<?= strtolower($stu['status']) ?>"><?= $stu['status'] ?></span></td>
                   <td>
                     <div class="action-menu-wrap position-relative">
                       <button class="btn btn-sm btn-light border action-dots-btn" onclick="toggleActionMenu(event,this)" title="Actions">
@@ -839,6 +850,55 @@ $profiles  = [
       ['label'=>'Good Moral Certificate',  'file'=>'goodmoral_michael_chen.jpg','type'=>'image','status'=>'submitted','uploaded'=>'March 18, 2026'],
     ]
   ],
+  'APP005'=>['sy'=>'2025–2026','grade'=>'Grade 7','lrn'=>'202600700005','lname'=>'Davis','fname'=>'Lisa','mname'=>'Marie','dob'=>'March 16, 2013','age'=>12,'sex'=>'Female','pob'=>'Naga City','tongue'=>'Bikol','ip'=>'No','fours'=>'No','address'=>'Brgy. Sta. Cruz, Naga City, Camarines Sur, Philippines','father'=>'James Davis','fcontact'=>'09171234567','mother'=>'Susan Davis','mcontact'=>'09181234567','guardian'=>'N/A','enrolled'=>false,
+    'docs'=>[
+      ['label'=>'PSA Birth Certificate',   'file'=>'psa_lisa_davis.jpg',        'type'=>'image','status'=>'submitted','uploaded'=>'March 16, 2026'],
+      ['label'=>'Form 138 (Report Card)',   'file'=>'form138_lisa_davis.jpg',    'type'=>'image','status'=>'submitted','uploaded'=>'March 16, 2026'],
+      ['label'=>'Good Moral Certificate',  'file'=>'goodmoral_lisa_davis.pdf',  'type'=>'pdf',  'status'=>'submitted','uploaded'=>'March 16, 2026'],
+    ]
+  ],
+  'APP006'=>['sy'=>'2025–2026','grade'=>'Grade 7','lrn'=>'202600700006','lname'=>'Reyes','fname'=>'Carlos','mname'=>'Miguel','dob'=>'March 15, 2013','age'=>12,'sex'=>'Male','pob'=>'Minalabac','tongue'=>'Bikol','ip'=>'No','fours'=>'No','address'=>'Brgy. Sabang, Minalabac, Camarines Sur, Philippines','father'=>'Ricardo Reyes','fcontact'=>'09271234567','mother'=>'Ana Reyes','mcontact'=>'09281234567','guardian'=>'N/A','enrolled'=>false,
+    'docs'=>[
+      ['label'=>'PSA Birth Certificate',   'file'=>'psa_carlos_reyes.jpg',      'type'=>'image','status'=>'submitted','uploaded'=>'March 15, 2026'],
+      ['label'=>'Form 138 (Report Card)',   'file'=>'form138_carlos_reyes.jpg',  'type'=>'image','status'=>'submitted','uploaded'=>'March 15, 2026'],
+      ['label'=>'Good Moral Certificate',  'file'=>'goodmoral_carlos_reyes.pdf','type'=>'pdf',  'status'=>'submitted','uploaded'=>'March 15, 2026'],
+    ]
+  ],
+  'STU2026701'=>['sy'=>'2025–2026','grade'=>'Grade 7','section'=>'Section A','stuid'=>'STU2026701','lrn'=>'202600700101','lname'=>'Flores','fname'=>'Ana','mname'=>'Marie','dob'=>'Jan 12, 2013','age'=>13,'sex'=>'Female','pob'=>'Naga City','tongue'=>'Bikol','ip'=>'No','fours'=>'No','address'=>'Brgy. Concepcion, Naga City, Camarines Sur, Philippines','father'=>'Roberto Flores','fcontact'=>'09171110001','mother'=>'Lina Flores','mcontact'=>'09181110001','guardian'=>'N/A','enrolled'=>true,
+    'docs'=>[
+      ['label'=>'PSA Birth Certificate',  'file'=>'psa_ana_flores.jpg',       'type'=>'image','status'=>'verified','uploaded'=>'March 10, 2026'],
+      ['label'=>'Form 138 (Report Card)', 'file'=>'form138_ana_flores.jpg',   'type'=>'image','status'=>'verified','uploaded'=>'March 10, 2026'],
+      ['label'=>'Good Moral Certificate', 'file'=>'goodmoral_ana_flores.pdf', 'type'=>'pdf',  'status'=>'verified','uploaded'=>'March 10, 2026'],
+    ]
+  ],
+  'STU2026702'=>['sy'=>'2025–2026','grade'=>'Grade 7','section'=>'Section A','stuid'=>'STU2026702','lrn'=>'202600700102','lname'=>'Reyes','fname'=>'Marco','mname'=>'Luis','dob'=>'Mar 5, 2013','age'=>13,'sex'=>'Male','pob'=>'Minalabac','tongue'=>'Bikol','ip'=>'No','fours'=>'Yes','address'=>'Brgy. Sabang, Minalabac, Camarines Sur, Philippines','father'=>'Jose Reyes','fcontact'=>'09271110002','mother'=>'Clara Reyes','mcontact'=>'09281110002','guardian'=>'N/A','enrolled'=>true,
+    'docs'=>[
+      ['label'=>'PSA Birth Certificate',  'file'=>'psa_marco_reyes.jpg',       'type'=>'image','status'=>'verified','uploaded'=>'March 11, 2026'],
+      ['label'=>'Form 138 (Report Card)', 'file'=>'form138_marco_reyes.jpg',   'type'=>'image','status'=>'verified','uploaded'=>'March 11, 2026'],
+      ['label'=>'Good Moral Certificate', 'file'=>'goodmoral_marco_reyes.pdf', 'type'=>'pdf',  'status'=>'verified','uploaded'=>'March 11, 2026'],
+    ]
+  ],
+  'STU2026703'=>['sy'=>'2025–2026','grade'=>'Grade 7','section'=>'Section B','stuid'=>'STU2026703','lrn'=>'202600700103','lname'=>'Santos','fname'=>'Sofia','mname'=>'Grace','dob'=>'May 20, 2013','age'=>12,'sex'=>'Female','pob'=>'Camaligan','tongue'=>'Tagalog','ip'=>'No','fours'=>'No','address'=>'Brgy. Tinalmud, Camaligan, Camarines Sur, Philippines','father'=>'Pedro Santos','fcontact'=>'09171110003','mother'=>'Maria Santos','mcontact'=>'09181110003','guardian'=>'N/A','enrolled'=>true,
+    'docs'=>[
+      ['label'=>'PSA Birth Certificate',  'file'=>'psa_sofia_santos.jpg',       'type'=>'image','status'=>'verified','uploaded'=>'March 12, 2026'],
+      ['label'=>'Form 138 (Report Card)', 'file'=>'form138_sofia_santos.jpg',   'type'=>'image','status'=>'verified','uploaded'=>'March 12, 2026'],
+      ['label'=>'Good Moral Certificate', 'file'=>'goodmoral_sofia_santos.pdf', 'type'=>'pdf',  'status'=>'verified','uploaded'=>'March 12, 2026'],
+    ]
+  ],
+  'STU2026704'=>['sy'=>'2025–2026','grade'=>'Grade 7','section'=>'Section B','stuid'=>'STU2026704','lrn'=>'202600700104','lname'=>'Bautista','fname'=>'Liam','mname'=>'Carlos','dob'=>'Aug 8, 2013','age'=>12,'sex'=>'Male','pob'=>'Naga City','tongue'=>'Bikol','ip'=>'No','fours'=>'No','address'=>'Brgy. Peñafrancia, Naga City, Camarines Sur, Philippines','father'=>'Carlos Bautista','fcontact'=>'09271110004','mother'=>'Rosa Bautista','mcontact'=>'09281110004','guardian'=>'N/A','enrolled'=>true,
+    'docs'=>[
+      ['label'=>'PSA Birth Certificate',  'file'=>'psa_liam_bautista.jpg',       'type'=>'image','status'=>'verified','uploaded'=>'March 13, 2026'],
+      ['label'=>'Form 138 (Report Card)', 'file'=>'form138_liam_bautista.jpg',   'type'=>'image','status'=>'verified','uploaded'=>'March 13, 2026'],
+      ['label'=>'Good Moral Certificate', 'file'=>'goodmoral_liam_bautista.pdf', 'type'=>'pdf',  'status'=>'verified','uploaded'=>'March 13, 2026'],
+    ]
+  ],
+  'STU2026705'=>['sy'=>'2025–2026','grade'=>'Grade 7','section'=>'Section A','stuid'=>'STU2026705','lrn'=>'202600700105','lname'=>'Cruz','fname'=>'Elena','mname'=>'Joy','dob'=>'Nov 30, 2012','age'=>13,'sex'=>'Female','pob'=>'Naga City','tongue'=>'Bikol','ip'=>'No','fours'=>'Yes','address'=>'Brgy. Triangulo, Naga City, Camarines Sur, Philippines','father'=>'Diego Cruz','fcontact'=>'09171110005','mother'=>'Luz Cruz','mcontact'=>'09181110005','guardian'=>'N/A','enrolled'=>true,
+    'docs'=>[
+      ['label'=>'PSA Birth Certificate',  'file'=>'psa_elena_cruz.jpg',       'type'=>'image','status'=>'verified','uploaded'=>'March 14, 2026'],
+      ['label'=>'Form 138 (Report Card)', 'file'=>'form138_elena_cruz.jpg',   'type'=>'image','status'=>'verified','uploaded'=>'March 14, 2026'],
+      ['label'=>'Good Moral Certificate', 'file'=>'goodmoral_elena_cruz.pdf', 'type'=>'pdf',  'status'=>'verified','uploaded'=>'March 14, 2026'],
+    ]
+  ],
   'STU2024001'=>['sy'=>'2025–2026','grade'=>'Grade 10','section'=>'Section A','stuid'=>'STU2024001','lrn'=>'202400100001','lname'=>'Smith','fname'=>'John','mname'=>'Paul','dob'=>'Feb 10, 2009','age'=>17,'sex'=>'Male','pob'=>'Naga City','tongue'=>'Bikol','ip'=>'No','fours'=>'No','address'=>'55 P. Burgos St., Brgy. Triangulo, Naga City, Camarines Sur, Philippines','father'=>'Henry Smith','fcontact'=>'09111234567','mother'=>'Grace Smith','mcontact'=>'09121234567','guardian'=>'N/A','enrolled'=>true,
     'docs'=>[
       ['label'=>'PSA Birth Certificate',   'file'=>'psa_john_smith.jpg',      'type'=>'image','status'=>'verified', 'uploaded'=>'Jan 10, 2024'],
@@ -957,7 +1017,11 @@ $p = $profiles[$profileId] ?? null;
               <?php
                 $missingCount = count(array_filter($p['docs'], fn($d) => $d['status'] === 'missing'));
               ?>
-              <?php if($missingCount > 0): ?>
+              <?php if($p['enrolled']): ?>
+              <span style="background:#f0fdf4;color:#166534;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;border:1px solid #bbf7d0">
+                <i class="bi bi-patch-check-fill me-1"></i>All Verified
+              </span>
+              <?php elseif($missingCount > 0): ?>
               <span style="background:#fef2f2;color:#991b1b;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;border:1px solid #fecaca">
                 <i class="bi bi-exclamation-circle me-1"></i><?= $missingCount ?> Missing
               </span>
@@ -986,9 +1050,9 @@ $p = $profiles[$profileId] ?? null;
                   <span style="background:#fef2f2;color:#991b1b;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px">
                     <i class="bi bi-x-circle me-1"></i>Not Submitted
                   </span>
-                  <?php elseif($doc['status'] === 'verified'): ?>
-                  <span style="background:#f0fdf4;color:#166534;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px">
-                    <i class="bi bi-patch-check-fill me-1"></i>Verified
+                  <?php elseif($doc['status'] === 'verified' || $p['enrolled']): ?>
+                  <span style="background:#f0fdf4;color:#166534;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;display:inline-flex;align-items:center;gap:4px">
+                    <i class="bi bi-patch-check-fill"></i>Verified
                   </span>
                   <?php else: ?>
                   <div style="display:flex;align-items:center;gap:6px">
@@ -1013,10 +1077,15 @@ $p = $profiles[$profileId] ?? null;
                       alt="<?= htmlspecialchars($doc['label']) ?>"
                       onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
                       style="width:100%;max-height:200px;object-fit:contain;display:block;padding:8px">
-                    <div style="display:none;flex-direction:column;align-items:center;justify-content:center;padding:32px;color:#94a3b8;gap:6px">
-                      <i class="bi bi-image" style="font-size:32px"></i>
-                      <div style="font-size:12px;font-weight:500"><?= htmlspecialchars($doc['file']) ?></div>
-                      <div style="font-size:11px">Preview unavailable — file stored at /uploads/requirements/</div>
+                    <div style="display:none;flex-direction:column;align-items:center;justify-content:center;padding:28px 16px;gap:8px;background:repeating-linear-gradient(45deg,#f8fafc,#f8fafc 10px,#f1f5f9 10px,#f1f5f9 20px)">
+                      <div style="width:56px;height:56px;border-radius:12px;background:#e2e8f0;display:flex;align-items:center;justify-content:center;position:relative">
+                        <i class="bi bi-file-earmark-image" style="font-size:26px;color:#94a3b8"></i>
+                        <div style="position:absolute;bottom:-4px;right:-4px;width:18px;height:18px;border-radius:50%;background:#ef4444;display:flex;align-items:center;justify-content:center">
+                          <i class="bi bi-exclamation" style="font-size:11px;color:#fff;font-weight:800"></i>
+                        </div>
+                      </div>
+                      <div style="font-size:12px;font-weight:600;color:#64748b">Unable to load image</div>
+                      <div style="font-size:11px;color:#94a3b8;font-family:monospace"><?= htmlspecialchars($doc['file']) ?></div>
                     </div>
                     <div style="position:absolute;top:8px;right:8px;background:rgba(0,0,0,.5);color:#fff;font-size:10px;padding:3px 8px;border-radius:20px">
                       <i class="bi bi-arrows-fullscreen me-1"></i>Click to expand
@@ -1683,4 +1752,4 @@ document.addEventListener('DOMContentLoaded', () => {
       </div>
     </div>
   </div>
-</div>  
+</div>
