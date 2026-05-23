@@ -1492,9 +1492,9 @@ function openSYArchiveModal() {
 }
 
 /* ── Auto section (section tab, grade picker) ── */
-const enrolledCounts = { g7:64, g8:58, g9:82, g10:67 };
+const enrolledCounts = { g7:80, g8:80, g9:80, g10:80 };
 const LETTERS = ['A','B','C','D','E','F'];
-const CAP = 45;
+const CAP = 40;
 const gradeColors = {
   g7:  { fill:'fill-teal',  bg:'var(--g7-light)', color:'var(--g7-color)' },
   g8:  { fill:'fill-amber', bg:'var(--g8-light)', color:'var(--g8-color)' },
