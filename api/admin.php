@@ -29,13 +29,13 @@ $allStudents = [
 /* Grade 7 Admin — filter to Grade 7 only */
 $students = array_values(array_filter($allStudents, fn($s) => $s['grade'] === 'Grade 7'));
 
-$allRejected = [
-  ['id'=>'APP007','name'=>'Rico Fernandez','grade'=>'Grade 7', 'date'=>'March 14, 2026','by'=>'Admin User','reason'=>'Does not meet age requirements'],
-  ['id'=>'APP008','name'=>'Maria Santos',  'grade'=>'Grade 9', 'date'=>'March 13, 2026','by'=>'Admin User','reason'=>'Does not meet age requirements'],
-  ['id'=>'APP009','name'=>'Kevin Lim',     'grade'=>'Grade 10','date'=>'March 12, 2026','by'=>'Admin User','reason'=>'Location exceeds proximity requirements'],
-];
-/* Grade 7 Admin — filter to Grade 7 only */
-$rejected = array_values(array_filter($allRejected, fn($r) => $r['grade'] === 'Grade 7'));
+// $allRejected = [
+//   ['id'=>'APP007','name'=>'Rico Fernandez','grade'=>'Grade 7', 'date'=>'March 14, 2026','by'=>'Admin User','reason'=>'Does not meet age requirements'],
+//   ['id'=>'APP008','name'=>'Maria Santos',  'grade'=>'Grade 9', 'date'=>'March 13, 2026','by'=>'Admin User','reason'=>'Does not meet age requirements'],
+//   ['id'=>'APP009','name'=>'Kevin Lim',     'grade'=>'Grade 10','date'=>'March 12, 2026','by'=>'Admin User','reason'=>'Location exceeds proximity requirements'],
+// ];
+// /* Grade 7 Admin — filter to Grade 7 only */
+// $rejected = array_values(array_filter($allRejected, fn($r) => $r['grade'] === 'Grade 7'));
 
 /* Action from URL param — simulates PHP processing without full form POST for demo */
 $action  = $_GET['action']  ?? '';
@@ -513,9 +513,9 @@ body { margin:0; background:#f1f5f9; }
             <div class="d-flex gap-2 flex-wrap align-items-center">
               <button class="btn-icon-sm" title="Filter"><i class="bi bi-funnel"></i></button>
               <!-- Rejected List button matching image style -->
-              <a href="?modal=rejected" class="btn btn-outline-danger">
+              <!-- <a href="?modal=rejected" class="btn btn-outline-danger">
                 <i class="bi bi-x-circle"></i> Rejected List
-              </a>
+              </a> -->
             </div>
           </div>
 
@@ -553,9 +553,9 @@ body { margin:0; background:#f1f5f9; }
                         <a class="action-item text-success" href="?action=approve&app_id=<?= $app['id'] ?>&app_name=<?= urlencode($app['name']) ?>">
                           <i class="bi bi-check-circle"></i> Approve
                         </a>
-                        <a class="action-item text-danger" href="?modal=reject&app_id=<?= $app['id'] ?>&app_name=<?= urlencode($app['name']) ?>">
+                        <!-- <a class="action-item text-danger" href="?modal=reject&app_id=<?= $app['id'] ?>&app_name=<?= urlencode($app['name']) ?>">
                           <i class="bi bi-x-circle"></i> Reject
-                        </a>
+                        </a> -->
                       </div>
                     </div>
                   </td>
@@ -991,74 +991,164 @@ $profileId = $_GET['app_id'] ?? $_GET['stu_id'] ?? '';
 $isFromApp  = isset($_GET['app_id']);
 $closeHref  = $isFromApp ? '?tab=applications' : '?tab=students';
 $profiles  = [
-  'APP001'=>['sy'=>'2025–2026','grade'=>'Grade 10','lrn'=>'202600100001','lname'=>'Johnson','fname'=>'Emma',   'mname'=>'Grace',   'dob'=>'March 1, 2010',   'age'=>16,'sex'=>'Female','pob'=>'Naga City',  'tongue'=>'Bikol','ip'=>'No','fours'=>'No', 'address'=>'12 Rizal St., Brgy. Concepcion, Naga City, Camarines Sur, Philippines','father'=>'Robert Johnson','fcontact'=>'09171234567','mother'=>'Mary Johnson','mcontact'=>'09181234567','guardian'=>'N/A','enrolled'=>false,
+  'APP001'=>[
+    'sy'=>'2025–2026','grade'=>'Grade 10','lrn'=>'202600100001',
+    'lname'=>'Johnson','fname'=>'Emma','mname'=>'Grace','extname'=>'',
+    'dob'=>'March 1, 2010','age'=>16,'sex'=>'Female','pob'=>'Naga City','tongue'=>'Bikol','ip'=>'No','fours'=>'No',
+    'house'=>'12 Rizal St.','brgy'=>'Brgy. Concepcion','city'=>'Naga City','province'=>'Camarines Sur','country'=>'Philippines','zip'=>'4400',
+    'perm_same'=>true,'perm_house'=>'','perm_brgy'=>'','perm_city'=>'','perm_province'=>'','perm_country'=>'','perm_zip'=>'',
+    'father_lname'=>'Johnson','father_fname'=>'Robert','father_mname'=>'James','fcontact'=>'09171234567',
+    'mother_lname'=>'Johnson','mother_fname'=>'Mary','mother_mname'=>'Anne','mcontact'=>'09181234567',
+    'guardian_lname'=>'','guardian_fname'=>'','guardian_mname'=>'','gcontact'=>'',
+    'returning'=>'No','enrolled'=>false,
     'docs'=>[
-      ['label'=>'PSA Birth Certificate',   'file'=>'psa_emma_johnson.jpg',   'type'=>'image','status'=>'submitted','uploaded'=>'March 18, 2026'],
-      ['label'=>'Form 138 (Report Card)',   'file'=>'form138_emma_johnson.jpg','type'=>'image','status'=>'submitted','uploaded'=>'March 18, 2026'],
-      ['label'=>'Good Moral Certificate',  'file'=>'goodmoral_emma_johnson.pdf','type'=>'pdf', 'status'=>'submitted','uploaded'=>'March 18, 2026'],
+      ['label'=>'PSA Birth Certificate',  'file'=>'psa_emma_johnson.jpg',    'type'=>'image','status'=>'submitted','uploaded'=>'March 18, 2026'],
+      ['label'=>'Form 138 (Report Card)', 'file'=>'form138_emma_johnson.jpg','type'=>'image','status'=>'submitted','uploaded'=>'March 18, 2026'],
+      ['label'=>'Good Moral Certificate', 'file'=>'goodmoral_emma_johnson.pdf','type'=>'pdf','status'=>'submitted','uploaded'=>'March 18, 2026'],
     ]
   ],
-  'APP002'=>['sy'=>'2025–2026','grade'=>'Grade 9', 'lrn'=>'202600100002','lname'=>'Chen',   'fname'=>'Michael','mname'=>'Tan',     'dob'=>'June 14, 2011',   'age'=>15,'sex'=>'Male',  'pob'=>'Minalabac',  'tongue'=>'Tagalog','ip'=>'No','fours'=>'Yes','address'=>'45 Magsaysay Ave., Brgy. Centro, Minalabac, Camarines Sur, Philippines','father'=>'James Chen','fcontact'=>'09271234567','mother'=>'Li Chen','mcontact'=>'09291234567','guardian'=>'N/A','enrolled'=>false,
+  'APP002'=>[
+    'sy'=>'2025–2026','grade'=>'Grade 9','lrn'=>'202600100002',
+    'lname'=>'Chen','fname'=>'Michael','mname'=>'Tan','extname'=>'',
+    'dob'=>'June 14, 2011','age'=>15,'sex'=>'Male','pob'=>'Minalabac','tongue'=>'Tagalog','ip'=>'No','fours'=>'Yes',
+    'house'=>'45 Magsaysay Ave.','brgy'=>'Brgy. Centro','city'=>'Minalabac','province'=>'Camarines Sur','country'=>'Philippines','zip'=>'4421',
+    'perm_same'=>true,'perm_house'=>'','perm_brgy'=>'','perm_city'=>'','perm_province'=>'','perm_country'=>'','perm_zip'=>'',
+    'father_lname'=>'Chen','father_fname'=>'James','father_mname'=>'Wei','fcontact'=>'09271234567',
+    'mother_lname'=>'Chen','mother_fname'=>'Li','mother_mname'=>'Hua','mcontact'=>'09291234567',
+    'guardian_lname'=>'','guardian_fname'=>'','guardian_mname'=>'','gcontact'=>'',
+    'returning'=>'No','enrolled'=>false,
     'docs'=>[
-      ['label'=>'PSA Birth Certificate',   'file'=>'psa_michael_chen.jpg',    'type'=>'image','status'=>'submitted','uploaded'=>'March 18, 2026'],
-      ['label'=>'Form 138 (Report Card)',   'file'=>'',                        'type'=>'image','status'=>'missing',  'uploaded'=>''],
-      ['label'=>'Good Moral Certificate',  'file'=>'goodmoral_michael_chen.jpg','type'=>'image','status'=>'submitted','uploaded'=>'March 18, 2026'],
+      ['label'=>'PSA Birth Certificate',  'file'=>'psa_michael_chen.jpg',    'type'=>'image','status'=>'submitted','uploaded'=>'March 18, 2026'],
+      ['label'=>'Form 138 (Report Card)', 'file'=>'',                        'type'=>'image','status'=>'missing',  'uploaded'=>''],
+      ['label'=>'Good Moral Certificate', 'file'=>'goodmoral_michael_chen.jpg','type'=>'image','status'=>'submitted','uploaded'=>'March 18, 2026'],
     ]
   ],
-  'APP005'=>['sy'=>'2025–2026','grade'=>'Grade 7','lrn'=>'202600700005','lname'=>'Davis','fname'=>'Lisa','mname'=>'Marie','dob'=>'March 16, 2013','age'=>12,'sex'=>'Female','pob'=>'Naga City','tongue'=>'Bikol','ip'=>'No','fours'=>'No','address'=>'Brgy. Sta. Cruz, Naga City, Camarines Sur, Philippines','father'=>'James Davis','fcontact'=>'09171234567','mother'=>'Susan Davis','mcontact'=>'09181234567','guardian'=>'N/A','enrolled'=>false,
+  'APP005'=>[
+    'sy'=>'2025–2026','grade'=>'Grade 7','lrn'=>'202600700005',
+    'lname'=>'Davis','fname'=>'Lisa','mname'=>'Marie','extname'=>'',
+    'dob'=>'March 16, 2013','age'=>12,'sex'=>'Female','pob'=>'Naga City','tongue'=>'Bikol','ip'=>'No','fours'=>'No',
+    'house'=>'Blk 3 Lot 5 Sampaguita St.','brgy'=>'Brgy. Sta. Cruz','city'=>'Naga City','province'=>'Camarines Sur','country'=>'Philippines','zip'=>'4400',
+    'perm_same'=>true,'perm_house'=>'','perm_brgy'=>'','perm_city'=>'','perm_province'=>'','perm_country'=>'','perm_zip'=>'',
+    'father_lname'=>'Davis','father_fname'=>'James','father_mname'=>'Robert','fcontact'=>'09171234567',
+    'mother_lname'=>'Davis','mother_fname'=>'Susan','mother_mname'=>'Marie','mcontact'=>'09181234567',
+    'guardian_lname'=>'','guardian_fname'=>'','guardian_mname'=>'','gcontact'=>'',
+    'returning'=>'No','enrolled'=>false,
     'docs'=>[
-      ['label'=>'PSA Birth Certificate',   'file'=>'psa_lisa_davis.jpg',        'type'=>'image','status'=>'submitted','uploaded'=>'March 16, 2026'],
-      ['label'=>'Form 138 (Report Card)',   'file'=>'form138_lisa_davis.jpg',    'type'=>'image','status'=>'submitted','uploaded'=>'March 16, 2026'],
-      ['label'=>'Good Moral Certificate',  'file'=>'goodmoral_lisa_davis.pdf',  'type'=>'pdf',  'status'=>'submitted','uploaded'=>'March 16, 2026'],
+      ['label'=>'PSA Birth Certificate',  'file'=>'psa_lisa_davis.jpg',      'type'=>'image','status'=>'submitted','uploaded'=>'March 16, 2026'],
+      ['label'=>'Form 138 (Report Card)', 'file'=>'form138_lisa_davis.jpg',  'type'=>'image','status'=>'submitted','uploaded'=>'March 16, 2026'],
+      ['label'=>'Good Moral Certificate', 'file'=>'goodmoral_lisa_davis.pdf','type'=>'pdf',  'status'=>'submitted','uploaded'=>'March 16, 2026'],
     ]
   ],
-  'APP006'=>['sy'=>'2025–2026','grade'=>'Grade 7','lrn'=>'202600700006','lname'=>'Reyes','fname'=>'Carlos','mname'=>'Miguel','dob'=>'March 15, 2013','age'=>12,'sex'=>'Male','pob'=>'Minalabac','tongue'=>'Bikol','ip'=>'No','fours'=>'No','address'=>'Brgy. Sabang, Minalabac, Camarines Sur, Philippines','father'=>'Ricardo Reyes','fcontact'=>'09271234567','mother'=>'Ana Reyes','mcontact'=>'09281234567','guardian'=>'N/A','enrolled'=>false,
+  'APP006'=>[
+    'sy'=>'2025–2026','grade'=>'Grade 7','lrn'=>'202600700006',
+    'lname'=>'Reyes','fname'=>'Carlos','mname'=>'Miguel','extname'=>'Jr.',
+    'dob'=>'March 15, 2013','age'=>12,'sex'=>'Male','pob'=>'Minalabac','tongue'=>'Bikol','ip'=>'No','fours'=>'No',
+    'house'=>'Purok 2, Dahlia St.','brgy'=>'Brgy. Sabang','city'=>'Minalabac','province'=>'Camarines Sur','country'=>'Philippines','zip'=>'4421',
+    'perm_same'=>false,'perm_house'=>'123 Magsaysay Ave.','perm_brgy'=>'Brgy. Centro','perm_city'=>'Minalabac','perm_province'=>'Camarines Sur','perm_country'=>'Philippines','perm_zip'=>'4421',
+    'father_lname'=>'Reyes','father_fname'=>'Ricardo','father_mname'=>'Santos','fcontact'=>'09271234567',
+    'mother_lname'=>'Reyes','mother_fname'=>'Ana','mother_mname'=>'Cruz','mcontact'=>'09281234567',
+    'guardian_lname'=>'','guardian_fname'=>'','guardian_mname'=>'','gcontact'=>'',
+    'returning'=>'No','enrolled'=>false,
     'docs'=>[
-      ['label'=>'PSA Birth Certificate',   'file'=>'psa_carlos_reyes.jpg',      'type'=>'image','status'=>'submitted','uploaded'=>'March 15, 2026'],
-      ['label'=>'Form 138 (Report Card)',   'file'=>'form138_carlos_reyes.jpg',  'type'=>'image','status'=>'submitted','uploaded'=>'March 15, 2026'],
-      ['label'=>'Good Moral Certificate',  'file'=>'goodmoral_carlos_reyes.pdf','type'=>'pdf',  'status'=>'submitted','uploaded'=>'March 15, 2026'],
+      ['label'=>'PSA Birth Certificate',  'file'=>'psa_carlos_reyes.jpg',       'type'=>'image','status'=>'submitted','uploaded'=>'March 15, 2026'],
+      ['label'=>'Form 138 (Report Card)', 'file'=>'form138_carlos_reyes.jpg',   'type'=>'image','status'=>'submitted','uploaded'=>'March 15, 2026'],
+      ['label'=>'Good Moral Certificate', 'file'=>'goodmoral_carlos_reyes.pdf', 'type'=>'pdf',  'status'=>'submitted','uploaded'=>'March 15, 2026'],
     ]
   ],
-  'STU2026701'=>['sy'=>'2025–2026','grade'=>'Grade 7','section'=>'Section A','stuid'=>'STU2026701','lrn'=>'202600700101','lname'=>'Flores','fname'=>'Ana','mname'=>'Marie','dob'=>'Jan 12, 2013','age'=>13,'sex'=>'Female','pob'=>'Naga City','tongue'=>'Bikol','ip'=>'No','fours'=>'No','address'=>'Brgy. Concepcion, Naga City, Camarines Sur, Philippines','father'=>'Roberto Flores','fcontact'=>'09171110001','mother'=>'Lina Flores','mcontact'=>'09181110001','guardian'=>'N/A','enrolled'=>true,
+  'STU2026701'=>[
+    'sy'=>'2025–2026','grade'=>'Grade 7','section'=>'Section A','stuid'=>'STU2026701','lrn'=>'202600700101',
+    'lname'=>'Flores','fname'=>'Ana','mname'=>'Marie','extname'=>'',
+    'dob'=>'Jan 12, 2013','age'=>13,'sex'=>'Female','pob'=>'Naga City','tongue'=>'Bikol','ip'=>'No','fours'=>'No',
+    'house'=>'18 Sampaguita St.','brgy'=>'Brgy. Concepcion','city'=>'Naga City','province'=>'Camarines Sur','country'=>'Philippines','zip'=>'4400',
+    'perm_same'=>true,'perm_house'=>'','perm_brgy'=>'','perm_city'=>'','perm_province'=>'','perm_country'=>'','perm_zip'=>'',
+    'father_lname'=>'Flores','father_fname'=>'Roberto','father_mname'=>'Cruz','fcontact'=>'09171110001',
+    'mother_lname'=>'Flores','mother_fname'=>'Lina','mother_mname'=>'Santos','mcontact'=>'09181110001',
+    'guardian_lname'=>'','guardian_fname'=>'','guardian_mname'=>'','gcontact'=>'',
+    'returning'=>'No','enrolled'=>true,
     'docs'=>[
       ['label'=>'PSA Birth Certificate',  'file'=>'psa_ana_flores.jpg',       'type'=>'image','status'=>'verified','uploaded'=>'March 10, 2026'],
       ['label'=>'Form 138 (Report Card)', 'file'=>'form138_ana_flores.jpg',   'type'=>'image','status'=>'verified','uploaded'=>'March 10, 2026'],
       ['label'=>'Good Moral Certificate', 'file'=>'goodmoral_ana_flores.pdf', 'type'=>'pdf',  'status'=>'verified','uploaded'=>'March 10, 2026'],
     ]
   ],
-  'STU2026702'=>['sy'=>'2025–2026','grade'=>'Grade 7','section'=>'Section A','stuid'=>'STU2026702','lrn'=>'202600700102','lname'=>'Reyes','fname'=>'Marco','mname'=>'Luis','dob'=>'Mar 5, 2013','age'=>13,'sex'=>'Male','pob'=>'Minalabac','tongue'=>'Bikol','ip'=>'No','fours'=>'Yes','address'=>'Brgy. Sabang, Minalabac, Camarines Sur, Philippines','father'=>'Jose Reyes','fcontact'=>'09271110002','mother'=>'Clara Reyes','mcontact'=>'09281110002','guardian'=>'N/A','enrolled'=>true,
+  'STU2026702'=>[
+    'sy'=>'2025–2026','grade'=>'Grade 7','section'=>'Section A','stuid'=>'STU2026702','lrn'=>'202600700102',
+    'lname'=>'Reyes','fname'=>'Marco','mname'=>'Luis','extname'=>'',
+    'dob'=>'Mar 5, 2013','age'=>13,'sex'=>'Male','pob'=>'Minalabac','tongue'=>'Bikol','ip'=>'No','fours'=>'Yes',
+    'house'=>'Purok 3, Rosal St.','brgy'=>'Brgy. Sabang','city'=>'Minalabac','province'=>'Camarines Sur','country'=>'Philippines','zip'=>'4421',
+    'perm_same'=>true,'perm_house'=>'','perm_brgy'=>'','perm_city'=>'','perm_province'=>'','perm_country'=>'','perm_zip'=>'',
+    'father_lname'=>'Reyes','father_fname'=>'Jose','father_mname'=>'Luis','fcontact'=>'09271110002',
+    'mother_lname'=>'Reyes','mother_fname'=>'Clara','mother_mname'=>'Bautista','mcontact'=>'09281110002',
+    'guardian_lname'=>'','guardian_fname'=>'','guardian_mname'=>'','gcontact'=>'',
+    'returning'=>'No','enrolled'=>true,
     'docs'=>[
       ['label'=>'PSA Birth Certificate',  'file'=>'psa_marco_reyes.jpg',       'type'=>'image','status'=>'verified','uploaded'=>'March 11, 2026'],
       ['label'=>'Form 138 (Report Card)', 'file'=>'form138_marco_reyes.jpg',   'type'=>'image','status'=>'verified','uploaded'=>'March 11, 2026'],
       ['label'=>'Good Moral Certificate', 'file'=>'goodmoral_marco_reyes.pdf', 'type'=>'pdf',  'status'=>'verified','uploaded'=>'March 11, 2026'],
     ]
   ],
-  'STU2026703'=>['sy'=>'2025–2026','grade'=>'Grade 7','section'=>'Section B','stuid'=>'STU2026703','lrn'=>'202600700103','lname'=>'Santos','fname'=>'Sofia','mname'=>'Grace','dob'=>'May 20, 2013','age'=>12,'sex'=>'Female','pob'=>'Camaligan','tongue'=>'Tagalog','ip'=>'No','fours'=>'No','address'=>'Brgy. Tinalmud, Camaligan, Camarines Sur, Philippines','father'=>'Pedro Santos','fcontact'=>'09171110003','mother'=>'Maria Santos','mcontact'=>'09181110003','guardian'=>'N/A','enrolled'=>true,
+  'STU2026703'=>[
+    'sy'=>'2025–2026','grade'=>'Grade 7','section'=>'Section B','stuid'=>'STU2026703','lrn'=>'202600700103',
+    'lname'=>'Santos','fname'=>'Sofia','mname'=>'Grace','extname'=>'',
+    'dob'=>'May 20, 2013','age'=>12,'sex'=>'Female','pob'=>'Camaligan','tongue'=>'Tagalog','ip'=>'No','fours'=>'No',
+    'house'=>'45 Orchid Lane','brgy'=>'Brgy. Tinalmud','city'=>'Camaligan','province'=>'Camarines Sur','country'=>'Philippines','zip'=>'4404',
+    'perm_same'=>true,'perm_house'=>'','perm_brgy'=>'','perm_city'=>'','perm_province'=>'','perm_country'=>'','perm_zip'=>'',
+    'father_lname'=>'Santos','father_fname'=>'Pedro','father_mname'=>'Dela Cruz','fcontact'=>'09171110003',
+    'mother_lname'=>'Santos','mother_fname'=>'Maria','mother_mname'=>'Garcia','mcontact'=>'09181110003',
+    'guardian_lname'=>'','guardian_fname'=>'','guardian_mname'=>'','gcontact'=>'',
+    'returning'=>'No','enrolled'=>true,
     'docs'=>[
       ['label'=>'PSA Birth Certificate',  'file'=>'psa_sofia_santos.jpg',       'type'=>'image','status'=>'verified','uploaded'=>'March 12, 2026'],
       ['label'=>'Form 138 (Report Card)', 'file'=>'form138_sofia_santos.jpg',   'type'=>'image','status'=>'verified','uploaded'=>'March 12, 2026'],
       ['label'=>'Good Moral Certificate', 'file'=>'goodmoral_sofia_santos.pdf', 'type'=>'pdf',  'status'=>'verified','uploaded'=>'March 12, 2026'],
     ]
   ],
-  'STU2026704'=>['sy'=>'2025–2026','grade'=>'Grade 7','section'=>'Section B','stuid'=>'STU2026704','lrn'=>'202600700104','lname'=>'Bautista','fname'=>'Liam','mname'=>'Carlos','dob'=>'Aug 8, 2013','age'=>12,'sex'=>'Male','pob'=>'Naga City','tongue'=>'Bikol','ip'=>'No','fours'=>'No','address'=>'Brgy. Peñafrancia, Naga City, Camarines Sur, Philippines','father'=>'Carlos Bautista','fcontact'=>'09271110004','mother'=>'Rosa Bautista','mcontact'=>'09281110004','guardian'=>'N/A','enrolled'=>true,
+  'STU2026704'=>[
+    'sy'=>'2025–2026','grade'=>'Grade 7','section'=>'Section B','stuid'=>'STU2026704','lrn'=>'202600700104',
+    'lname'=>'Bautista','fname'=>'Liam','mname'=>'Carlos','extname'=>'',
+    'dob'=>'Aug 8, 2013','age'=>12,'sex'=>'Male','pob'=>'Naga City','tongue'=>'Bikol','ip'=>'No','fours'=>'No',
+    'house'=>'7 Peñafrancia Ave.','brgy'=>'Brgy. Peñafrancia','city'=>'Naga City','province'=>'Camarines Sur','country'=>'Philippines','zip'=>'4400',
+    'perm_same'=>true,'perm_house'=>'','perm_brgy'=>'','perm_city'=>'','perm_province'=>'','perm_country'=>'','perm_zip'=>'',
+    'father_lname'=>'Bautista','father_fname'=>'Carlos','father_mname'=>'Miguel','fcontact'=>'09271110004',
+    'mother_lname'=>'Bautista','mother_fname'=>'Rosa','mother_mname'=>'Lopez','mcontact'=>'09281110004',
+    'guardian_lname'=>'','guardian_fname'=>'','guardian_mname'=>'','gcontact'=>'',
+    'returning'=>'No','enrolled'=>true,
     'docs'=>[
       ['label'=>'PSA Birth Certificate',  'file'=>'psa_liam_bautista.jpg',       'type'=>'image','status'=>'verified','uploaded'=>'March 13, 2026'],
       ['label'=>'Form 138 (Report Card)', 'file'=>'form138_liam_bautista.jpg',   'type'=>'image','status'=>'verified','uploaded'=>'March 13, 2026'],
       ['label'=>'Good Moral Certificate', 'file'=>'goodmoral_liam_bautista.pdf', 'type'=>'pdf',  'status'=>'verified','uploaded'=>'March 13, 2026'],
     ]
   ],
-  'STU2026705'=>['sy'=>'2025–2026','grade'=>'Grade 7','section'=>'Section A','stuid'=>'STU2026705','lrn'=>'202600700105','lname'=>'Cruz','fname'=>'Elena','mname'=>'Joy','dob'=>'Nov 30, 2012','age'=>13,'sex'=>'Female','pob'=>'Naga City','tongue'=>'Bikol','ip'=>'No','fours'=>'Yes','address'=>'Brgy. Triangulo, Naga City, Camarines Sur, Philippines','father'=>'Diego Cruz','fcontact'=>'09171110005','mother'=>'Luz Cruz','mcontact'=>'09181110005','guardian'=>'N/A','enrolled'=>true,
+  'STU2026705'=>[
+    'sy'=>'2025–2026','grade'=>'Grade 7','section'=>'Section A','stuid'=>'STU2026705','lrn'=>'202600700105',
+    'lname'=>'Cruz','fname'=>'Elena','mname'=>'Joy','extname'=>'',
+    'dob'=>'Nov 30, 2012','age'=>13,'sex'=>'Female','pob'=>'Naga City','tongue'=>'Bikol','ip'=>'No','fours'=>'Yes',
+    'house'=>'22 Triangulo Rd.','brgy'=>'Brgy. Triangulo','city'=>'Naga City','province'=>'Camarines Sur','country'=>'Philippines','zip'=>'4400',
+    'perm_same'=>true,'perm_house'=>'','perm_brgy'=>'','perm_city'=>'','perm_province'=>'','perm_country'=>'','perm_zip'=>'',
+    'father_lname'=>'Cruz','father_fname'=>'Diego','father_mname'=>'Reyes','fcontact'=>'09171110005',
+    'mother_lname'=>'Cruz','mother_fname'=>'Luz','mother_mname'=>'Villanueva','mcontact'=>'09181110005',
+    'guardian_lname'=>'','guardian_fname'=>'','guardian_mname'=>'','gcontact'=>'',
+    'returning'=>'No','enrolled'=>true,
     'docs'=>[
       ['label'=>'PSA Birth Certificate',  'file'=>'psa_elena_cruz.jpg',       'type'=>'image','status'=>'verified','uploaded'=>'March 14, 2026'],
       ['label'=>'Form 138 (Report Card)', 'file'=>'form138_elena_cruz.jpg',   'type'=>'image','status'=>'verified','uploaded'=>'March 14, 2026'],
       ['label'=>'Good Moral Certificate', 'file'=>'goodmoral_elena_cruz.pdf', 'type'=>'pdf',  'status'=>'verified','uploaded'=>'March 14, 2026'],
     ]
   ],
-  'STU2024001'=>['sy'=>'2025–2026','grade'=>'Grade 10','section'=>'Section A','stuid'=>'STU2024001','lrn'=>'202400100001','lname'=>'Smith','fname'=>'John','mname'=>'Paul','dob'=>'Feb 10, 2009','age'=>17,'sex'=>'Male','pob'=>'Naga City','tongue'=>'Bikol','ip'=>'No','fours'=>'No','address'=>'55 P. Burgos St., Brgy. Triangulo, Naga City, Camarines Sur, Philippines','father'=>'Henry Smith','fcontact'=>'09111234567','mother'=>'Grace Smith','mcontact'=>'09121234567','guardian'=>'N/A','enrolled'=>true,
+  'STU2024001'=>[
+    'sy'=>'2025–2026','grade'=>'Grade 10','section'=>'Section A','stuid'=>'STU2024001','lrn'=>'202400100001',
+    'lname'=>'Smith','fname'=>'John','mname'=>'Paul','extname'=>'',
+    'dob'=>'Feb 10, 2009','age'=>17,'sex'=>'Male','pob'=>'Naga City','tongue'=>'Bikol','ip'=>'No','fours'=>'No',
+    'house'=>'55 P. Burgos St.','brgy'=>'Brgy. Triangulo','city'=>'Naga City','province'=>'Camarines Sur','country'=>'Philippines','zip'=>'4400',
+    'perm_same'=>true,'perm_house'=>'','perm_brgy'=>'','perm_city'=>'','perm_province'=>'','perm_country'=>'','perm_zip'=>'',
+    'father_lname'=>'Smith','father_fname'=>'Henry','father_mname'=>'Thomas','fcontact'=>'09111234567',
+    'mother_lname'=>'Smith','mother_fname'=>'Grace','mother_mname'=>'Dela Rosa','mcontact'=>'09121234567',
+    'guardian_lname'=>'','guardian_fname'=>'','guardian_mname'=>'','gcontact'=>'',
+    'returning'=>'No','enrolled'=>true,
     'docs'=>[
-      ['label'=>'PSA Birth Certificate',   'file'=>'psa_john_smith.jpg',      'type'=>'image','status'=>'verified', 'uploaded'=>'Jan 10, 2024'],
-      ['label'=>'Form 138 (Report Card)',   'file'=>'form138_john_smith.jpg',  'type'=>'image','status'=>'verified', 'uploaded'=>'Jan 10, 2024'],
-      ['label'=>'Good Moral Certificate',  'file'=>'goodmoral_john_smith.jpg','type'=>'image','status'=>'verified', 'uploaded'=>'Jan 10, 2024'],
+      ['label'=>'PSA Birth Certificate',  'file'=>'psa_john_smith.jpg',      'type'=>'image','status'=>'verified','uploaded'=>'Jan 10, 2024'],
+      ['label'=>'Form 138 (Report Card)', 'file'=>'form138_john_smith.jpg',  'type'=>'image','status'=>'verified','uploaded'=>'Jan 10, 2024'],
+      ['label'=>'Good Moral Certificate', 'file'=>'goodmoral_john_smith.jpg','type'=>'image','status'=>'verified','uploaded'=>'Jan 10, 2024'],
     ]
   ],
 ];
@@ -1109,54 +1199,222 @@ $p = $profiles[$profileId] ?? null;
         <?php endif; ?>
         <div style="padding:20px 24px;display:flex;flex-direction:column;gap:16px">
           <!-- Learner Info -->
-          <div style="background:#fff;border:1px solid #e2e8f0;border-radius:12px;overflow:hidden">
-            <div style="padding:12px 16px;background:#f1f5f9;border-bottom:1px solid #e2e8f0;display:flex;align-items:center;gap:8px">
-              <div style="width:28px;height:28px;border-radius:8px;background:#1e3a8a;display:flex;align-items:center;justify-content:center;font-size:13px;color:#fff"><i class="bi bi-person-fill"></i></div>
-              <span style="font-size:13px;font-weight:700;color:#1e293b">Learner Information</span>
-            </div>
-            <div style="padding:18px 16px">
-              <div class="row g-3">
-                <div class="col-12"><div style="font-size:10.5px;color:#94a3b8;margin-bottom:2px">Full Name</div><div style="font-size:15px;font-weight:700;color:#1e293b"><?= htmlspecialchars($p['lname'].', '.$p['fname'].' '.$p['mname']) ?></div></div>
-                <div class="col-6 col-md-4"><div style="font-size:10.5px;color:#94a3b8">LRN</div><div style="font-size:13px;font-weight:600;font-family:monospace"><?= $p['lrn'] ?></div></div>
-                <div class="col-6 col-md-3"><div style="font-size:10.5px;color:#94a3b8">Date of Birth</div><div style="font-size:13px;font-weight:600"><?= $p['dob'] ?></div></div>
-                <div class="col-3 col-md-2"><div style="font-size:10.5px;color:#94a3b8">Age</div><div style="font-size:13px;font-weight:600"><?= $p['age'] ?></div></div>
-                <div class="col-3 col-md-1"><div style="font-size:10.5px;color:#94a3b8">Sex</div><div style="font-size:13px;font-weight:600"><?= $p['sex'] ?></div></div>
-                <div class="col-6 col-md-2"><div style="font-size:10.5px;color:#94a3b8">Mother Tongue</div><div style="font-size:13px;font-weight:600"><?= $p['tongue'] ?></div></div>
-                <div class="col-md-6"><div style="font-size:10.5px;color:#94a3b8">Place of Birth</div><div style="font-size:13px;font-weight:600"><?= htmlspecialchars($p['pob']) ?></div></div>
-                <div class="col-6 col-md-3"><div style="font-size:10.5px;color:#94a3b8">IP Community?</div><div style="font-size:13px;font-weight:600"><?= $p['ip'] ?></div></div>
-                <div class="col-6 col-md-3"><div style="font-size:10.5px;color:#94a3b8">4Ps Beneficiary?</div><div style="font-size:13px;font-weight:600"><?= $p['fours'] ?></div></div>
+          <div style="background:#fff;border:1px solid #e2e8f0;border-radius:14px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.04)">
+            <!-- Section Header -->
+            <div style="padding:13px 18px;background:#f8fafc;border-bottom:1px solid #e2e8f0;display:flex;align-items:center;gap:10px">
+              <div style="width:30px;height:30px;border-radius:8px;background:#1e3a8a;display:flex;align-items:center;justify-content:center;font-size:13px;color:#fff;flex-shrink:0">
+                <i class="bi bi-person-fill"></i>
               </div>
+              <span style="font-size:13px;font-weight:700;color:#1e293b;letter-spacing:.01em">Learner Information</span>
+              <span style="font-size:10.5px;color:#94a3b8;margin-left:4px">— as per PSA Birth Certificate</span>
+            </div>
+
+            <div style="padding:20px 18px;display:flex;flex-direction:column;gap:14px">
+
+              <!-- Name Row: First / Middle / Last / Extension -->
+              <div style="display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:10px;align-items:start">
+                <div style="background:#f0f4ff;border:1px solid #c7d7fc;border-radius:10px;padding:11px 14px">
+                  <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#6b7ea3;margin-bottom:4px">First Name</div>
+                  <div style="font-size:14px;font-weight:800;color:#1e293b"><?= htmlspecialchars($p['fname']) ?></div>
+                </div>
+                <div style="background:#f0f4ff;border:1px solid #c7d7fc;border-radius:10px;padding:11px 14px">
+                  <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#6b7ea3;margin-bottom:4px">Middle Name</div>
+                  <div style="font-size:14px;font-weight:800;color:#1e293b"><?= htmlspecialchars($p['mname'] ?: '—') ?></div>
+                </div>
+                <div style="background:#f0f4ff;border:1px solid #c7d7fc;border-radius:10px;padding:11px 14px">
+                  <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#6b7ea3;margin-bottom:4px">Last Name</div>
+                  <div style="font-size:14px;font-weight:800;color:#1e293b"><?= htmlspecialchars($p['lname']) ?></div>
+                </div>
+                <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:11px 14px;min-width:72px">
+                  <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#94a3b8;margin-bottom:4px">Ext.</div>
+                  <div style="font-size:14px;font-weight:700;color:#1e293b"><?= htmlspecialchars($p['extname'] ?: '—') ?></div>
+                </div>
+              </div>
+
+              <!-- Row: LRN + DOB + Age -->
+              <div style="display:grid;grid-template-columns:1fr 1fr 72px;gap:10px">
+                <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:11px 14px">
+                  <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#94a3b8;margin-bottom:4px">LRN</div>
+                  <div style="font-size:13px;font-weight:700;color:#1e293b;font-family:monospace;letter-spacing:.03em"><?= $p['lrn'] ?></div>
+                </div>
+                <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:11px 14px">
+                  <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#94a3b8;margin-bottom:4px">Date of Birth</div>
+                  <div style="font-size:13px;font-weight:600;color:#1e293b"><?= $p['dob'] ?></div>
+                </div>
+                <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:11px 14px;text-align:center">
+                  <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#94a3b8;margin-bottom:4px">Age</div>
+                  <div style="font-size:17px;font-weight:800;color:#1e3a8a"><?= $p['age'] ?></div>
+                </div>
+              </div>
+
+              <!-- Row: Sex + Mother Tongue + Place of Birth -->
+              <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px">
+                <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:11px 14px">
+                  <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#94a3b8;margin-bottom:6px">Sex</div>
+                  <?php
+                  $sexIcon  = $p['sex'] === 'Male' ? 'bi-gender-male' : 'bi-gender-female';
+                  $sexColor = $p['sex'] === 'Male' ? '#2563eb' : '#db2777';
+                  $sexBg    = $p['sex'] === 'Male' ? '#eff6ff' : '#fdf2f8';
+                  ?>
+                  <span style="display:inline-flex;align-items:center;gap:5px;background:<?= $sexBg ?>;color:<?= $sexColor ?>;font-size:12px;font-weight:700;padding:4px 12px;border-radius:20px">
+                    <i class="bi <?= $sexIcon ?>"></i><?= $p['sex'] ?>
+                  </span>
+                </div>
+                <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:11px 14px">
+                  <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#94a3b8;margin-bottom:4px">Mother Tongue</div>
+                  <div style="font-size:13px;font-weight:600;color:#1e293b"><?= $p['tongue'] ?></div>
+                </div>
+                <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:11px 14px">
+                  <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#94a3b8;margin-bottom:4px">Place of Birth</div>
+                  <div style="font-size:13px;font-weight:600;color:#1e293b"><?= htmlspecialchars($p['pob']) ?></div>
+                </div>
+              </div>
+
+              <!-- Row: IP + 4Ps + Returning Learner -->
+              <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px">
+                <?php
+                $makeFlag = function($val, $label) {
+                  $isYes = strtolower($val) === 'yes';
+                  $bg    = $isYes ? '#f0fdf4' : '#f8fafc';
+                  $bc    = $isYes ? '#bbf7d0' : '#e2e8f0';
+                  $color = $isYes ? '#166534' : '#64748b';
+                  $icon  = $isYes ? 'bi-check-circle-fill' : 'bi-dash-circle';
+                  echo '<div style="background:'.$bg.';border:1px solid '.$bc.';border-radius:10px;padding:11px 14px">';
+                  echo   '<div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#94a3b8;margin-bottom:6px">'.$label.'</div>';
+                  echo   '<span style="display:inline-flex;align-items:center;gap:5px;color:'.$color.';font-size:12px;font-weight:700"><i class="bi '.$icon.'"></i>'.$val.'</span>';
+                  echo '</div>';
+                };
+                $makeFlag($p['ip'],       'IP Community');
+                $makeFlag($p['fours'],    '4Ps Beneficiary');
+                $makeFlag($p['returning']??'No', 'Returning Learner');
+                ?>
+              </div>
+
             </div>
           </div>
-          <!-- Address -->
-          <div style="background:#fff;border:1px solid #e2e8f0;border-radius:12px;overflow:hidden">
-            <div style="padding:12px 16px;background:#f1f5f9;border-bottom:1px solid #e2e8f0;display:flex;align-items:center;gap:8px">
-              <div style="width:28px;height:28px;border-radius:8px;background:#0d9488;display:flex;align-items:center;justify-content:center;font-size:13px;color:#fff"><i class="bi bi-geo-alt-fill"></i></div>
+
+          <!-- Current Address -->
+          <div style="background:#fff;border:1px solid #e2e8f0;border-radius:14px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.04)">
+            <div style="padding:13px 18px;background:#f8fafc;border-bottom:1px solid #e2e8f0;display:flex;align-items:center;gap:10px">
+              <div style="width:30px;height:30px;border-radius:8px;background:#0d9488;display:flex;align-items:center;justify-content:center;font-size:13px;color:#fff;flex-shrink:0">
+                <i class="bi bi-geo-alt-fill"></i>
+              </div>
               <span style="font-size:13px;font-weight:700;color:#1e293b">Current Address</span>
             </div>
-            <div style="padding:14px 16px;font-size:14px;font-weight:500;color:#374151;line-height:1.6"><?= htmlspecialchars($p['address']) ?></div>
+            <div style="padding:18px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px">
+              <?php
+              $addrField = function($label, $val) {
+                echo '<div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:10px 13px">';
+                echo   '<div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#94a3b8;margin-bottom:3px">'.$label.'</div>';
+                echo   '<div style="font-size:13px;font-weight:600;color:#1e293b">'.htmlspecialchars($val ?: '—').'</div>';
+                echo '</div>';
+              };
+              $addrField('House No. / Street', $p['house']);
+              $addrField('Barangay',           $p['brgy']);
+              $addrField('Municipality / City',$p['city']);
+              $addrField('Province',           $p['province']);
+              $addrField('Country',            $p['country']);
+              $addrField('Zip Code',           $p['zip']);
+              ?>
+            </div>
           </div>
-          <!-- Parents -->
-          <div style="background:#fff;border:1px solid #e2e8f0;border-radius:12px;overflow:hidden">
-            <div style="padding:12px 16px;background:#f1f5f9;border-bottom:1px solid #e2e8f0;display:flex;align-items:center;gap:8px">
-              <div style="width:28px;height:28px;border-radius:8px;background:#d97706;display:flex;align-items:center;justify-content:center;font-size:13px;color:#fff"><i class="bi bi-people-fill"></i></div>
+
+          <!-- Permanent Address -->
+          <div style="background:#fff;border:1px solid #e2e8f0;border-radius:14px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.04)">
+            <div style="padding:13px 18px;background:#f8fafc;border-bottom:1px solid #e2e8f0;display:flex;align-items:center;justify-content:space-between;gap:10px">
+              <div style="display:flex;align-items:center;gap:10px">
+                <div style="width:30px;height:30px;border-radius:8px;background:#0d9488;display:flex;align-items:center;justify-content:center;font-size:13px;color:#fff;flex-shrink:0">
+                  <i class="bi bi-house-fill"></i>
+                </div>
+                <span style="font-size:13px;font-weight:700;color:#1e293b">Permanent Address</span>
+              </div>
+              <?php if($p['perm_same']): ?>
+              <span style="background:#eff6ff;color:#2563eb;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;border:1px solid #bfdbfe">
+                <i class="bi bi-check2 me-1"></i>Same as Current
+              </span>
+              <?php endif; ?>
+            </div>
+            <?php if($p['perm_same']): ?>
+            <div style="padding:14px 18px;font-size:13px;color:#64748b;font-style:italic">
+              <i class="bi bi-arrow-up-right me-1"></i>Permanent address is the same as current address.
+            </div>
+            <?php else: ?>
+            <div style="padding:18px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px">
+              <?php
+              $addrField('House No. / Street', $p['perm_house']);
+              $addrField('Barangay',           $p['perm_brgy']);
+              $addrField('Municipality / City',$p['perm_city']);
+              $addrField('Province',           $p['perm_province']);
+              $addrField('Country',            $p['perm_country']);
+              $addrField('Zip Code',           $p['perm_zip']);
+              ?>
+            </div>
+            <?php endif; ?>
+          </div>
+          <!-- Parents / Guardian -->
+          <div style="background:#fff;border:1px solid #e2e8f0;border-radius:14px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.04)">
+            <div style="padding:13px 18px;background:#f8fafc;border-bottom:1px solid #e2e8f0;display:flex;align-items:center;gap:10px">
+              <div style="width:30px;height:30px;border-radius:8px;background:#d97706;display:flex;align-items:center;justify-content:center;font-size:13px;color:#fff;flex-shrink:0"><i class="bi bi-people-fill"></i></div>
               <span style="font-size:13px;font-weight:700;color:#1e293b">Parent / Guardian Information</span>
             </div>
-            <div style="padding:16px">
+            <div style="padding:16px 18px;display:flex;flex-direction:column;gap:12px">
               <?php
               $guardians = [
-                ['role'=>'Father','name'=>$p['father'],'contact'=>$p['fcontact'],'bg'=>'#dbeafe','color'=>'#1e40af'],
-                ['role'=>'Mother','name'=>$p['mother'],'contact'=>$p['mcontact'],'bg'=>'#fce7f3','color'=>'#be185d'],
-                ['role'=>'Guardian','name'=>$p['guardian'],'contact'=>'—','bg'=>'#dcfce7','color'=>'#166534'],
+                [
+                  'role'=>'Father',
+                  'lname'=>$p['father_lname'],'fname'=>$p['father_fname'],'mname'=>$p['father_mname'],
+                  'contact'=>$p['fcontact'],
+                  'bg'=>'#dbeafe','color'=>'#1e40af','icon'=>'bi-person'
+                ],
+                [
+                  'role'=>'Mother',
+                  'lname'=>$p['mother_lname'],'fname'=>$p['mother_fname'],'mname'=>$p['mother_mname'],
+                  'contact'=>$p['mcontact'],
+                  'bg'=>'#fce7f3','color'=>'#be185d','icon'=>'bi-person'
+                ],
+                [
+                  'role'=>'Guardian',
+                  'lname'=>$p['guardian_lname']??'','fname'=>$p['guardian_fname']??'','mname'=>$p['guardian_mname']??'',
+                  'contact'=>$p['gcontact']??'',
+                  'bg'=>'#dcfce7','color'=>'#166534','icon'=>'bi-person-check'
+                ],
               ];
-              foreach($guardians as $g): ?>
-              <div class="d-flex align-items-start gap-3 mb-3 p-3 rounded-3" style="background:#f8fafc;border:1px solid #e2e8f0">
-                <div style="width:34px;height:34px;border-radius:50%;background:<?= $g['bg'] ?>;display:flex;align-items:center;justify-content:center;font-size:14px;color:<?= $g['color'] ?>;flex-shrink:0"><i class="bi bi-person"></i></div>
-                <div class="row g-0 w-100">
-                  <div class="col-12 mb-1"><span style="font-size:11px;font-weight:700;text-transform:uppercase;color:#94a3b8"><?= $g['role'] ?></span></div>
-                  <div class="col-md-7"><div style="font-size:11px;color:#94a3b8">Name</div><div style="font-size:13.5px;font-weight:600;color:#1e293b"><?= htmlspecialchars($g['name']) ?></div></div>
-                  <div class="col-md-5"><div style="font-size:11px;color:#94a3b8">Contact</div><div style="font-size:13.5px;font-weight:600;color:#1e293b"><?= $g['contact'] ?></div></div>
+              foreach($guardians as $g):
+                $hasData = !empty($g['lname']) || !empty($g['fname']);
+              ?>
+              <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;overflow:hidden">
+                <!-- Role header bar -->
+                <div style="padding:8px 14px;border-bottom:1px solid #e2e8f0;display:flex;align-items:center;gap:8px">
+                  <div style="width:26px;height:26px;border-radius:50%;background:<?= $g['bg'] ?>;display:flex;align-items:center;justify-content:center;font-size:12px;color:<?= $g['color'] ?>">
+                    <i class="bi <?= $g['icon'] ?>"></i>
+                  </div>
+                  <span style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:<?= $g['color'] ?>"><?= $g['role'] ?></span>
+                  <?php if(!$hasData && $g['role']==='Guardian'): ?>
+                  <span style="font-size:10.5px;color:#94a3b8;margin-left:4px">(not applicable)</span>
+                  <?php endif; ?>
                 </div>
+                <?php if($hasData || $g['role'] !== 'Guardian'): ?>
+                <div style="padding:12px 14px;display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px">
+                  <div>
+                    <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#94a3b8;margin-bottom:3px">First Name</div>
+                    <div style="font-size:13px;font-weight:600;color:#1e293b"><?= htmlspecialchars($g['fname'] ?: '—') ?></div>
+                  </div>
+                  <div>
+                    <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#94a3b8;margin-bottom:3px">Middle Name</div>
+                    <div style="font-size:13px;font-weight:600;color:#1e293b"><?= htmlspecialchars($g['mname'] ?: '—') ?></div>
+                  </div>
+                  <div>
+                    <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#94a3b8;margin-bottom:3px">Last Name</div>
+                    <div style="font-size:13px;font-weight:600;color:#1e293b"><?= htmlspecialchars($g['lname'] ?: '—') ?></div>
+                  </div>
+                  <div>
+                    <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#94a3b8;margin-bottom:3px">Contact No.</div>
+                    <div style="font-size:13px;font-weight:600;color:#1e293b"><?= htmlspecialchars($g['contact'] ?: '—') ?></div>
+                  </div>
+                </div>
+                <?php else: ?>
+                <div style="padding:12px 14px;font-size:12.5px;color:#94a3b8;font-style:italic">No guardian information provided.</div>
+                <?php endif; ?>
               </div>
               <?php endforeach; ?>
             </div>
