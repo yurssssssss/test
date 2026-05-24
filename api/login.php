@@ -35,8 +35,8 @@
       <p class="fw-bold mb-1" style="font-size:15px;color:#1e293b">Student Login</p>
       <p class="text-muted mb-3" style="font-size:13px">Enter your credentials to access your student portal</p>
       <div class="mb-3">
-        <label class="form-label fw-semibold" style="font-size:13px">Student ID</label>
-        <input type="text" class="form-control" id="stu-id" placeholder="Enter your student ID"> 
+        <label class="form-label fw-semibold" style="font-size:13px">LRN</label>
+        <input type="text" class="form-control" id="stu-id" placeholder="Enter your LRN"> 
       </div>
       <div class="mb-3">
         <div class="d-flex justify-content-between align-items-center mb-1">
