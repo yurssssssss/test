@@ -1606,6 +1606,56 @@ $p = $profiles[$profileId] ?? null;
           <div class="col-md-3"><label class="form-label fw-medium d-block" style="font-size:13px">Sex *</label><div class="d-flex gap-4 mt-1"><label><input type="radio" name="as-sex" value="Male"> Male</label><label><input type="radio" name="as-sex" value="Female"> Female</label></div></div>
           <div class="col-md-4"><label class="form-label fw-medium" style="font-size:13px">Email *</label><input type="email" class="form-control" placeholder="student@email.com"></div>
         </div>
+
+        <div class="fw-semibold mb-2" style="font-size:13.5px;color:#1e293b;border-left:3px solid var(--navy);padding-left:10px">Account Credentials</div>
+        <div class="d-flex align-items-start gap-2 rounded-2 p-3 mb-3" style="background:#fffbeb;border:1px solid #fde68a">
+          <i class="bi bi-key-fill mt-1" style="color:#d97706;font-size:14px;flex-shrink:0"></i>
+          <div style="font-size:12.5px;color:#92400e">A temporary password will be assigned so the student can log in immediately. They should change it upon first login.</div>
+        </div>
+        <div class="row g-3 mb-3">
+          <!-- Single column: LRN + Temp Pass + Confirm stacked -->
+          <div class="col-12">
+            <label class="form-label fw-medium" style="font-size:13px">Learner Reference Number (LRN) *</label>
+            <input type="text" class="form-control" id="asLRN" placeholder="e.g., 123456789012" maxlength="12">
+            <div style="font-size:11px;color:#94a3b8;margin-top:4px"><i class="bi bi-info-circle me-1"></i>12-digit LRN assigned by DepEd</div>
+          </div>
+          <div class="col-12 d-flex flex-column gap-3">
+            <div>
+              <label class="form-label fw-medium" style="font-size:13px">Temporary Password *</label>
+              <div class="input-group">
+                <input type="password" class="form-control" id="asTempPass" placeholder="Enter temporary password" oninput="asTempCheckStrength(this.value)">
+                <button class="btn btn-outline-secondary" type="button" onclick="asTogglePass('asTempPass', this)" title="Show/Hide"><i class="bi bi-eye"></i></button>
+                <button class="btn btn-outline-secondary" type="button" onclick="asGeneratePass()" title="Auto-generate password"><i class="bi bi-magic"></i></button>
+              </div>
+              <div class="mt-2">
+                <div class="progress" style="height:5px;border-radius:4px">
+                  <div id="asStrengthBar" class="progress-bar" style="width:0%;transition:width .3s,background .3s"></div>
+                </div>
+                <div id="asStrengthLabel" style="font-size:11px;margin-top:4px;color:#64748b"></div>
+              </div>
+            </div>
+            <div>
+              <label class="form-label fw-medium" style="font-size:13px">Confirm Password *</label>
+              <div class="input-group">
+                <input type="password" class="form-control" id="asTempPassConfirm" placeholder="Re-enter password" oninput="asTempCheckMatch()">
+                <button class="btn btn-outline-secondary" type="button" onclick="asTogglePass('asTempPassConfirm', this)" title="Show/Hide"><i class="bi bi-eye"></i></button>
+              </div>
+              <div id="asMatchMsg" style="font-size:11.5px;margin-top:6px"></div>
+            </div>
+            <div id="asGeneratedPassBox" style="display:none;background:#f0f9ff;border:1px solid #bae6fd;border-radius:8px;padding:8px 12px" class="d-flex align-items-center gap-2">
+              <i class="bi bi-shield-lock" style="color:#0284c7;font-size:13px"></i>
+              <span style="font-size:12.5px;color:#0369a1">Generated:</span>
+              <code id="asGeneratedPassVal" style="font-size:13px;font-weight:700;color:#1e293b;letter-spacing:.05em"></code>
+              <button onclick="asCopyPass()" class="btn btn-sm ms-auto" style="font-size:11px;padding:2px 10px;background:#e0f2fe;color:#0369a1;border:none;border-radius:12px">
+                <i class="bi bi-clipboard me-1"></i>Copy
+              </button>
+              <div id="asCopiedBadge" style="display:none;font-size:11px;font-weight:700;padding:3px 9px;background:#f0fdf4;color:#166534;border:1px solid #bbf7d0;border-radius:20px">
+                <i class="bi bi-clipboard-check me-1"></i>Copied!
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
       <div class="modal-footer border-0 pt-0">
         <a href="/admin" class="btn btn-outline-secondary btn-sm">Cancel</a>
@@ -1613,6 +1663,75 @@ $p = $profiles[$profileId] ?? null;
           <i class="bi bi-person-check me-1"></i>Enroll Student
         </button>
       </div>
+
+<script>
+function asTogglePass(inputId, btn) {
+  var inp = document.getElementById(inputId);
+  var icon = btn.querySelector('i');
+  if (inp.type === 'password') { inp.type = 'text'; icon.className = 'bi bi-eye-slash'; }
+  else { inp.type = 'password'; icon.className = 'bi bi-eye'; }
+}
+
+function asTempCheckStrength(val) {
+  var bar = document.getElementById('asStrengthBar');
+  var lbl = document.getElementById('asStrengthLabel');
+  if (!val) { bar.style.width = '0%'; lbl.textContent = ''; return; }
+  var score = 0;
+  if (val.length >= 8) score++;
+  if (/[A-Z]/.test(val)) score++;
+  if (/[0-9]/.test(val)) score++;
+  if (/[^A-Za-z0-9]/.test(val)) score++;
+  var levels = [
+    {w:'20%',bg:'#ef4444',label:'Weak'},
+    {w:'45%',bg:'#f97316',label:'Fair'},
+    {w:'70%',bg:'#eab308',label:'Good'},
+    {w:'100%',bg:'#22c55e',label:'Strong'},
+  ];
+  var lvl = levels[Math.max(0, score - 1)];
+  bar.style.width = lvl.w; bar.style.background = lvl.bg;
+  lbl.textContent = 'Strength: ' + lvl.label; lbl.style.color = lvl.bg;
+  asTempCheckMatch();
+}
+
+function asTempCheckMatch() {
+  var np = document.getElementById('asTempPass');
+  var cp = document.getElementById('asTempPassConfirm');
+  var msg = document.getElementById('asMatchMsg');
+  if (!cp || !cp.value) { msg.textContent = ''; return; }
+  if (np.value === cp.value) {
+    msg.innerHTML = '<i class="bi bi-check-circle-fill me-1" style="color:#22c55e"></i><span style="color:#16a34a">Passwords match</span>';
+  } else {
+    msg.innerHTML = '<i class="bi bi-x-circle-fill me-1" style="color:#ef4444"></i><span style="color:#dc2626">Passwords do not match</span>';
+  }
+}
+
+function asGeneratePass() {
+  var chars = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz23456789@#$!';
+  var pass = '';
+  for (var i = 0; i < 10; i++) pass += chars.charAt(Math.floor(Math.random() * chars.length));
+  // ensure at least one uppercase, digit, special
+  pass = pass.slice(0,7) + 'A3!';
+  document.getElementById('asTempPass').value = pass;
+  document.getElementById('asTempPass').type = 'text';
+  document.getElementById('asTempPassConfirm').value = pass;
+  asTempCheckStrength(pass);
+  asTempCheckMatch();
+  var box = document.getElementById('asGeneratedPassBox');
+  box.style.display = 'flex';
+  box.style.background = '#f0f9ff';
+  box.style.border = '1px solid #bae6fd';
+  document.getElementById('asGeneratedPassVal').textContent = pass;
+}
+
+function asCopyPass() {
+  var val = document.getElementById('asGeneratedPassVal').textContent;
+  navigator.clipboard.writeText(val).then(function() {
+    var badge = document.getElementById('asCopiedBadge');
+    badge.style.display = 'inline-flex';
+    setTimeout(function() { badge.style.display = 'none'; }, 2000);
+  });
+}
+</script>
     </div>
   </div>
 </div>
