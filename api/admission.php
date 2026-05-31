@@ -36,11 +36,6 @@
     </div>
 
     <div class="mb-2">
-      <label class="form-label fw-semibold" style="font-size:15px">LRN</label>
-      <input type="text" oninput="this.value = this.value.replace(/[^0-9]/g, '')" class="form-control" id="stu-lrn" placeholder="Enter your 12-digit LRN" minlength="12">
-    </div>
-
-    <div class="mb-2">
       <label class="form-label fw-semibold" style="font-size:15px">Email</label>
       <input type="email" class="form-control" id="stu-email" placeholder="Enter your email">
     </div>

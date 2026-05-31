@@ -172,7 +172,6 @@
       <a href="#features" class="nav-link">Features</a>
       <a href="#about"    class="nav-link">About</a>
       <a href="#contact"  class="nav-link">Contact</a>
-      <a href="/login" class="hero-cta-primary" style="padding:8px 20px;font-size:13px">Login</a>
     </div>
   </div>
 </nav>
@@ -190,10 +189,7 @@
           Shaping futures, building character, and nurturing excellence since 2008.
           Enroll online today — simple, fast, and secure.
         </p>
-        <div class="d-flex flex-wrap gap-3">
-          <a href="/admission" class="hero-cta-primary"><i class="bi bi-person-plus-fill me-2"></i>Apply Now</a>
-          <a href="/login"     class="hero-cta-outline"><i class="bi bi-box-arrow-in-right me-2"></i>Student Login</a>
-        </div>
+       
       </div>
       <div class="col-lg-5 text-center d-none d-lg-block">
         <img src="/logo.png" alt="PHLC Logo"
@@ -347,7 +343,7 @@
                 <div class="contact-icon"><i class="bi bi-geo-alt-fill"></i></div>
                 <div>
                   <div class="fw-semibold mb-1" style="font-size:13px;color:var(--phlc-gold)">Address</div>
-                  <div style="font-size:13.5px;color:rgba(255,255,255,.8)">Premiere Heights Learning Center, Inc.<br>Blk 3 Lot 29 & 31 Justice Corner Gladness St, Cityland Carmona City Cavite<</div>
+                  <div style="font-size:13.5px;color:rgba(255,255,255,.8)">Premiere Heights Learning Center, Inc.<br>Blk 3 Lot 29 & 31 Justice Corner Gladness St, Cityland Carmona City Cavite</div>
                 </div>
               </div>
               <div class="contact-item">

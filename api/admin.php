@@ -29,6 +29,17 @@ $allStudents = [
 /* Grade 7 Admin — filter to Grade 7 only */
 $students = array_values(array_filter($allStudents, fn($s) => $s['grade'] === 'Grade 7'));
 
+/* ── Payment submissions ── */
+$allPayments = [
+  ['id'=>'PAY001','student_id'=>'STU2026701','name'=>'Ana Flores',   'grade'=>'Grade 7','type'=>'Initial Payment','amount'=>'₱8,000','method'=>'GCash','ref'=>'GC20260310001','submitted'=>'March 10, 2026','status'=>'Pending',  'proof'=>'proof_ana_flores.jpg',  'parent_email'=>'parent.flores@email.com'],
+  ['id'=>'PAY002','student_id'=>'STU2026702','name'=>'Marco Reyes',  'grade'=>'Grade 7','type'=>'Initial Payment','amount'=>'₱8,000','method'=>'Maya', 'ref'=>'MY20260311002','submitted'=>'March 11, 2026','status'=>'Pending',  'proof'=>'proof_marco_reyes.jpg', 'parent_email'=>'parent.reyes@email.com'],
+  ['id'=>'PAY003','student_id'=>'STU2026703','name'=>'Sofia Santos', 'grade'=>'Grade 7','type'=>'Initial Payment','amount'=>'₱8,000','method'=>'Bank Transfer','ref'=>'BT20260312003','submitted'=>'March 12, 2026','status'=>'Pending',  'proof'=>'proof_sofia_santos.jpg','parent_email'=>'parent.santos@email.com'],
+  ['id'=>'PAY004','student_id'=>'STU2026704','name'=>'Liam Bautista','grade'=>'Grade 7','type'=>'Initial Payment','amount'=>'₱8,000','method'=>'GCash','ref'=>'GC20260313004','submitted'=>'March 13, 2026','status'=>'Verified', 'proof'=>'proof_liam_bautista.jpg','parent_email'=>'parent.bautista@email.com'],
+  ['id'=>'PAY005','student_id'=>'STU2026705','name'=>'Elena Cruz',   'grade'=>'Grade 7','type'=>'Tuition (Monthly)','amount'=>'₱4,500','method'=>'GCash','ref'=>'GC20260314005','submitted'=>'March 14, 2026','status'=>'Verified', 'proof'=>'proof_elena_cruz.jpg',  'parent_email'=>'parent.cruz@email.com'],
+];
+$payments = array_values(array_filter($allPayments, fn($p) => $p['grade'] === 'Grade 7'));
+$pendingPayments = array_values(array_filter($payments, fn($p) => $p['status'] === 'Pending'));
+
 // $allRejected = [
 //   ['id'=>'APP007','name'=>'Rico Fernandez','grade'=>'Grade 7', 'date'=>'March 14, 2026','by'=>'Admin User','reason'=>'Does not meet age requirements'],
 //   ['id'=>'APP008','name'=>'Maria Santos',  'grade'=>'Grade 9', 'date'=>'March 13, 2026','by'=>'Admin User','reason'=>'Does not meet age requirements'],
@@ -332,6 +343,13 @@ body { margin:0; background:#f1f5f9; }
     font-size: 12.5px;
   }
 }
+/* Violet color for Pre-Elementary */
+.fill-violet { background: #7c3aed !important; }
+.grade-icon.violet { background: #f5f3ff; color: #7c3aed; }
+/* Ensure amber/rose icon classes exist as fallback */
+.grade-icon.amber  { background: #fef3c7; color: #b45309; }
+.grade-icon.rose   { background: #fce7f3; color: #be185d; }
+.grade-icon.navy   { background: #eff6ff; color: #1e3a8a; }
 </style>
 
 <!-- ===== SIDEBAR OVERLAY (mobile) ===== -->
@@ -375,6 +393,10 @@ body { margin:0; background:#f1f5f9; }
     </div>
     <div class="sb-nav-item" onclick="switchAdminTab('sections',this)" data-tab="sections">
       <i class="bi bi-layout-text-sidebar-reverse"></i><span>Sections</span>
+    </div>
+    <div class="sb-nav-item" onclick="switchAdminTab('payments',this)" data-tab="payments">
+      <i class="bi bi-receipt"></i><span>Payments</span>
+      <span class="sb-badge" id="payBadge"><?= count($pendingPayments) ?></span>
     </div>
 
     <div class="sb-section-label">Account</div>
@@ -716,14 +738,68 @@ body { margin:0; background:#f1f5f9; }
           </div>
 
           <?php
-          /* Grade 7 Admin — only Grade 7 shown */
-          $gradeConfig = [
-            'g7'  => ['label'=>'Grade 7',  'icon'=>'teal',  'fill'=>'fill-teal'],
+          /* All levels grouped by school level */
+          $levelGroups = [
+            'Pre-Elementary' => [
+              'icon' => 'bi-stars',
+              'color' => '#7c3aed',
+              'bg'    => '#f5f3ff',
+              'border'=> '#ddd6fe',
+              'grades'=> [
+                'nursery' => ['label'=>'Nursery',        'fill'=>'fill-violet', 'icon'=>'violet'],
+                'kinder'  => ['label'=>'Kinder',         'fill'=>'fill-violet', 'icon'=>'violet'],
+              ],
+            ],
+            'Elementary' => [
+              'icon' => 'bi-book-fill',
+              'color' => '#0d9488',
+              'bg'    => '#f0fdfa',
+              'border'=> '#99f6e4',
+              'grades'=> [
+                'g1'  => ['label'=>'Grade 1', 'fill'=>'fill-teal',  'icon'=>'teal'],
+                'g2'  => ['label'=>'Grade 2', 'fill'=>'fill-teal',  'icon'=>'teal'],
+                'g3'  => ['label'=>'Grade 3', 'fill'=>'fill-teal',  'icon'=>'teal'],
+                'g4'  => ['label'=>'Grade 4', 'fill'=>'fill-teal',  'icon'=>'teal'],
+                'g5'  => ['label'=>'Grade 5', 'fill'=>'fill-teal',  'icon'=>'teal'],
+                'g6'  => ['label'=>'Grade 6', 'fill'=>'fill-teal',  'icon'=>'teal'],
+              ],
+            ],
+            'Junior High School' => [
+              'icon' => 'bi-mortarboard-fill',
+              'color' => '#1e40af',
+              'bg'    => '#eff6ff',
+              'border'=> '#bfdbfe',
+              'grades'=> [
+                'g7'  => ['label'=>'Grade 7',  'fill'=>'fill-navy',  'icon'=>'navy'],
+                'g8'  => ['label'=>'Grade 8',  'fill'=>'fill-amber', 'icon'=>'amber'],
+                'g9'  => ['label'=>'Grade 9',  'fill'=>'fill-rose',  'icon'=>'rose'],
+                'g10' => ['label'=>'Grade 10', 'fill'=>'fill-navy',  'icon'=>'navy'],
+              ],
+            ],
           ];
-          $emptyBg = [
-            'g7'=>['background'=>'var(--teal-light)','color'=>'var(--teal)'],
+
+          $emptyBgMap = [
+            'nursery'=> ['background'=>'#f5f3ff','color'=>'#7c3aed'],
+            'kinder' => ['background'=>'#f5f3ff','color'=>'#7c3aed'],
+            'g1'  => ['background'=>'var(--teal-light)','color'=>'var(--teal)'],
+            'g2'  => ['background'=>'var(--teal-light)','color'=>'var(--teal)'],
+            'g3'  => ['background'=>'var(--teal-light)','color'=>'var(--teal)'],
+            'g4'  => ['background'=>'var(--teal-light)','color'=>'var(--teal)'],
+            'g5'  => ['background'=>'var(--teal-light)','color'=>'var(--teal)'],
+            'g6'  => ['background'=>'var(--teal-light)','color'=>'var(--teal)'],
+            'g7'  => ['background'=>'var(--teal-light)','color'=>'var(--teal)'],
+            'g8'  => ['background'=>'var(--amber-light,#fef3c7)','color'=>'var(--amber,#b45309)'],
+            'g9'  => ['background'=>'var(--rose-light,#fce7f3)','color'=>'var(--rose,#be185d)'],
+            'g10' => ['background'=>'var(--navy-light,#eff6ff)','color'=>'var(--navy,#1e3a8a)'],
           ];
-          foreach($gradeConfig as $gid => $gc): ?>
+
+          foreach($levelGroups as $levelName => $levelData): ?>
+          <!-- Level group heading -->
+          <div class="d-flex align-items-center gap-2 mb-2 mt-3" style="padding:8px 12px;background:<?= $levelData['bg'] ?>;border:1px solid <?= $levelData['border'] ?>;border-radius:10px">
+            <i class="bi <?= $levelData['icon'] ?>" style="color:<?= $levelData['color'] ?>;font-size:15px"></i>
+            <span class="fw-bold" style="font-size:13px;color:<?= $levelData['color'] ?>"><?= $levelName ?></span>
+          </div>
+          <?php foreach($levelData['grades'] as $gid => $gc): ?>
           <div class="grade-card" id="<?= $gid ?>">
             <div class="grade-header" onclick="toggleGrade('<?= $gid ?>')">
               <div class="grade-icon <?= $gc['icon'] ?>"><i class="bi bi-mortarboard-fill"></i></div>
@@ -738,7 +814,7 @@ body { margin:0; background:#f1f5f9; }
             </div>
             <div class="sections-wrap" id="<?= $gid ?>-sections">
               <div class="empty-section-state">
-                <div class="empty-section-icon" style="background:<?= $emptyBg[$gid]['background'] ?>;color:<?= $emptyBg[$gid]['color'] ?>">
+                <div class="empty-section-icon" style="background:<?= $emptyBgMap[$gid]['background'] ?>;color:<?= $emptyBgMap[$gid]['color'] ?>">
                   <i class="bi bi-layout-text-sidebar-reverse"></i>
                 </div>
                 <div class="empty-section-title">No Sections Created</div>
@@ -747,8 +823,138 @@ body { margin:0; background:#f1f5f9; }
             </div>
           </div>
           <?php endforeach; ?>
+          <?php endforeach; ?>
         </div>
       </div>
+
+
+      <!-- ══════════════════════════════════════
+           TAB: PAYMENTS
+      ══════════════════════════════════════ -->
+      <div id="admin-tab-payments" class="d-none">
+        <!-- Info banner: no payment API -->
+        <div class="d-flex align-items-start gap-2 rounded-3 p-3 mb-4" style="background:#eff6ff;border:1px solid #bfdbfe;font-size:13px">
+          <i class="bi bi-info-circle-fill mt-1" style="color:#2563eb;font-size:15px;flex-shrink:0"></i>
+          <div style="color:#1e40af">
+            <strong>Manual Payment Process:</strong> Payments are made outside the system via GCash, Maya, or bank transfer.
+            Parents upload a proof of payment here. Once you verify it, the system sends an official email invoice to the parent's registered email address as confirmation that the payment has been received.
+          </div>
+        </div>
+
+        <!-- Summary cards -->
+        <div class="row g-3 mb-4">
+          <div class="col-md-4 col-6">
+            <div class="card border rounded-3 p-3 h-100">
+              <div class="stat-icon orange"><i class="bi bi-clock-fill"></i></div>
+              <div class="fw-bold mb-1" style="font-size:26px;color:#1e293b"><?= count($pendingPayments) ?></div>
+              <div class="text-muted" style="font-size:13px">Pending Verification</div>
+            </div>
+          </div>
+          <div class="col-md-4 col-6">
+            <div class="card border rounded-3 p-3 h-100">
+              <div class="stat-icon green"><i class="bi bi-patch-check-fill"></i></div>
+              <div class="fw-bold mb-1" style="font-size:26px;color:#1e293b"><?= count(array_filter($payments, fn($p)=>$p['status']==='Verified')) ?></div>
+              <div class="text-muted" style="font-size:13px">Verified &amp; Invoiced</div>
+            </div>
+          </div>
+          <div class="col-md-4 col-6">
+            <div class="card border rounded-3 p-3 h-100">
+              <div class="stat-icon blue"><i class="bi bi-people-fill"></i></div>
+              <div class="fw-bold mb-1" style="font-size:26px;color:#1e293b"><?= count($payments) ?></div>
+              <div class="text-muted" style="font-size:13px">Total Submissions</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Payment submissions table -->
+        <div class="card border rounded-3 p-3 p-md-4">
+          <div class="d-flex align-items-start justify-content-between mb-3 flex-wrap gap-2">
+            <div>
+              <div class="fw-bold mb-1" style="font-size:15px;color:#1e293b"><i class="bi bi-receipt me-2" style="color:#1e3a8a"></i>Proof of Payment Submissions</div>
+              <div class="text-muted" style="font-size:13px">Review uploaded payment proofs and send email invoices upon verification</div>
+            </div>
+            <div class="d-flex gap-2 flex-wrap align-items-center">
+              <select class="form-select form-select-sm" style="width:auto" onchange="filterPayTable(this.value)">
+                <option value="">All Status</option>
+                <option value="Pending">Pending</option>
+                <option value="Verified">Verified</option>
+                <option value="Rejected">Rejected</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="position-relative mb-3">
+            <i class="bi bi-search position-absolute top-50 start-0 translate-middle-y ms-3 text-muted"></i>
+            <input type="text" class="form-control ps-5" placeholder="Search payments..." oninput="filterTable('payTable',this.value)">
+          </div>
+
+          <div class="table-responsive">
+            <table class="table table-hover align-middle" id="payTable">
+              <thead class="table-light">
+                <tr>
+                  <?php foreach(['#','Student','Grade','Type','Amount','Method','Ref No.','Submitted','Status','Actions'] as $h): ?>
+                  <th style="text-transform:uppercase;letter-spacing:.04em;color:#64748b;font-size:11px;white-space:nowrap"><?= $h ?></th>
+                  <?php endforeach; ?>
+                </tr>
+              </thead>
+              <tbody>
+                <?php foreach($payments as $i => $pay): ?>
+                <tr data-status="<?= $pay['status'] ?>">
+                  <td style="color:#94a3b8;font-size:12px"><?= $i+1 ?></td>
+                  <td>
+                    <div class="fw-semibold" style="font-size:13px;color:#1e293b"><?= htmlspecialchars($pay['name']) ?></div>
+                    <div style="font-size:11px;color:#94a3b8"><?= $pay['student_id'] ?></div>
+                  </td>
+                  <td style="font-size:13px"><?= $pay['grade'] ?></td>
+                  <td style="font-size:12px;color:#475569"><?= htmlspecialchars($pay['type']) ?></td>
+                  <td><span class="fw-bold" style="font-size:13px;color:#1e293b"><?= $pay['amount'] ?></span></td>
+                  <td style="font-size:12px"><?= $pay['method'] ?></td>
+                  <td><code style="font-size:11px;color:#475569"><?= $pay['ref'] ?></code></td>
+                  <td style="font-size:12px;color:#64748b;white-space:nowrap"><?= $pay['submitted'] ?></td>
+                  <td>
+                    <?php if($pay['status']==='Pending'): ?>
+                    <span class="badge-pending"><?= $pay['status'] ?></span>
+                    <?php elseif($pay['status']==='Verified'): ?>
+                    <span class="badge-enrolled" style="background:#dcfce7;color:#166534">Verified</span>
+                    <?php else: ?>
+                    <span class="badge-rejected"><?= $pay['status'] ?></span>
+                    <?php endif; ?>
+                  </td>
+                  <td>
+                    <div class="action-menu-wrap position-relative">
+                      <button class="btn btn-sm btn-light border action-dots-btn" onclick="toggleActionMenu(event,this)" title="Actions">
+                        <i class="bi bi-three-dots-vertical"></i>
+                      </button>
+                      <div class="action-dropdown shadow-sm">
+                        <a class="action-item" href="?modal=viewProof&pay_id=<?= $pay['id'] ?>">
+                          <i class="bi bi-eye text-navy"></i> View Proof
+                        </a>
+                        <?php if($pay['status']==='Pending'): ?>
+                        <a class="action-item text-success" href="?modal=verifyPayment&pay_id=<?= $pay['id'] ?>&pay_name=<?= urlencode($pay['name']) ?>&pay_email=<?= urlencode($pay['parent_email']) ?>&pay_amount=<?= urlencode($pay['amount']) ?>&pay_ref=<?= urlencode($pay['ref']) ?>">
+                          <i class="bi bi-patch-check"></i> Verify &amp; Send Invoice
+                        </a>
+                        <a class="action-item text-danger" href="?modal=rejectPayment&pay_id=<?= $pay['id'] ?>&pay_name=<?= urlencode($pay['name']) ?>">
+                          <i class="bi bi-x-circle"></i> Reject
+                        </a>
+                        <?php else: ?>
+                        <span class="action-item text-muted" style="cursor:default;opacity:.6">
+                          <i class="bi bi-envelope-check"></i> Invoice Sent
+                        </span>
+                        <?php endif; ?>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <?php endforeach; ?>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="d-flex align-items-center justify-content-between mt-3 flex-wrap gap-2">
+            <div class="text-muted" style="font-size:13px">Showing <?= count($payments) ?> submission(s) for Grade 7</div>
+          </div>
+        </div>
+      </div><!-- /admin-tab-payments -->
 
 
       <!-- ══════════════════════════════════════
@@ -1807,23 +2013,76 @@ function asCopyPass() {
         <div class="d-flex align-items-center gap-3">
           <div style="width:44px;height:44px;border-radius:12px;background:rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;font-size:22px;color:#fff"><i class="bi bi-layout-text-sidebar-reverse"></i></div>
           <div>
-            <div style="font-size:17px;font-weight:800;color:#fff">Auto Create Section</div>
-            <div style="font-size:12px;color:rgba(255,255,255,.7)">Auto-section Grade 7 students</div>
+            <div style="font-size:17px;font-weight:800;color:#fff">Auto Create Sections</div>
+            <div style="font-size:12px;color:rgba(255,255,255,.7)">Select a level to auto-distribute students into sections</div>
           </div>
         </div>
       </div>
-      <div class="modal-body p-4" style="background:#f8fafc">
-        <div style="font-size:13px;color:#64748b;margin-bottom:18px;text-align:center">
-          Click below to auto-distribute Grade 7 students into sections.
+      <div class="modal-body p-4" style="background:#f8fafc;max-height:70vh;overflow-y:auto">
+
+        <!-- Pre-Elementary -->
+        <div class="mb-1" style="font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:#7c3aed;padding:4px 8px;background:#f5f3ff;border-radius:6px;display:inline-block">
+          <i class="bi bi-stars me-1"></i>Pre-Elementary
         </div>
-        <div class="row g-3 justify-content-center">
+        <div class="row g-2 mb-3 mt-1">
           <?php
-          /* Grade 7 Admin — only Grade 7 available for section creation */
-          $gp = [
-            ['id'=>'g7', 'label'=>'Grade 7', 'count'=>64,'bg'=>'var(--g7-light)','color'=>'var(--g7-color)'],
+          $csGrades = [
+            // Pre-Elementary
+            ['id'=>'nursery','label'=>'Nursery',  'count'=>22,'bg'=>'#f5f3ff','color'=>'#7c3aed','group'=>'pre'],
+            ['id'=>'kinder', 'label'=>'Kinder',   'count'=>28,'bg'=>'#f5f3ff','color'=>'#7c3aed','group'=>'pre'],
+            // Elementary
+            ['id'=>'g1','label'=>'Grade 1','count'=>45,'bg'=>'var(--teal-light,#ccfbf1)','color'=>'var(--teal,#0f766e)','group'=>'elem'],
+            ['id'=>'g2','label'=>'Grade 2','count'=>42,'bg'=>'var(--teal-light,#ccfbf1)','color'=>'var(--teal,#0f766e)','group'=>'elem'],
+            ['id'=>'g3','label'=>'Grade 3','count'=>48,'bg'=>'var(--teal-light,#ccfbf1)','color'=>'var(--teal,#0f766e)','group'=>'elem'],
+            ['id'=>'g4','label'=>'Grade 4','count'=>40,'bg'=>'var(--teal-light,#ccfbf1)','color'=>'var(--teal,#0f766e)','group'=>'elem'],
+            ['id'=>'g5','label'=>'Grade 5','count'=>38,'bg'=>'var(--teal-light,#ccfbf1)','color'=>'var(--teal,#0f766e)','group'=>'elem'],
+            ['id'=>'g6','label'=>'Grade 6','count'=>36,'bg'=>'var(--teal-light,#ccfbf1)','color'=>'var(--teal,#0f766e)','group'=>'elem'],
+            // Junior High School
+            ['id'=>'g7', 'label'=>'Grade 7', 'count'=>64,'bg'=>'#eff6ff','color'=>'#1e40af','group'=>'jhs'],
+            ['id'=>'g8', 'label'=>'Grade 8', 'count'=>58,'bg'=>'#fef3c7','color'=>'#b45309','group'=>'jhs'],
+            ['id'=>'g9', 'label'=>'Grade 9', 'count'=>52,'bg'=>'#fce7f3','color'=>'#be185d','group'=>'jhs'],
+            ['id'=>'g10','label'=>'Grade 10','count'=>47,'bg'=>'#eff6ff','color'=>'#1e3a8a','group'=>'jhs'],
           ];
-          foreach($gp as $g): ?>
-          <div class="col-8">
+          $preGrades  = array_filter($csGrades, fn($g)=>$g['group']==='pre');
+          $elemGrades = array_filter($csGrades, fn($g)=>$g['group']==='elem');
+          $jhsGrades  = array_filter($csGrades, fn($g)=>$g['group']==='jhs');
+
+          foreach($preGrades as $g): ?>
+          <div class="col-6">
+            <button class="grade-pick-btn w-100" onclick="triggerAutoSection('<?= $g['id'] ?>','<?= $g['label'] ?>')">
+              <div class="grade-pick-icon" style="background:<?= $g['bg'] ?>;color:<?= $g['color'] ?>"><i class="bi bi-stars"></i></div>
+              <div class="grade-pick-name"><?= $g['label'] ?></div>
+              <div class="grade-pick-meta"><?= $g['count'] ?> students enrolled</div>
+              <div class="grade-pick-badge" style="background:<?= $g['bg'] ?>;color:<?= $g['color'] ?>"><i class="bi bi-magic me-1"></i>Auto-Section</div>
+            </button>
+          </div>
+          <?php endforeach; ?>
+        </div>
+
+        <!-- Elementary -->
+        <div class="mb-1" style="font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:#0d9488;padding:4px 8px;background:#f0fdfa;border-radius:6px;display:inline-block">
+          <i class="bi bi-book-fill me-1"></i>Elementary
+        </div>
+        <div class="row g-2 mb-3 mt-1">
+          <?php foreach($elemGrades as $g): ?>
+          <div class="col-4">
+            <button class="grade-pick-btn w-100" onclick="triggerAutoSection('<?= $g['id'] ?>','<?= $g['label'] ?>')">
+              <div class="grade-pick-icon" style="background:<?= $g['bg'] ?>;color:<?= $g['color'] ?>"><i class="bi bi-book-fill"></i></div>
+              <div class="grade-pick-name"><?= $g['label'] ?></div>
+              <div class="grade-pick-meta"><?= $g['count'] ?> students</div>
+              <div class="grade-pick-badge" style="background:<?= $g['bg'] ?>;color:<?= $g['color'] ?>"><i class="bi bi-magic me-1"></i>Auto-Section</div>
+            </button>
+          </div>
+          <?php endforeach; ?>
+        </div>
+
+        <!-- Junior High School -->
+        <div class="mb-1" style="font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:#1e40af;padding:4px 8px;background:#eff6ff;border-radius:6px;display:inline-block">
+          <i class="bi bi-mortarboard-fill me-1"></i>Junior High School
+        </div>
+        <div class="row g-2 mt-1">
+          <?php foreach($jhsGrades as $g): ?>
+          <div class="col-6">
             <button class="grade-pick-btn w-100" onclick="triggerAutoSection('<?= $g['id'] ?>','<?= $g['label'] ?>')">
               <div class="grade-pick-icon" style="background:<?= $g['bg'] ?>;color:<?= $g['color'] ?>"><i class="bi bi-mortarboard-fill"></i></div>
               <div class="grade-pick-name"><?= $g['label'] ?></div>
@@ -1833,6 +2092,7 @@ function asCopyPass() {
           </div>
           <?php endforeach; ?>
         </div>
+
       </div>
       <div class="modal-footer border-0" style="background:#f8fafc;padding:12px 24px">
         <a href="/admin" class="btn btn-outline-secondary btn-sm px-4">Cancel</a>
@@ -1842,7 +2102,155 @@ function asCopyPass() {
 </div>
 <?php endif; ?>
 
-<!-- ===================== MODAL: SY ARCHIVES ===================== -->
+<!-- ===================== MODAL: VIEW PROOF OF PAYMENT ===================== -->
+<?php
+$payId = $_GET['pay_id'] ?? '';
+$viewedPay = null;
+foreach($payments as $p) { if($p['id'] === $payId) { $viewedPay = $p; break; } }
+?>
+<?php if($modal === 'viewProof' && $viewedPay): ?>
+<div class="modal fade" id="phpModal" tabindex="-1" data-bs-backdrop="static">
+  <div class="modal-dialog modal-dialog-centered" style="max-width:520px">
+    <div class="modal-content border-0 shadow-lg" style="border-radius:18px;overflow:hidden">
+      <div style="background:linear-gradient(135deg,#1e3a8a,#0d9488);padding:22px 28px 18px;position:relative">
+        <a href="?tab=payments" class="btn-close btn-close-white position-absolute top-0 end-0 m-3"></a>
+        <div class="d-flex align-items-center gap-3">
+          <div style="width:44px;height:44px;border-radius:12px;background:rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;font-size:20px;color:#fff"><i class="bi bi-receipt"></i></div>
+          <div>
+            <div style="font-size:17px;font-weight:800;color:#fff">Proof of Payment</div>
+            <div style="font-size:12px;color:rgba(255,255,255,.7)"><?= htmlspecialchars($viewedPay['name']) ?> — <?= $viewedPay['ref'] ?></div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-body p-4">
+        <div class="row g-2 mb-3">
+          <div class="col-6"><div style="font-size:10px;color:#94a3b8;font-weight:700;text-transform:uppercase">Amount</div><div style="font-size:16px;font-weight:800;color:#1e293b"><?= $viewedPay['amount'] ?></div></div>
+          <div class="col-6"><div style="font-size:10px;color:#94a3b8;font-weight:700;text-transform:uppercase">Payment Method</div><div style="font-size:14px;font-weight:600;color:#1e293b"><?= $viewedPay['method'] ?></div></div>
+          <div class="col-6"><div style="font-size:10px;color:#94a3b8;font-weight:700;text-transform:uppercase">Reference No.</div><code style="font-size:13px;color:#1e293b"><?= $viewedPay['ref'] ?></code></div>
+          <div class="col-6"><div style="font-size:10px;color:#94a3b8;font-weight:700;text-transform:uppercase">Submitted</div><div style="font-size:13px;color:#475569"><?= $viewedPay['submitted'] ?></div></div>
+        </div>
+        <div style="border:2px dashed #cbd5e1;border-radius:12px;overflow:hidden;background:#f8fafc;min-height:200px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;padding:16px">
+          <img src="/uploads/payments/<?= htmlspecialchars($viewedPay['proof']) ?>"
+               alt="Proof of Payment"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+               style="max-width:100%;max-height:300px;object-fit:contain;border-radius:8px">
+          <div style="display:none;flex-direction:column;align-items:center;gap:8px">
+            <i class="bi bi-file-earmark-image" style="font-size:40px;color:#94a3b8"></i>
+            <div style="font-size:12px;color:#64748b">Image preview not available</div>
+            <div style="font-size:11px;font-family:monospace;color:#94a3b8"><?= htmlspecialchars($viewedPay['proof']) ?></div>
+          </div>
+        </div>
+        <?php if($viewedPay['status']==='Pending'): ?>
+        <div class="d-flex gap-2 mt-3">
+          <a href="?modal=verifyPayment&pay_id=<?= $viewedPay['id'] ?>&pay_name=<?= urlencode($viewedPay['name']) ?>&pay_email=<?= urlencode($viewedPay['parent_email']) ?>&pay_amount=<?= urlencode($viewedPay['amount']) ?>&pay_ref=<?= urlencode($viewedPay['ref']) ?>" class="btn btn-sm fw-semibold flex-grow-1" style="background:#16a34a;color:#fff">
+            <i class="bi bi-patch-check me-1"></i>Verify &amp; Send Invoice
+          </a>
+          <a href="?modal=rejectPayment&pay_id=<?= $viewedPay['id'] ?>&pay_name=<?= urlencode($viewedPay['name']) ?>" class="btn btn-sm btn-outline-danger fw-semibold">
+            <i class="bi bi-x-circle me-1"></i>Reject
+          </a>
+        </div>
+        <?php endif; ?>
+      </div>
+      <div class="modal-footer border-0 pt-0">
+        <a href="?tab=payments" class="btn btn-outline-secondary btn-sm">Close</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<?php elseif($modal === 'verifyPayment'): ?>
+<!-- MODAL: VERIFY PAYMENT & SEND EMAIL INVOICE -->
+<?php
+$payName   = $_GET['pay_name']   ?? '';
+$payEmail  = $_GET['pay_email']  ?? '';
+$payAmount = $_GET['pay_amount'] ?? '';
+$payRef    = $_GET['pay_ref']    ?? '';
+?>
+<div class="modal fade" id="phpModal" tabindex="-1" data-bs-backdrop="static">
+  <div class="modal-dialog modal-dialog-centered" style="max-width:500px">
+    <div class="modal-content border-0 shadow-lg" style="border-radius:18px;overflow:hidden">
+      <div style="background:linear-gradient(135deg,#166534,#15803d);padding:22px 28px 18px;position:relative">
+        <a href="?tab=payments" class="btn-close btn-close-white position-absolute top-0 end-0 m-3"></a>
+        <div class="d-flex align-items-center gap-3">
+          <div style="width:44px;height:44px;border-radius:12px;background:rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;font-size:20px;color:#fff"><i class="bi bi-patch-check-fill"></i></div>
+          <div>
+            <div style="font-size:17px;font-weight:800;color:#fff">Verify Payment</div>
+            <div style="font-size:12px;color:rgba(255,255,255,.75)">This will mark the payment as received and send an email invoice</div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-body p-4">
+        <div class="d-flex align-items-start gap-2 rounded-2 p-3 mb-3" style="background:#f0fdf4;border:1px solid #bbf7d0">
+          <i class="bi bi-envelope-check-fill mt-1" style="color:#16a34a;font-size:14px;flex-shrink:0"></i>
+          <div style="font-size:12.5px;color:#166534">
+            Upon verification, an <strong>official email invoice</strong> will be automatically sent to the parent's registered email address confirming receipt of the payment. No payment API is used — the actual payment happened outside the system.
+          </div>
+        </div>
+        <div class="row g-2 mb-3">
+          <div class="col-12"><div style="font-size:11px;color:#94a3b8;font-weight:700;text-transform:uppercase;margin-bottom:2px">Student / Parent</div><div style="font-size:14px;font-weight:700;color:#1e293b"><?= htmlspecialchars($payName) ?></div></div>
+          <div class="col-6"><div style="font-size:11px;color:#94a3b8;font-weight:700;text-transform:uppercase;margin-bottom:2px">Amount Paid</div><div style="font-size:16px;font-weight:800;color:#166534"><?= htmlspecialchars($payAmount) ?></div></div>
+          <div class="col-6"><div style="font-size:11px;color:#94a3b8;font-weight:700;text-transform:uppercase;margin-bottom:2px">Ref No.</div><code style="font-size:13px"><?= htmlspecialchars($payRef) ?></code></div>
+        </div>
+        <div class="mb-3">
+          <label class="form-label fw-medium" style="font-size:12px">Parent Email Address <span class="text-danger">*</span></label>
+          <input type="email" class="form-control" id="invoiceEmail" value="<?= htmlspecialchars($payEmail) ?>" placeholder="parent@email.com">
+          <div style="font-size:11px;color:#64748b;margin-top:4px"><i class="bi bi-info-circle me-1"></i>The email invoice will be sent to this address as proof that the payment has been received.</div>
+        </div>
+        <div class="mb-3">
+          <label class="form-label fw-medium" style="font-size:12px">Admin Note (optional)</label>
+          <textarea class="form-control" rows="2" placeholder="e.g., Payment verified by cashier on March 10, 2026..."></textarea>
+        </div>
+      </div>
+      <div class="modal-footer border-0 pt-0 px-4 pb-4">
+        <a href="?tab=payments" class="btn btn-outline-secondary btn-sm">Cancel</a>
+        <button class="btn btn-sm fw-semibold px-4" style="background:#16a34a;color:#fff" onclick="confirmVerifyPayment('<?= htmlspecialchars(addslashes($payName)) ?>')">
+          <i class="bi bi-envelope-check me-1"></i>Confirm &amp; Send Invoice
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<?php elseif($modal === 'rejectPayment'): ?>
+<!-- MODAL: REJECT PAYMENT PROOF -->
+<?php
+$payName = $_GET['pay_name'] ?? '';
+?>
+<div class="modal fade" id="phpModal" tabindex="-1" data-bs-backdrop="static">
+  <div class="modal-dialog modal-dialog-centered" style="max-width:460px">
+    <div class="modal-content border-0 shadow-lg" style="border-radius:16px;overflow:hidden">
+      <div class="modal-header border-0 pb-0">
+        <h5 class="modal-title fw-bold" style="color:#991b1b"><i class="bi bi-exclamation-triangle-fill me-2"></i>Reject Proof of Payment</h5>
+        <a href="?tab=payments" class="btn-close"></a>
+      </div>
+      <div class="modal-body">
+        <p style="font-size:14px">You are about to reject the proof of payment submitted by <strong><?= htmlspecialchars($payName) ?></strong>. The parent will be notified to resubmit a valid proof.</p>
+        <label class="form-label fw-medium" style="font-size:13px">Reason for Rejection <span class="text-danger">*</span></label>
+        <select class="form-select mb-2" id="payRejectReasonSelect" onchange="togglePayCustomReason(this.value)">
+          <option value="">Select a reason...</option>
+          <option>Proof image is blurry or unreadable</option>
+          <option>Reference number does not match</option>
+          <option>Amount does not match the required fee</option>
+          <option>Proof appears to be edited or invalid</option>
+          <option value="other">Other (specify)</option>
+        </select>
+        <div id="payCustomReasonWrap" class="d-none">
+          <textarea class="form-control" id="payRejectCustomReason" rows="2" placeholder="Specify the reason..."></textarea>
+        </div>
+        <div class="d-flex align-items-start gap-2 rounded-2 p-2 mt-3" style="background:#fff7ed;border:1px solid #fed7aa;font-size:12.5px;color:#92400e">
+          <i class="bi bi-envelope-fill mt-1" style="flex-shrink:0"></i>
+          <span>A rejection notification will be sent to the parent's email so they can resubmit.</span>
+        </div>
+      </div>
+      <div class="modal-footer border-0 pt-0">
+        <a href="?tab=payments" class="btn btn-outline-secondary btn-sm">Cancel</a>
+        <button class="btn btn-danger btn-sm fw-semibold" onclick="confirmRejectPayment('<?= htmlspecialchars(addslashes($payName)) ?>')">Confirm Rejection</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<?php endif; /* end of viewProof / verifyPayment / rejectPayment modals */ ?>
 <div class="modal fade" id="syArchiveModal" tabindex="-1">
   <div class="modal-dialog modal-lg modal-dialog-scrollable modal-dialog-centered">
     <div class="modal-content border-0 shadow-lg" style="border-radius:18px;overflow:hidden">
@@ -1897,10 +2305,10 @@ function switchAdminTab(tab, el) {
       if (item.dataset.tab === tab) item.classList.add('active');
     });
   }
-  ['statistics','applications','students','sections','profile'].forEach(function(t) {
+  ['statistics','applications','students','sections','payments','profile'].forEach(function(t) {
     document.getElementById('admin-tab-'+t).classList.toggle('d-none', t !== tab);
   });
-  const titles = { applications:'Applications', students:'Students', sections:'Sections', statistics:'Statistics & Analytics', profile:'My Profile' };
+  const titles = { applications:'Applications', students:'Students', sections:'Sections', statistics:'Statistics & Analytics', payments:'Payment Verification', profile:'My Profile' };
   document.getElementById('pageTitle').textContent = titles[tab] || tab;
   if (window.innerWidth < 992) closeSidebar();
   if (tab === 'statistics') initAdminCharts();
@@ -2024,14 +2432,26 @@ function openSYArchiveModal() {
 }
 
 /* ── Auto section (section tab, grade picker) ── */
-const enrolledCounts = { g7:80, g8:80, g9:80, g10:80 };
+const enrolledCounts = {
+  nursery:22, kinder:28,
+  g1:45, g2:42, g3:48, g4:40, g5:38, g6:36,
+  g7:64, g8:58, g9:52, g10:47
+};
 const LETTERS = ['A','B','C','D','E','F'];
 const CAP = 40;
 const gradeColors = {
-  g7:  { fill:'fill-teal',  bg:'var(--g7-light)', color:'var(--g7-color)' },
-  g8:  { fill:'fill-amber', bg:'var(--g8-light)', color:'var(--g8-color)' },
-  g9:  { fill:'fill-rose',  bg:'var(--g9-light)', color:'var(--g9-color)' },
-  g10: { fill:'fill-navy',  bg:'var(--g10-light)',color:'var(--g10-color)'},
+  nursery: { fill:'fill-violet', bg:'#f5f3ff',  color:'#7c3aed' },
+  kinder:  { fill:'fill-violet', bg:'#f5f3ff',  color:'#7c3aed' },
+  g1:  { fill:'fill-teal',  bg:'#ccfbf1', color:'#0f766e' },
+  g2:  { fill:'fill-teal',  bg:'#ccfbf1', color:'#0f766e' },
+  g3:  { fill:'fill-teal',  bg:'#ccfbf1', color:'#0f766e' },
+  g4:  { fill:'fill-teal',  bg:'#ccfbf1', color:'#0f766e' },
+  g5:  { fill:'fill-teal',  bg:'#ccfbf1', color:'#0f766e' },
+  g6:  { fill:'fill-teal',  bg:'#ccfbf1', color:'#0f766e' },
+  g7:  { fill:'fill-navy',  bg:'#eff6ff', color:'#1e40af' },
+  g8:  { fill:'fill-amber', bg:'#fef3c7', color:'#b45309' },
+  g9:  { fill:'fill-rose',  bg:'#fce7f3', color:'#be185d' },
+  g10: { fill:'fill-navy',  bg:'#dbeafe', color:'#1e3a8a' },
 };
 
 function triggerAutoSection(gradeId, gradeLabel) {
@@ -2308,11 +2728,38 @@ function adminCheckMatch() {
   }
 }
 
+/* ── Payment tab helpers ── */
+function filterPayTable(status) {
+  document.querySelectorAll('#payTable tbody tr').forEach(function(r) {
+    r.style.display = (!status || r.dataset.status === status) ? '' : 'none';
+  });
+}
+
+function togglePayCustomReason(val) {
+  document.getElementById('payCustomReasonWrap').classList.toggle('d-none', val !== 'other');
+}
+
+function confirmVerifyPayment(name) {
+  var email = document.getElementById('invoiceEmail');
+  if (email && !email.value.trim()) { alert('Please enter the parent email address.'); return; }
+  showToast('Payment verified! Email invoice sent to ' + (email ? email.value : 'parent') + '.');
+  setTimeout(function() { window.location = '?tab=payments'; }, 1800);
+}
+
+function confirmRejectPayment(name) {
+  var sel = document.getElementById('payRejectReasonSelect');
+  if (!sel || !sel.value) { alert('Please select a reason for rejection.'); return; }
+  showToast('Proof of payment rejected. Parent notified to resubmit.');
+  setTimeout(function() { window.location = '?tab=payments'; }, 1800);
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   const urlParams = new URLSearchParams(window.location.search);
   const modalParam = urlParams.get('modal');
   if (modalParam === 'addStudent' || modalParam === 'export' || modalParam === 'transfer') {
     sessionStorage.setItem('adminTab', 'students');
+  } else if (modalParam === 'viewProof' || modalParam === 'verifyPayment' || modalParam === 'rejectPayment') {
+    sessionStorage.setItem('adminTab', 'payments');
   } else if (modalParam === 'profile') {
     // Stay on applications if opened from an application, students if opened from a student record
     if (urlParams.get('app_id')) {
@@ -2365,4 +2812,4 @@ document.addEventListener('DOMContentLoaded', () => {
       </div>
     </div>
   </div>
-</div>  
+</div>

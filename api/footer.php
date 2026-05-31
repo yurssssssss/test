@@ -6,9 +6,9 @@
 
       <div class="col-lg-4 col-md-6">
         <div class="d-flex align-items-center gap-3 mb-3">
-          <img src="/logo.png" class="footer-logo" alt="DPNHS Logo">
+          <img src="/logo.png" class="footer-logo" alt="PHLCI Logo">
           <div>
-            <div class="footer-brand-name">Dela Paz National High School</div>
+            <div class="footer-brand-name">Premiere Heights Learning Center, Inc. (PHLCI)</div>
             <div class="footer-brand-sub">Online Enrollment System</div>
           </div>
         </div>
@@ -48,7 +48,7 @@
         <ul class="footer-contact">
           <li>
             <i class="bi bi-geo-alt-fill footer-contact-icon"></i>
-            <span>Dela Paz, Minalabac, Camarines Sur, Philippines</span>
+            <span>Blk 3 Lot 29 & 31 Justice Corner Gladness St, Cityland Carmona City Cavite</span>
           </li>
           <li>
             <i class="bi bi-telephone-fill footer-contact-icon"></i>
@@ -56,7 +56,7 @@
           </li>
           <li>
             <i class="bi bi-envelope-fill footer-contact-icon"></i>
-            <span>delapaz.nhs@deped.gov.ph</span>
+            <span>PHLCI.nhs@deped.gov.ph</span>
           </li>
           <li>
             <i class="bi bi-clock-fill footer-contact-icon"></i>
@@ -69,7 +69,7 @@
 
     <!-- Bottom Bar -->
     <div class="footer-bottom d-flex flex-column flex-md-row align-items-center justify-content-between gap-2 pt-3">
-      <span>&copy; <?= date('Y') ?> Dela Paz National High School. All rights reserved.</span>
+      <span>&copy; <?= date('Y') ?> Premiere Heights Learning Center, Inc. (PHLCI). All rights reserved.</span>
       <span class="footer-bottom-links">
         <a href="#">Privacy Policy</a>
         <span class="mx-2 opacity-50">|</span>
