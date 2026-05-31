@@ -196,9 +196,8 @@
         </div>
       </div>
       <div class="col-lg-5 text-center d-none d-lg-block">
-        <img src="/logo.png" alt="PHLC Logo"
-          style="width:280px;height:280px;object-fit:contain;
-                 filter:drop-shadow(0 8px 32px rgba(245,200,0,.25))">
+        <img src="/test/logo.png" alt="PHLC Logo"
+         style="width:50px;height:50px;border-radius:50%;border:2px solid var(--phlc-gold)">
       </div>
     </div>
   </div>
@@ -304,8 +303,7 @@
     <div class="row align-items-center g-5">
       <div class="col-lg-5 text-center">
         <img src="/logo.png" alt="PHLC Logo"
-          style="width:220px;height:220px;object-fit:contain;
-                 filter:drop-shadow(0 6px 24px rgba(26,42,94,.18))">
+         style="width:50%;height:50%;border-radius:50%;border:2px solid var(--phlc-gold)">
       </div>
       <div class="col-lg-7">
         <div class="hero-badge" style="background:rgba(26,42,94,.08);border-color:rgba(26,42,94,.2);color:var(--phlc-navy);">Our Story</div>
@@ -347,7 +345,7 @@
                 <div class="contact-icon"><i class="bi bi-geo-alt-fill"></i></div>
                 <div>
                   <div class="fw-semibold mb-1" style="font-size:13px;color:var(--phlc-gold)">Address</div>
-                  <div style="font-size:13.5px;color:rgba(255,255,255,.8)">Premiere Heights Learning Center, Inc.<br>Lucena City, Quezon Province</div>
+                  <div style="font-size:13.5px;color:rgba(255,255,255,.8)">Premiere Heights Learning Center, Inc.<br>Blk 3 Lot 29 & 31 Justice Corner Gladness St, Cityland Carmona City Cavite<</div>
                 </div>
               </div>
               <div class="contact-item">
