@@ -28,8 +28,8 @@
     <div id="login-student-panel">
      
       <div class="mb-3">
-        <label class="form-label fw-semibold" style="font-size:13px">LRN</label>
-        <input type="text" class="form-control" id="stu-email" placeholder="Enter your LRN" value="">
+        <label class="form-label fw-semibold" style="font-size:13px">Email Address</label>
+        <input type="email" class="form-control" id="stu-email" placeholder="Enter your email address" value="">
       </div>
 
       <button type="button" class="btn btn-navy w-100 py-2 fw-semibold" onclick="verifyEmail()">Verify</button>
