@@ -288,14 +288,81 @@
                 </div>
 
                 <!-- Proof of Payment -->
-                <div class="p-3 rounded-2 mb-3" style="background:#f8fafc;border:1px dashed #cbd5e1">
-                  <div class="fw-semibold mb-1" style="font-size:13px;color:#1e293b"><i class="bi bi-receipt me-2 text-success"></i>Proof of Payment *</div>
-                  <div class="text-muted mb-2" style="font-size:12px">Send screenshot or saved proof of payment. Upload 1 file. Max 1 GB.</div>
-                  <label class="btn btn-sm btn-outline-secondary" style="font-size:12px;cursor:pointer">
-                    <i class="bi bi-upload me-1"></i> Add File
-                    <input type="file" accept="image/*,.pdf" style="display:none">
-                  </label>
-                  <span id="paymentFileName" class="ms-2 text-muted" style="font-size:12px"></span>
+                <div class="p-3 rounded-3 mb-3" style="background:#f8fafc;border:1px solid #e2e8f0">
+                  <div class="fw-semibold mb-1" style="font-size:13px;color:#1e293b"><i class="bi bi-receipt me-2" style="color:#16a34a"></i>Proof of Payment *</div>
+                  <div class="text-muted mb-3" style="font-size:12px">Choose how you paid, fill in the reference number, then upload your screenshot or receipt.</div>
+
+                  <!-- Step 1: Payment Method -->
+                  <div class="mb-3">
+                    <div class="fw-semibold mb-2" style="font-size:12px;color:#374151;text-transform:uppercase;letter-spacing:.05em">Step 1 — Payment Method</div>
+                    <div class="d-flex flex-wrap gap-2" id="payMethodCards">
+
+                      <label class="pay-method-card d-flex align-items-center gap-2 px-3 py-2 rounded-3 border" style="cursor:pointer;background:#fff;min-width:110px;transition:all .15s" onclick="selectPayMethod(this,'GCash')">
+                        <input type="radio" name="payMethod" value="GCash" style="display:none">
+                        <span style="width:28px;height:28px;border-radius:8px;background:#f3e8ff;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+                          <i class="bi bi-phone-fill" style="font-size:13px;color:#7c3aed"></i>
+                        </span>
+                        <span style="font-size:13px;font-weight:700;color:#1e293b">GCash</span>
+                      </label>
+
+                      <label class="pay-method-card d-flex align-items-center gap-2 px-3 py-2 rounded-3 border" style="cursor:pointer;background:#fff;min-width:110px;transition:all .15s" onclick="selectPayMethod(this,'Maya')">
+                        <input type="radio" name="payMethod" value="Maya" style="display:none">
+                        <span style="width:28px;height:28px;border-radius:8px;background:#e0f2fe;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+                          <i class="bi bi-wallet2" style="font-size:13px;color:#0369a1"></i>
+                        </span>
+                        <span style="font-size:13px;font-weight:700;color:#1e293b">Maya</span>
+                      </label>
+
+                      <label class="pay-method-card d-flex align-items-center gap-2 px-3 py-2 rounded-3 border" style="cursor:pointer;background:#fff;min-width:130px;transition:all .15s" onclick="selectPayMethod(this,'Bank Transfer')">
+                        <input type="radio" name="payMethod" value="Bank Transfer" style="display:none">
+                        <span style="width:28px;height:28px;border-radius:8px;background:#dbeafe;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+                          <i class="bi bi-bank" style="font-size:13px;color:#1d4ed8"></i>
+                        </span>
+                        <span style="font-size:13px;font-weight:700;color:#1e293b">Bank Transfer</span>
+                      </label>
+
+                      <label class="pay-method-card d-flex align-items-center gap-2 px-3 py-2 rounded-3 border" style="cursor:pointer;background:#fff;min-width:100px;transition:all .15s" onclick="selectPayMethod(this,'Cash')">
+                        <input type="radio" name="payMethod" value="Cash" style="display:none">
+                        <span style="width:28px;height:28px;border-radius:8px;background:#dcfce7;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+                          <i class="bi bi-cash" style="font-size:13px;color:#16a34a"></i>
+                        </span>
+                        <span style="font-size:13px;font-weight:700;color:#1e293b">Cash</span>
+                      </label>
+
+                    </div>
+                  </div>
+
+                  <!-- Step 2: Reference Number (shown only when e-wallet/bank is selected) -->
+                  <!-- <div id="refNumBlock" style="display:none" class="mb-3">
+                    <div class="fw-semibold mb-1" style="font-size:12px;color:#374151;text-transform:uppercase;letter-spacing:.05em">Step 2 — Reference / Transaction Number</div>
+                    <input type="text" id="payRefNum" class="form-control" placeholder="e.g. GC20260514001 or transaction ID"
+                           style="font-family:monospace;font-size:13px;letter-spacing:.03em"
+                           oninput="validateRefNum(this)">
+                    <div id="refNumHint" style="font-size:11.5px;color:#64748b;margin-top:4px"></div>
+                  </div> -->
+
+                  <!-- Step 3: Upload proof -->
+                  <div id="proofUploadBlock" class="mb-2">
+                    <div class="fw-semibold mb-1" style="font-size:12px;color:#374151;text-transform:uppercase;letter-spacing:.05em" id="proofUploadLabel">Step 2 — Upload Proof</div>
+                    <label class="d-flex align-items-center gap-2 p-3 rounded-3 border" style="cursor:pointer;background:#fff;border-style:dashed!important">
+                      <i class="bi bi-cloud-arrow-up" style="font-size:22px;color:#94a3b8;flex-shrink:0"></i>
+                      <div>
+                        <div style="font-size:13px;font-weight:600;color:#374151">Click to upload screenshot or receipt</div>
+                        <div style="font-size:11px;color:#94a3b8">JPG, PNG or PDF &middot; max 5MB</div>
+                      </div>
+                      <input type="file" accept="image/*,.pdf" style="display:none" onchange="showPaymentFileName(this)">
+                    </label>
+                    <span id="paymentFileName" class="d-block mt-2 text-muted" style="font-size:12px"></span>
+                    <div id="payProofPreview" style="display:none;margin-top:8px;max-width:260px;border:1px solid #e2e8f0;border-radius:8px;overflow:hidden;background:#fff;padding:6px">
+                      <img id="payProofImg" src="" alt="" style="max-width:100%;max-height:120px;object-fit:contain;border-radius:6px">
+                    </div>
+                  </div>
+
+                  <!-- Admin receipt notice -->
+                  <div class="mt-3 p-2 rounded-2" style="background:#eff6ff;border:1px solid #bfdbfe;font-size:12px;color:#1e40af">
+                    <i class="bi bi-info-circle-fill me-1"></i>
+                    After submitting, the admin will review your proof and send an <strong>acknowledgment receipt</strong> to confirm payment was received.
+                  </div>
                 </div>
 
                 <!-- Reminder banner -->
@@ -923,8 +990,74 @@
         renderStudentTags();
       }
 
+      /* ── Payment method selector ── */
+      function selectPayMethod(card, method) {
+        document.querySelectorAll('.pay-method-card').forEach(function(c) {
+          c.style.background    = '#fff';
+          c.style.borderColor   = '#e2e8f0';
+          c.querySelector('span:last-child').style.color = '#1e293b';
+        });
+        card.style.background  = '#f0f9ff';
+        card.style.borderColor = '#38bdf8';
+
+        var refBlock   = document.getElementById('refNumBlock');
+        var uploadStep = document.getElementById('proofUploadLabel');
+        var hint       = document.getElementById('refNumHint');
+
+        if (method === 'Cash') {
+          refBlock.style.display = 'none';
+          if (uploadStep) uploadStep.textContent = 'Step 2 — Upload Official Receipt or OR Number Photo';
+          if (hint) hint.textContent = '';
+        } else {
+          refBlock.style.display = 'block';
+          var hints = {
+            'GCash':         'Enter the 13-digit GCash reference number from your transaction record.',
+            'Maya':          'Enter the Maya transaction ID or reference number shown in your payment confirmation.',
+            'Bank Transfer': 'Enter the bank transaction reference number or deposit slip number.'
+          };
+          if (hint) hint.textContent = hints[method] || '';
+          if (uploadStep) uploadStep.textContent = 'Step 3 — Upload Screenshot / Receipt';
+        }
+      }
+
+      function validateRefNum(input) {
+        input.value = input.value.replace(/\s+/g, '').toUpperCase();
+      }
+
+      function showPaymentFileName(input) {
+        var el = document.getElementById('paymentFileName');
+        if (el && input.files.length) {
+          el.textContent = '\u2714 ' + input.files[0].name;
+          var file = input.files[0];
+          var preview = document.getElementById('payProofPreview');
+          var img = document.getElementById('payProofImg');
+          if (preview && img && file.type.startsWith('image/')) {
+            var reader = new FileReader();
+            reader.onload = function(e) { img.src = e.target.result; preview.style.display = 'block'; };
+            reader.readAsDataURL(file);
+          }
+        }
+      }
+
       function submitPHLCIForm() {
-        alert('Registration submitted successfully!\n\nPlease wait for the confirmation from Premiere Heights Learning Center, Inc. (PHLCI).');
+        var method = document.querySelector('input[name="payMethod"]:checked');
+        if (!method) {
+          alert('Please select a Payment Method (GCash, Maya, Bank Transfer, or Cash) before submitting.');
+          return;
+        }
+        if (method.value !== 'Cash') {
+          var ref = document.getElementById('payRefNum');
+          if (!ref || !ref.value.trim()) {
+            alert('Please enter your ' + method.value + ' reference / transaction number.');
+            return;
+          }
+        }
+        var proofInput = document.querySelector('#proofUploadBlock input[type="file"]');
+        if (!proofInput || !proofInput.files.length) {
+          alert('Please upload your proof of payment (screenshot or receipt).');
+          return;
+        }
+        alert('Registration submitted successfully!\n\nPayment Method: ' + method.value + '\n\nThe admin will review your proof of payment and send you an acknowledgment receipt via email.');
         hideSubPanel();
       }
 

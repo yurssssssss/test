@@ -1726,6 +1726,150 @@ $p = $profiles[$profileId] ?? null;
           </div>
           <?php endif; ?>
 
+          <!-- ===== PROOF OF PAYMENT SECTION ===== -->
+          <?php
+          $allProfilePayments = [
+            'STU2026701' => [
+              ['id'=>'PAY001','type'=>'Initial Payment','plan'=>'Monthly','amount'=>'₱8,000','method'=>'GCash','ref'=>'GC20260310001','submitted'=>'March 10, 2026','status'=>'Verified','proof'=>'proof_ana_flores.jpg','receipt_sent'=>true,'receipt_date'=>'March 11, 2026'],
+            ],
+            'STU2026702' => [
+              ['id'=>'PAY002','type'=>'Initial Payment','plan'=>'Quarterly','amount'=>'₱8,000','method'=>'Maya','ref'=>'MY20260311002','submitted'=>'March 11, 2026','status'=>'Pending','proof'=>'proof_marco_reyes.jpg','receipt_sent'=>false,'receipt_date'=>''],
+            ],
+            'STU2026703' => [
+              ['id'=>'PAY003','type'=>'Initial Payment','plan'=>'Semi-Annual','amount'=>'₱8,000','method'=>'Bank Transfer','ref'=>'BT20260312003','submitted'=>'March 12, 2026','status'=>'Pending','proof'=>'proof_sofia_santos.jpg','receipt_sent'=>false,'receipt_date'=>''],
+            ],
+            'STU2026704' => [
+              ['id'=>'PAY004','type'=>'Initial Payment','plan'=>'Monthly','amount'=>'₱8,000','method'=>'GCash','ref'=>'GC20260313004','submitted'=>'March 13, 2026','status'=>'Verified','proof'=>'proof_liam_bautista.jpg','receipt_sent'=>true,'receipt_date'=>'March 14, 2026'],
+            ],
+            'STU2026705' => [
+              ['id'=>'PAY005','type'=>'Initial Payment','plan'=>'Monthly','amount'=>'₱8,000','method'=>'GCash','ref'=>'GC20260314005','submitted'=>'March 14, 2026','status'=>'Verified','proof'=>'proof_elena_cruz.jpg','receipt_sent'=>true,'receipt_date'=>'March 15, 2026'],
+              ['id'=>'PAY006','type'=>'Tuition (Monthly)','plan'=>'Monthly','amount'=>'₱4,500','method'=>'GCash','ref'=>'GC20260414006','submitted'=>'April 14, 2026','status'=>'Verified','proof'=>'proof_elena_apr.jpg','receipt_sent'=>true,'receipt_date'=>'April 15, 2026'],
+            ],
+            'STU2024001'=>[
+              ['id'=>'PAY010','type'=>'Tuition (Monthly)','plan'=>'Monthly','amount'=>'₱4,500','method'=>'GCash','ref'=>'GC20260401010','submitted'=>'April 1, 2026','status'=>'Verified','proof'=>'proof_john_apr.jpg','receipt_sent'=>true,'receipt_date'=>'April 2, 2026'],
+            ],
+            'APP001'=>[],'APP002'=>[],'APP005'=>[],'APP006'=>[],
+          ];
+          $profilePayments = $allProfilePayments[$profileId] ?? [];
+          $pendingCount = count(array_filter($profilePayments, fn($pay) => $pay['status']==='Pending'));
+          $allVerified   = !empty($profilePayments) && $pendingCount === 0;
+          ?>
+          <div style="background:#fff;border:1px solid #e2e8f0;border-radius:12px;overflow:hidden">
+            <div style="padding:12px 16px;background:#f1f5f9;border-bottom:1px solid #e2e8f0;display:flex;align-items:center;justify-content:space-between;gap:8px">
+              <div style="display:flex;align-items:center;gap:8px">
+                <div style="width:28px;height:28px;border-radius:8px;background:#16a34a;display:flex;align-items:center;justify-content:center;font-size:13px;color:#fff"><i class="bi bi-cash-stack"></i></div>
+                <span style="font-size:13px;font-weight:700;color:#1e293b">Proof of Payment</span>
+              </div>
+              <?php if(empty($profilePayments)): ?>
+              <span style="background:#f8fafc;color:#94a3b8;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;border:1px solid #e2e8f0">No Payments Yet</span>
+              <?php elseif($allVerified): ?>
+              <span style="background:#f0fdf4;color:#166534;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;border:1px solid #bbf7d0"><i class="bi bi-patch-check-fill me-1"></i>All Verified</span>
+              <?php else: ?>
+              <span style="background:#fef3c7;color:#92400e;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;border:1px solid #fde68a"><i class="bi bi-clock-fill me-1"></i><?= $pendingCount ?> Pending</span>
+              <?php endif; ?>
+            </div>
+
+            <?php if(empty($profilePayments)): ?>
+            <div style="padding:28px 16px;text-align:center;color:#94a3b8;font-size:13px;font-style:italic">
+              <i class="bi bi-receipt" style="font-size:28px;display:block;margin-bottom:8px"></i>
+              No payment records for this student yet.
+            </div>
+            <?php else: ?>
+            <div style="padding:16px;display:flex;flex-direction:column;gap:14px">
+              <?php foreach($profilePayments as $pi => $pay): ?>
+              <div style="border:1px solid <?= $pay['status']==='Verified'?'#bbf7d0':'#fde68a' ?>;border-radius:10px;overflow:hidden;background:#fff" id="payBlock_<?= $pi ?>">
+                <!-- Payment header -->
+                <div style="padding:10px 14px;background:<?= $pay['status']==='Verified'?'#f0fdf4':'#fffbeb' ?>;border-bottom:1px solid <?= $pay['status']==='Verified'?'#bbf7d0':'#fde68a' ?>;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px">
+                  <div style="display:flex;align-items:center;gap:8px">
+                    <div style="width:32px;height:32px;border-radius:8px;background:<?= $pay['status']==='Verified'?'#dcfce7':'#fef3c7' ?>;display:flex;align-items:center;justify-content:center;font-size:15px;color:<?= $pay['status']==='Verified'?'#16a34a':'#d97706' ?>">
+                      <i class="bi bi-<?= $pay['status']==='Verified'?'receipt-cutoff':'hourglass-split' ?>"></i>
+                    </div>
+                    <div>
+                      <div style="font-size:13px;font-weight:700;color:#1e293b"><?= htmlspecialchars($pay['type']) ?></div>
+                      <div style="font-size:11px;color:#64748b">Ref: <span style="font-family:monospace"><?= htmlspecialchars($pay['ref']) ?></span> &nbsp;·&nbsp; <?= $pay['submitted'] ?></div>
+                    </div>
+                  </div>
+                  <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+                    <span style="font-size:15px;font-weight:800;color:#1e293b"><?= htmlspecialchars($pay['amount']) ?></span>
+                    <span style="background:<?= $pay['method']==='GCash'?'#f3e8ff':($pay['method']==='Maya'?'#e0f2fe':'#f0f9ff') ?>;color:<?= $pay['method']==='GCash'?'#7c3aed':($pay['method']==='Maya'?'#0369a1':'#1e40af') ?>;font-size:11px;font-weight:700;padding:2px 10px;border-radius:20px"><?= htmlspecialchars($pay['method']) ?></span>
+                    <?php if($pay['status']==='Verified'): ?>
+                    <span style="background:#f0fdf4;color:#166534;font-size:11px;font-weight:700;padding:2px 10px;border-radius:20px"><i class="bi bi-check-circle-fill me-1"></i>Verified</span>
+                    <?php else: ?>
+                    <span style="background:#fef3c7;color:#92400e;font-size:11px;font-weight:700;padding:2px 10px;border-radius:20px" id="payStatus_<?= $pi ?>"><i class="bi bi-clock me-1"></i>Pending</span>
+                    <?php endif; ?>
+                  </div>
+                </div>
+                <!-- Payment plan badge -->
+                <div style="padding:8px 14px;background:#fafafa;border-bottom:1px solid #f1f5f9;display:flex;align-items:center;gap:8px">
+                  <i class="bi bi-calendar-check" style="color:#64748b;font-size:12px"></i>
+                  <span style="font-size:12px;color:#64748b">Payment Plan:</span>
+                  <?php
+                  $planColors=['Monthly'=>['bg'=>'#eff6ff','c'=>'#1d4ed8'],'Quarterly'=>['bg'=>'#faf5ff','c'=>'#7c3aed'],'Semi-Annual'=>['bg'=>'#fff7ed','c'=>'#c2410c']];
+                  $pc=$planColors[$pay['plan']]??['bg'=>'#f1f5f9','c'=>'#475569'];
+                  ?>
+                  <span style="background:<?= $pc['bg'] ?>;color:<?= $pc['c'] ?>;font-size:11.5px;font-weight:700;padding:2px 12px;border-radius:20px"><?= htmlspecialchars($pay['plan']) ?></span>
+                </div>
+                <!-- Proof image preview -->
+                <div style="padding:12px 14px;background:#f8fafc;border-bottom:1px solid #f0f4f8">
+                  <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#64748b;margin-bottom:8px"><i class="bi bi-image me-1"></i>Parent's Proof of Payment</div>
+                  <div style="border:2px dashed #cbd5e1;border-radius:8px;overflow:hidden;background:#fff;cursor:pointer;position:relative;max-width:320px"
+                       onclick="openDocViewer('Proof – <?= htmlspecialchars($pay['ref']) ?>','/uploads/payments/<?= htmlspecialchars($pay['proof']) ?>')">
+                    <img src="/uploads/payments/<?= htmlspecialchars($pay['proof']) ?>" alt="Proof"
+                         onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+                         style="width:100%;max-height:150px;object-fit:contain;display:block;padding:6px">
+                    <div style="display:none;flex-direction:column;align-items:center;justify-content:center;padding:18px;gap:6px;background:repeating-linear-gradient(45deg,#f8fafc,#f8fafc 10px,#f1f5f9 10px,#f1f5f9 20px)">
+                      <i class="bi bi-file-earmark-image" style="font-size:22px;color:#94a3b8"></i>
+                      <span style="font-size:11px;font-weight:600;color:#64748b">Preview unavailable</span>
+                      <span style="font-size:10.5px;color:#94a3b8;font-family:monospace"><?= htmlspecialchars($pay['proof']) ?></span>
+                    </div>
+                    <div style="position:absolute;top:5px;right:5px;background:rgba(0,0,0,.45);color:#fff;font-size:10px;padding:2px 7px;border-radius:20px"><i class="bi bi-arrows-fullscreen me-1"></i>Expand</div>
+                  </div>
+                </div>
+                <!-- Admin Acknowledgment Receipt -->
+                <div style="padding:12px 14px">
+                  <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#64748b;margin-bottom:8px"><i class="bi bi-file-check me-1"></i>Admin Acknowledgment Receipt</div>
+                  <?php if($pay['receipt_sent']): ?>
+                  <div style="display:flex;align-items:center;gap:10px;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:10px 14px">
+                    <div style="width:34px;height:34px;border-radius:9px;background:#dcfce7;display:flex;align-items:center;justify-content:center;font-size:17px;color:#16a34a;flex-shrink:0"><i class="bi bi-check-circle-fill"></i></div>
+                    <div>
+                      <div style="font-size:13px;font-weight:700;color:#166534">Receipt Sent to Parent</div>
+                      <div style="font-size:11.5px;color:#4ade80">Sent on <?= htmlspecialchars($pay['receipt_date']) ?></div>
+                    </div>
+                  </div>
+                  <?php else: ?>
+                  <div style="background:#fffbeb;border:1px solid #fde68a;border-radius:10px;padding:12px 14px" id="receiptPanel_<?= $pi ?>">
+                    <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:12px">
+                      <div style="width:32px;height:32px;border-radius:9px;background:#fef3c7;display:flex;align-items:center;justify-content:center;font-size:15px;color:#d97706;flex-shrink:0"><i class="bi bi-exclamation-triangle-fill"></i></div>
+                      <div>
+                        <div style="font-size:13px;font-weight:700;color:#92400e">Receipt not yet sent</div>
+                        <div style="font-size:12px;color:#b45309;margin-top:2px">Upload your signed receipt and send it to the parent to confirm payment was received. <strong>Required before enrollment can be completed.</strong></div>
+                      </div>
+                    </div>
+                    <div style="border:2px dashed #fbbf24;border-radius:8px;background:#fff;padding:14px;text-align:center;margin-bottom:10px;cursor:pointer" onclick="document.getElementById('receiptUpload_<?= $pi ?>').click()">
+                      <i class="bi bi-cloud-arrow-up" style="font-size:22px;color:#d97706;display:block;margin-bottom:5px"></i>
+                      <div style="font-size:12.5px;font-weight:600;color:#92400e">Upload acknowledgment receipt</div>
+                      <div style="font-size:11px;color:#b45309;margin-top:2px">JPG, PNG, or PDF &middot; max 5MB</div>
+                      <input type="file" id="receiptUpload_<?= $pi ?>" accept="image/*,.pdf" style="display:none" onchange="previewReceipt(this,<?= $pi ?>)">
+                    </div>
+                    <div id="receiptPreview_<?= $pi ?>" style="display:none;margin-bottom:10px;background:#fff;border:1px solid #fde68a;border-radius:8px;padding:8px;text-align:center">
+                      <img id="receiptPreviewImg_<?= $pi ?>" src="" alt="" style="max-width:100%;max-height:130px;object-fit:contain;border-radius:6px">
+                      <div id="receiptPreviewName_<?= $pi ?>" style="font-size:10.5px;color:#92400e;margin-top:4px;font-family:monospace"></div>
+                    </div>
+                    <button onclick="sendReceipt(this,<?= $pi ?>,'<?= htmlspecialchars($pay['id']) ?>','<?= htmlspecialchars($pay['amount']) ?>')"
+                            style="width:100%;background:#16a34a;color:#fff;border:none;font-size:13px;font-weight:700;padding:9px;border-radius:9px;cursor:pointer">
+                      <i class="bi bi-send-fill me-1"></i>Send Receipt &amp; Confirm Payment Received
+                    </button>
+                  </div>
+                  <?php endif; ?>
+                </div>
+              </div>
+              <?php endforeach; ?>
+            </div>
+            <?php endif; ?>
+          </div>
+          <!-- END PROOF OF PAYMENT -->
+
+
         </div>
       </div>
 
@@ -1762,6 +1906,46 @@ $p = $profiles[$profileId] ?? null;
         wrap.innerHTML = '<span style="background:#fef2f2;color:#991b1b;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px"><i class="bi bi-x-circle-fill me-1"></i>Resubmit Required</span>';
         btn.closest('[style*="border:1px solid"]').style.borderColor = '#fecaca';
         showToast('This document requires resubmission.');
+      }
+      function previewReceipt(input, idx) {
+        var file = input.files[0];
+        if (!file) return;
+        var preview = document.getElementById('receiptPreview_' + idx);
+        var img     = document.getElementById('receiptPreviewImg_' + idx);
+        var name    = document.getElementById('receiptPreviewName_' + idx);
+        preview.style.display = 'block';
+        name.textContent = file.name;
+        if (file.type.startsWith('image/')) {
+          var reader = new FileReader();
+          reader.onload = function(e) { img.src = e.target.result; img.style.display = 'block'; };
+          reader.readAsDataURL(file);
+        } else {
+          img.style.display = 'none';
+          name.textContent = '📄 ' + file.name + ' (PDF – no preview)';
+        }
+      }
+      function sendReceipt(btn, idx, payId, amount) {
+        var upload = document.getElementById('receiptUpload_' + idx);
+        if (!upload || !upload.files.length) {
+          showToast('Please upload an acknowledgment receipt first.');
+          return;
+        }
+        btn.disabled = true;
+        btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Sending…';
+        setTimeout(function() {
+          var panel = document.getElementById('receiptPanel_' + idx);
+          panel.outerHTML = '<div style="display:flex;align-items:center;gap:10px;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:10px 14px">'
+            + '<div style="width:34px;height:34px;border-radius:9px;background:#dcfce7;display:flex;align-items:center;justify-content:center;font-size:17px;color:#16a34a;flex-shrink:0"><i class="bi bi-check-circle-fill"></i></div>'
+            + '<div><div style="font-size:13px;font-weight:700;color:#166534">Receipt Sent to Parent</div>'
+            + '<div style="font-size:11.5px;color:#4ade80">Sent just now &nbsp;·&nbsp; ' + amount + ' confirmed</div></div></div>';
+          var block = document.getElementById('payBlock_' + idx);
+          if (block) {
+            block.style.borderColor = '#bbf7d0';
+            var header = block.querySelector('[id^="payStatus_"]');
+            if (header) header.outerHTML = '<span style="background:#f0fdf4;color:#166534;font-size:11px;font-weight:700;padding:2px 10px;border-radius:20px"><i class="bi bi-check-circle-fill me-1"></i>Verified</span>';
+          }
+          showToast('Receipt sent! Payment confirmed for ' + payId);
+        }, 1200);
       }
       </script>
 
