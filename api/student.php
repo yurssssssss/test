@@ -1,4 +1,4 @@
-<?php $pageTitle = 'Student Portal – DPNHS'; ?>
+<?php $pageTitle = 'Student Portal – PHLCI'; ?>
       <?php include 'header.php'; ?> 
 
 
@@ -94,7 +94,7 @@
 
               <!-- Submit Application -->
               <div class="card border rounded-3 p-0 overflow-hidden step-card">
-                <div class="d-flex align-items-center px-4 py-3" style="background:#1e3a5f">
+                <div class="d-flex align-items-center px-4 py-3" style="background:#1a2a5e">
                   <div class="step-num me-3">1</div>
                   <div class="flex-grow-1">
                     <div class="fw-bold text-white" style="font-size:14.5px">Submit Application</div>
@@ -158,7 +158,7 @@
               <!-- PHLCI ENROLLMENT FORM -->
 
               <!-- Student Type Toggle -->
-              <div class="card border rounded-3 p-3 mb-3" style="background:linear-gradient(135deg,#7b1a1a 0%,#1e3a5f 100%)">
+              <div class="card border rounded-3 p-3 mb-3" style="background:linear-gradient(135deg,#b91c1c 0%,#1a2a5e 100%)">
                 <div class="text-center text-white fw-bold mb-2" style="font-size:13px;text-transform:uppercase;letter-spacing:.8px">
                   <i class="bi bi-mortarboard-fill me-2"></i>Premiere Heights Learning Center, Inc. (PHLCI)
                 </div>
@@ -166,7 +166,7 @@
                 <div class="d-flex justify-content-center gap-2">
                   <button type="button" class="btn fw-semibold px-4 py-2" id="btnOldStudent"
                     onclick="switchStudentType('old')"
-                    style="font-size:13px;background:#fff;color:#7b1a1a;border:2px solid #fff;border-radius:30px">
+                    style="font-size:13px;background:#fff;color:#b91c1c;border:2px solid #fff;border-radius:30px">
                     <i class="bi bi-person-check-fill me-1"></i> Old Student
                   </button>
                   <button type="button" class="btn fw-semibold px-4 py-2" id="btnNewStudent"
@@ -200,7 +200,7 @@
               <div class="card border rounded-3 p-4 pb-3 mb-4">
 
                 <!-- Card Header -->
-                <div class="text-center pb-3 mb-3" style="border-bottom:2px solid #7b1a1a">
+                <div class="text-center pb-3 mb-3" style="border-bottom:2px solid #b91c1c">
                   <div class="fw-bold" style="font-size:16px;color:#1e293b;letter-spacing:.3px">
                     <span id="formTypeLabel">OLD STUDENT REGISTRATION FORM</span>
                   </div>
@@ -208,7 +208,7 @@
                 </div>
 
                 <!-- SECTION: Student's Information -->
-                <div class="fw-semibold mb-3" style="font-size:13px;color:#7b1a1a;text-transform:uppercase;letter-spacing:.7px;border-bottom:1px solid #e2e8f0;padding-bottom:6px">
+                <div class="fw-semibold mb-3" style="font-size:13px;color:#b91c1c;text-transform:uppercase;letter-spacing:.7px;border-bottom:1px solid #e2e8f0;padding-bottom:6px">
                   Student's Information
                 </div>
 
@@ -313,7 +313,7 @@
                     <button class="btn btn-outline-secondary w-100 py-2 fw-semibold" onclick="hideSubPanel()">Cancel</button>
                   </div>
                   <div class="col-md-4">
-                    <button class="btn w-100 py-2 fw-semibold" style="background:#7b1a1a;color:#fff" onclick="submitPHLCIForm()">
+                    <button class="btn w-100 py-2 fw-semibold" style="background:#b91c1c;color:#fff" onclick="submitPHLCIForm()">
                       <i class="bi bi-send-fill me-1"></i> Submit Registration
                     </button>
                   </div>
@@ -325,7 +325,7 @@
               <div class="modal fade" id="addStudentModal" tabindex="-1">
                 <div class="modal-dialog modal-dialog-centered" style="max-width:420px">
                   <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden">
-                    <div style="background:linear-gradient(135deg,#7b1a1a,#1e3a5f);padding:20px 24px 16px">
+                    <div style="background:linear-gradient(135deg,#b91c1c,#1a2a5e);padding:20px 24px 16px">
                       <div class="fw-bold text-white" style="font-size:16px"><i class="bi bi-person-plus-fill me-2"></i>Add Another Student</div>
                       <div class="text-white-50" style="font-size:12px">Enter the name of the additional student to enroll</div>
                     </div>
@@ -358,7 +358,7 @@
                     </div>
                     <div class="modal-footer border-0 px-4 pb-4 pt-0 gap-2">
                       <button class="btn btn-outline-secondary btn-sm" data-bs-dismiss="modal">Cancel</button>
-                      <button class="btn btn-sm fw-semibold px-4" style="background:#7b1a1a;color:#fff" onclick="confirmAddStudent()">
+                      <button class="btn btn-sm fw-semibold px-4" style="background:#b91c1c;color:#fff" onclick="confirmAddStudent()">
                         <i class="bi bi-plus-circle-fill me-1"></i> Add Student
                       </button>
                     </div>
@@ -384,7 +384,7 @@
                       <div class="fw-medium" style="font-size:13.5px;color:#1e293b"><?= $req ?></div>
                       <div class="text-muted" style="font-size:11px">PDF, JPG, PNG – Max 5MB</div>
                     </div>
-                    <label class="btn btn-sm fw-semibold" style="background:#1e3a5f;color:#fff;font-size:12px;cursor:pointer">
+                    <label class="btn btn-sm fw-semibold" style="background:#1a2a5e;color:#fff;font-size:12px;cursor:pointer">
                       <i class="bi bi-upload me-1"></i>Upload
                       <input type="file" accept=".pdf,.jpg,.png" style="display:none">
                     </label>
@@ -392,7 +392,7 @@
                   <?php endforeach; ?>
                 </div>
               </div>
-              <div class="pb-5"><button class="btn w-100 py-2 fw-semibold" style="background:#1e3a5f;color:#fff">Submit Requirements</button></div>
+              <div class="pb-5"><button class="btn w-100 py-2 fw-semibold" style="background:#1a2a5e;color:#fff">Submit Requirements</button></div>
             </div>
 
           
@@ -423,7 +423,7 @@
                   <?php endforeach; ?>
                 </div>
               </div>
-              <div class="pb-5"><button class="btn w-100 py-2 fw-semibold" style="background:#1e3a5f;color:#fff">Submit Special Needs Documents</button></div>
+              <div class="pb-5"><button class="btn w-100 py-2 fw-semibold" style="background:#1a2a5e;color:#fff">Submit Special Needs Documents</button></div>
             </div>
 
           </div>
@@ -553,7 +553,7 @@
                         'Section' => 'Section A',
                         'Adviser' => 'Mrs. Maria Santos',
                         'Track / Strand' => 'Academic',
-                        'School' => 'DPNHS',
+                        'School' => 'PHLCI',
                       ];
                       foreach($acadInfo as $label => $value): ?>
                       <div class="col-6">
@@ -578,12 +578,12 @@
 
               <!-- Profile Picture Card -->
               <div class="card border rounded-3 p-4 mb-4">
-                <h5 class="fw-bold mb-1 pb-2 border-bottom" style="color:#1e293b"><i class="bi bi-image me-2" style="color:#1e3a5f"></i>Profile Picture</h5>
+                <h5 class="fw-bold mb-1 pb-2 border-bottom" style="color:#1e293b"><i class="bi bi-image me-2" style="color:#1a2a5e"></i>Profile Picture</h5>
                 <div class="d-flex flex-column flex-sm-row align-items-center gap-4 pt-3">
                   <!-- Clickable Avatar -->
                   <div class="position-relative flex-shrink-0" style="cursor:pointer" onclick="openPhotoModal()" title="Click to manage photo">
                     <div id="profileAvatarPreview" class="stu-profile-avatar-lg">JS</div>
-                    <div class="position-absolute bottom-0 end-0" style="background:#1e3a5f;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;border:2px solid #fff;pointer-events:none">
+                    <div class="position-absolute bottom-0 end-0" style="background:#1a2a5e;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;border:2px solid #fff;pointer-events:none">
                       <i class="bi bi-camera-fill text-white" style="font-size:12px"></i>
                     </div>
                   </div>
@@ -591,7 +591,7 @@
                   <div>
                     <div class="fw-semibold mb-1" style="font-size:14px;color:#1e293b">John Smith</div>
                     <div class="text-muted mb-2" style="font-size:12px">STU2024001 &nbsp;·&nbsp; Grade 10 – Section A</div>
-                    <button class="btn btn-sm fw-semibold px-3" style="background:#1e3a5f;color:#fff;font-size:13px" onclick="openPhotoModal()">
+                    <button class="btn btn-sm fw-semibold px-3" style="background:#1a2a5e;color:#fff;font-size:13px" onclick="openPhotoModal()">
                       <i class="bi bi-camera me-1"></i>Manage Photo
                     </button>
                   </div>
@@ -606,7 +606,7 @@
                 <div class="modal-dialog modal-dialog-centered" style="max-width:360px">
                   <div class="modal-content border-0 shadow-lg" style="border-radius:16px;overflow:hidden">
                     <!-- Header -->
-                    <div style="background:#1e3a5f;padding:20px 24px 16px">
+                    <div style="background:#1a2a5e;padding:20px 24px 16px">
                       <div class="d-flex align-items-center gap-3">
                         <div id="modalAvatarThumb" class="stu-profile-avatar" style="width:46px;height:46px;font-size:15px;flex-shrink:0">JS</div>
                         <div>
@@ -673,7 +673,7 @@
 
               <!-- Change Password Card -->
               <div class="card border rounded-3 p-4 mb-4">
-                <h5 class="fw-bold mb-1 pb-2 border-bottom" style="color:#1e293b"><i class="bi bi-shield-lock me-2" style="color:#1e3a5f"></i>Change Password</h5>
+                <h5 class="fw-bold mb-1 pb-2 border-bottom" style="color:#1e293b"><i class="bi bi-shield-lock me-2" style="color:#1a2a5e"></i>Change Password</h5>
                 <div class="d-flex align-items-start gap-2 rounded-2 p-3 mt-3 mb-3" style="background:#f0f9ff;border:1px solid #bae6fd">
                   <i class="bi bi-info-circle-fill mt-1" style="color:#0284c7;font-size:14px;flex-shrink:0"></i>
                   <div style="font-size:12.5px;color:#0369a1">For your security, choose a strong password with at least 8 characters including uppercase, lowercase, numbers, and symbols.</div>
@@ -708,7 +708,7 @@
                     <div id="matchMsg" class="mt-1" style="font-size:11px"></div>
                   </div>
                   <div class="col-12 pt-1">
-                    <button class="btn btn-sm fw-semibold px-4" style="background:#1e3a5f;color:#fff;font-size:13px">
+                    <button class="btn btn-sm fw-semibold px-4" style="background:#1a2a5e;color:#fff;font-size:13px">
                       <i class="bi bi-shield-check me-1"></i>Update Password
                     </button>
                   </div>
@@ -739,18 +739,18 @@
           cursor: pointer;
         }
         .sidebar-nav-btn:hover { background: #f1f5f9; color: #1e293b; }
-        .sidebar-nav-btn.active { background: #1e3a5f; color: #fff; }
+        .sidebar-nav-btn.active { background: #1a2a5e; color: #fff; }
         .sidebar-nav-btn.active i { color: #fff; }
         .sidebar-nav-btn i { font-size: 15px; color: #64748b; }
         .stu-profile-avatar-lg {
           width: 90px; height: 90px; border-radius: 50%;
-          background: #1e3a5f; color: #fff;
+          background: #1a2a5e; color: #fff;
           display: flex; align-items: center; justify-content: center;
           font-weight: 700; font-size: 28px; overflow: hidden;
         }
         .stu-profile-avatar-lg img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
           width: 58px; height: 58px; border-radius: 50%;
-          background: #1e3a5f; color: #fff;
+          background: #1a2a5e; color: #fff;
           display: flex; align-items: center; justify-content: center;
           font-weight: 700; font-size: 18px; cursor: pointer;
         }
@@ -868,7 +868,7 @@
         if (type === 'new') {
           newOnlyEls.forEach(function(el){ el.classList.remove('d-none'); });
           btnNew.style.background = '#fff';
-          btnNew.style.color = '#1e3a5f';
+          btnNew.style.color = '#1a2a5e';
           btnNew.style.borderColor = '#fff';
           btnOld.style.background = 'transparent';
           btnOld.style.color = '#fff';
@@ -877,7 +877,7 @@
         } else {
           newOnlyEls.forEach(function(el){ el.classList.add('d-none'); });
           btnOld.style.background = '#fff';
-          btnOld.style.color = '#7b1a1a';
+          btnOld.style.color = '#b91c1c';
           btnOld.style.borderColor = '#fff';
           btnNew.style.background = 'transparent';
           btnNew.style.color = '#fff';
@@ -910,7 +910,7 @@
         if (additionalStudents.length === 0) { list.classList.add('d-none'); return; }
         list.classList.remove('d-none');
         tags.innerHTML = additionalStudents.map(function(s, i) {
-          return '<span class="badge d-inline-flex align-items-center gap-1 px-3 py-2 rounded-pill" style="background:#7b1a1a;color:#fff;font-size:12px;font-weight:500">'
+          return '<span class="badge d-inline-flex align-items-center gap-1 px-3 py-2 rounded-pill" style="background:#b91c1c;color:#fff;font-size:12px;font-weight:500">'
             + '<i class="bi bi-person-fill"></i>'
             + s.first + ' ' + s.last + ' (' + s.grade + ')'
             + ' <button type="button" onclick="removeStudent(' + i + ')" class="btn-close btn-close-white ms-1" style="font-size:9px;filter:invert(1)"></button>'
@@ -944,9 +944,9 @@
         var thumb = document.getElementById('modalAvatarThumb');
         var full = document.getElementById('fullPhotoView');
         av.innerHTML = 'JS';
-        av.style.background = '#1e3a5f';
-        if (thumb) { thumb.innerHTML = 'JS'; thumb.style.background = '#1e3a5f'; }
-        if (full) { full.innerHTML = 'JS'; full.style.background = '#1e3a5f'; }
+        av.style.background = '#1a2a5e';
+        if (thumb) { thumb.innerHTML = 'JS'; thumb.style.background = '#1a2a5e'; }
+        if (full) { full.innerHTML = 'JS'; full.style.background = '#1a2a5e'; }
         bootstrap.Modal.getInstance(document.getElementById('photoActionModal')).hide();
       }
 
@@ -982,7 +982,7 @@
         <div class="modal-dialog modal-dialog-centered" style="max-width:500px">
           <div class="modal-content border-0 shadow-lg" style="border-radius:20px;overflow:hidden">
             <!-- Header -->
-            <div style="background:linear-gradient(135deg,#1e3a8a 0%,#0d9488 100%);padding:28px 28px 22px;position:relative">
+            <div style="background:linear-gradient(135deg,#1a2a5e 0%,#111d42 100%);padding:28px 28px 22px;position:relative">
               <div class="d-flex align-items-center gap-3">
                 <div style="width:50px;height:50px;border-radius:14px;background:rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;font-size:24px;color:#fff;flex-shrink:0">
                   <i class="bi bi-megaphone-fill"></i>
@@ -998,7 +998,7 @@
             </div>
             <!-- Body -->
             <div class="modal-body p-4">
-              <div style="background:#f0fdf4;border-left:4px solid #0d9488;border-radius:8px;padding:14px 16px;margin-bottom:18px">
+              <div style="background:#f0fdf4;border-left:4px solid #111d42;border-radius:8px;padding:14px 16px;margin-bottom:18px">
                 <div class="fw-semibold mb-1" style="font-size:13px;color:#065f46"><i class="bi bi-calendar-check me-2"></i>Enrollment Schedule</div>
                 <div style="font-size:13.5px;color:#1e293b">
                   <span class="fw-bold">Start:</span> June 1, 2026 &nbsp;&bull;&nbsp; <span class="fw-bold">End:</span> July 31, 2026
@@ -1015,7 +1015,7 @@
             <!-- Footer -->
             <div class="modal-footer border-0 px-4 pb-4 pt-0 gap-2">
               <button class="btn btn-outline-secondary btn-sm" onclick="dismissAnnouncement()">Dismiss</button>
-              <button class="btn btn-sm fw-semibold px-4" style="background:#1e3a8a;color:#fff" onclick="dismissAnnouncement(); showPanel('new-student');">
+              <button class="btn btn-sm fw-semibold px-4" style="background:#1a2a5e;color:#fff" onclick="dismissAnnouncement(); showPanel('new-student');">
                 <i class="bi bi-pencil-fill me-1"></i>Start Enrollment
               </button>
             </div>
@@ -1031,9 +1031,9 @@
       (function() {
         // login.php sets this flag right before redirecting to student.php.
         // We read it and delete it immediately — so it only ever fires once per login.
-        var justLoggedIn = localStorage.getItem('dpnhs_just_logged_in') === '1';
+        var justLoggedIn = localStorage.getItem('phlci_just_logged_in') === '1';
         if (justLoggedIn) {
-          localStorage.removeItem('dpnhs_just_logged_in');
+          localStorage.removeItem('phlci_just_logged_in');
         }
 
         function showAnnouncementPopup() {

@@ -1,5 +1,5 @@
 <?php
-$pageTitle = 'Admin Dashboard – DPNHS';
+$pageTitle = 'Admin Dashboard – PHLCI';
 include 'header.php';
 
 /* ── Sample data (replace with DB queries in production) ── */
@@ -72,7 +72,7 @@ body { margin:0; background:#f1f5f9; }
 .left-sidebar {
   width: 240px;
   min-width: 240px;
-  background: #1a2744;
+  background: #1a2a5e;
   display: flex;
   flex-direction: column;
   position: fixed;
@@ -108,7 +108,7 @@ body { margin:0; background:#f1f5f9; }
 }
 .sb-avatar {
   width: 36px; height: 36px; border-radius: 50%;
-  background: var(--navy, #1e3a8a);
+  background: var(--navy, #1a2a5e);
   display: flex; align-items: center; justify-content: center;
   font-size: 13px; font-weight: 800; color: #fff; flex-shrink: 0;
   border: 2px solid rgba(255,255,255,.2);
@@ -344,12 +344,12 @@ body { margin:0; background:#f1f5f9; }
   }
 }
 /* Violet color for Pre-Elementary */
-.fill-violet { background: #7c3aed !important; }
-.grade-icon.violet { background: #f5f3ff; color: #7c3aed; }
+.fill-violet { background: #1a2a5e !important; }
+.grade-icon.violet { background: #f5f3ff; color: #1a2a5e; }
 /* Ensure amber/rose icon classes exist as fallback */
 .grade-icon.amber  { background: #fef3c7; color: #b45309; }
 .grade-icon.rose   { background: #fce7f3; color: #be185d; }
-.grade-icon.navy   { background: #eff6ff; color: #1e3a8a; }
+.grade-icon.navy   { background: #eff6ff; color: #1a2a5e; }
 </style>
 
 <!-- ===== SIDEBAR OVERLAY (mobile) ===== -->
@@ -361,9 +361,9 @@ body { margin:0; background:#f1f5f9; }
   <!-- ── LEFT SIDEBAR ── -->
   <aside class="left-sidebar sb-admin" id="leftSidebar">
     <div class="sb-brand">
-      <img src="/logo.png" alt="DPNHS Logo">
+      <img src="/logo.png" alt="PHLCI Logo">
       <div class="sb-brand-text">
-        <div class="sb-brand-name">DPNHS</div>
+        <div class="sb-brand-name">PHLCI</div>
         <div class="sb-brand-sub">Admin Dashboard</div>
       </div>
     </div>
@@ -491,8 +491,8 @@ body { margin:0; background:#f1f5f9; }
                 <canvas id="pieChart"></canvas>
               </div>
               <div class="d-flex flex-column gap-2">
-                <div class="d-flex align-items-center gap-2" style="font-size:13px"><span class="rounded-circle d-inline-block" style="width:12px;height:12px;background:#1e3a8a"></span> Male: 640 (51%)</div>
-                <div class="d-flex align-items-center gap-2" style="font-size:13px;color:#0d9488"><span class="rounded-circle d-inline-block" style="width:12px;height:12px;background:#0d9488"></span> Female: 605 (49%)</div>
+                <div class="d-flex align-items-center gap-2" style="font-size:13px"><span class="rounded-circle d-inline-block" style="width:12px;height:12px;background:#1a2a5e"></span> Male: 640 (51%)</div>
+                <div class="d-flex align-items-center gap-2" style="font-size:13px;color:#111d42"><span class="rounded-circle d-inline-block" style="width:12px;height:12px;background:#111d42"></span> Female: 605 (49%)</div>
               </div>
             </div>
           </div>
@@ -731,10 +731,10 @@ body { margin:0; background:#f1f5f9; }
           </div>
 
           <!-- Current SY pill -->
-          <div class="d-flex align-items-center gap-2 mb-4 p-2 rounded-2" style="background:#eff6ff;border:1px solid #bfdbfe;font-size:13px">
+          <div class="d-flex align-items-center gap-2 mb-4 p-2 rounded-2" style="background:#f0f4ff;border:1px solid #bfdbfe;font-size:13px">
             <i class="bi bi-calendar2-week-fill" style="color:#1e40af"></i>
             <span class="fw-semibold" style="color:#1e40af">Currently Viewing: SY 2025–2026</span>
-            <span class="badge rounded-pill ms-1" style="background:#1e3a8a;color:#fff;font-size:11px">Active</span>
+            <span class="badge rounded-pill ms-1" style="background:#1a2a5e;color:#fff;font-size:11px">Active</span>
           </div>
 
           <?php
@@ -742,8 +742,8 @@ body { margin:0; background:#f1f5f9; }
           $levelGroups = [
             'Pre-Elementary' => [
               'icon' => 'bi-stars',
-              'color' => '#7c3aed',
-              'bg'    => '#f5f3ff',
+              'color' => '#1a2a5e',
+              'bg'    => '#fffbea',
               'border'=> '#ddd6fe',
               'grades'=> [
                 'nursery' => ['label'=>'Nursery',        'fill'=>'fill-violet', 'icon'=>'violet'],
@@ -752,7 +752,7 @@ body { margin:0; background:#f1f5f9; }
             ],
             'Elementary' => [
               'icon' => 'bi-book-fill',
-              'color' => '#0d9488',
+              'color' => '#111d42',
               'bg'    => '#f0fdfa',
               'border'=> '#99f6e4',
               'grades'=> [
@@ -767,7 +767,7 @@ body { margin:0; background:#f1f5f9; }
             'Junior High School' => [
               'icon' => 'bi-mortarboard-fill',
               'color' => '#1e40af',
-              'bg'    => '#eff6ff',
+              'bg'    => '#f0f4ff',
               'border'=> '#bfdbfe',
               'grades'=> [
                 'g7'  => ['label'=>'Grade 7',  'fill'=>'fill-navy',  'icon'=>'navy'],
@@ -779,8 +779,8 @@ body { margin:0; background:#f1f5f9; }
           ];
 
           $emptyBgMap = [
-            'nursery'=> ['background'=>'#f5f3ff','color'=>'#7c3aed'],
-            'kinder' => ['background'=>'#f5f3ff','color'=>'#7c3aed'],
+            'nursery'=> ['background'=>'#fffbea','color'=>'#1a2a5e'],
+            'kinder' => ['background'=>'#fffbea','color'=>'#1a2a5e'],
             'g1'  => ['background'=>'var(--teal-light)','color'=>'var(--teal)'],
             'g2'  => ['background'=>'var(--teal-light)','color'=>'var(--teal)'],
             'g3'  => ['background'=>'var(--teal-light)','color'=>'var(--teal)'],
@@ -790,7 +790,7 @@ body { margin:0; background:#f1f5f9; }
             'g7'  => ['background'=>'var(--teal-light)','color'=>'var(--teal)'],
             'g8'  => ['background'=>'var(--amber-light,#fef3c7)','color'=>'var(--amber,#b45309)'],
             'g9'  => ['background'=>'var(--rose-light,#fce7f3)','color'=>'var(--rose,#be185d)'],
-            'g10' => ['background'=>'var(--navy-light,#eff6ff)','color'=>'var(--navy,#1e3a8a)'],
+            'g10' => ['background'=>'var(--navy-light,#eff6ff)','color'=>'var(--navy,#1a2a5e)'],
           ];
 
           foreach($levelGroups as $levelName => $levelData): ?>
@@ -833,7 +833,7 @@ body { margin:0; background:#f1f5f9; }
       ══════════════════════════════════════ -->
       <div id="admin-tab-payments" class="d-none">
         <!-- Info banner: no payment API -->
-        <div class="d-flex align-items-start gap-2 rounded-3 p-3 mb-4" style="background:#eff6ff;border:1px solid #bfdbfe;font-size:13px">
+        <div class="d-flex align-items-start gap-2 rounded-3 p-3 mb-4" style="background:#f0f4ff;border:1px solid #bfdbfe;font-size:13px">
           <i class="bi bi-info-circle-fill mt-1" style="color:#2563eb;font-size:15px;flex-shrink:0"></i>
           <div style="color:#1e40af">
             <strong>Manual Payment Process:</strong> Payments are made outside the system via GCash, Maya, or bank transfer.
@@ -870,7 +870,7 @@ body { margin:0; background:#f1f5f9; }
         <div class="card border rounded-3 p-3 p-md-4">
           <div class="d-flex align-items-start justify-content-between mb-3 flex-wrap gap-2">
             <div>
-              <div class="fw-bold mb-1" style="font-size:15px;color:#1e293b"><i class="bi bi-receipt me-2" style="color:#1e3a8a"></i>Proof of Payment Submissions</div>
+              <div class="fw-bold mb-1" style="font-size:15px;color:#1e293b"><i class="bi bi-receipt me-2" style="color:#1a2a5e"></i>Proof of Payment Submissions</div>
               <div class="text-muted" style="font-size:13px">Review uploaded payment proofs and send email invoices upon verification</div>
             </div>
             <div class="d-flex gap-2 flex-wrap align-items-center">
@@ -968,18 +968,18 @@ body { margin:0; background:#f1f5f9; }
 
           <!-- Profile Picture Card -->
           <div class="card border rounded-3 p-4 mb-4">
-            <h5 class="fw-bold mb-1 pb-2 border-bottom" style="color:#1e293b"><i class="bi bi-image me-2" style="color:#1a2744"></i>Profile Picture</h5>
+            <h5 class="fw-bold mb-1 pb-2 border-bottom" style="color:#1e293b"><i class="bi bi-image me-2" style="color:#1a2a5e"></i>Profile Picture</h5>
             <div class="d-flex flex-column flex-sm-row align-items-center gap-4 pt-3">
               <div class="position-relative flex-shrink-0" style="cursor:pointer" onclick="openAdminPhotoModal()" title="Click to manage photo">
-                <div id="adminAvatarPreview" style="width:90px;height:90px;border-radius:50%;background:#1a2744;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:28px;overflow:hidden">AD</div>
-                <div class="position-absolute bottom-0 end-0" style="background:#1a2744;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;border:2px solid #fff;pointer-events:none">
+                <div id="adminAvatarPreview" style="width:90px;height:90px;border-radius:50%;background:#1a2a5e;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:28px;overflow:hidden">AD</div>
+                <div class="position-absolute bottom-0 end-0" style="background:#1a2a5e;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;border:2px solid #fff;pointer-events:none">
                   <i class="bi bi-camera-fill text-white" style="font-size:12px"></i>
                 </div>
               </div>
               <div>
                 <div class="fw-semibold mb-1" style="font-size:14px;color:#1e293b">Admin User</div>
-                <div class="text-muted mb-2" style="font-size:12px">Grade 7 Administrator &nbsp;·&nbsp; DPNHS</div>
-                <button class="btn btn-sm fw-semibold px-3" style="background:#1a2744;color:#fff;font-size:13px" onclick="openAdminPhotoModal()">
+                <div class="text-muted mb-2" style="font-size:12px">Grade 7 Administrator &nbsp;·&nbsp; PHLCI</div>
+                <button class="btn btn-sm fw-semibold px-3" style="background:#1a2a5e;color:#fff;font-size:13px" onclick="openAdminPhotoModal()">
                   <i class="bi bi-camera me-1"></i>Manage Photo
                 </button>
               </div>
@@ -988,7 +988,7 @@ body { margin:0; background:#f1f5f9; }
 
           <!-- Change Password Card -->
           <div class="card border rounded-3 p-4 mb-4">
-            <h5 class="fw-bold mb-1 pb-2 border-bottom" style="color:#1e293b"><i class="bi bi-shield-lock me-2" style="color:#1a2744"></i>Change Password</h5>
+            <h5 class="fw-bold mb-1 pb-2 border-bottom" style="color:#1e293b"><i class="bi bi-shield-lock me-2" style="color:#1a2a5e"></i>Change Password</h5>
             <div class="d-flex align-items-start gap-2 rounded-2 p-3 mt-3 mb-3" style="background:#f0f9ff;border:1px solid #bae6fd">
               <i class="bi bi-info-circle-fill mt-1" style="color:#0284c7;font-size:14px;flex-shrink:0"></i>
               <div style="font-size:12.5px;color:#0369a1">For your security, choose a strong password with at least 8 characters including uppercase, lowercase, numbers, and symbols.</div>
@@ -1023,7 +1023,7 @@ body { margin:0; background:#f1f5f9; }
                 <div id="adminMatchMsg" class="mt-1" style="font-size:11px"></div>
               </div>
               <div class="col-12 pt-1">
-                <button class="btn btn-sm fw-semibold px-4" style="background:#1a2744;color:#fff;font-size:13px">
+                <button class="btn btn-sm fw-semibold px-4" style="background:#1a2a5e;color:#fff;font-size:13px">
                   <i class="bi bi-shield-check me-1"></i>Update Password
                 </button>
               </div>
@@ -1048,7 +1048,7 @@ body { margin:0; background:#f1f5f9; }
 <div class="modal fade" id="adminPhotoActionModal" tabindex="-1">
   <div class="modal-dialog modal-dialog-centered" style="max-width:360px">
     <div class="modal-content border-0 shadow-lg" style="border-radius:16px;overflow:hidden">
-      <div style="background:#1a2744;padding:20px 24px 16px">
+      <div style="background:#1a2a5e;padding:20px 24px 16px">
         <div class="d-flex align-items-center gap-3">
           <div id="adminModalThumb" style="width:46px;height:46px;border-radius:50%;background:rgba(255,255,255,.18);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px;flex-shrink:0;overflow:hidden">AD</div>
           <div>
@@ -1102,7 +1102,7 @@ body { margin:0; background:#f1f5f9; }
         <button class="btn-close btn-close-white btn-sm" data-bs-dismiss="modal"></button>
       </div>
       <div class="d-flex align-items-center justify-content-center p-4" style="min-height:300px">
-        <div id="adminFullPhotoView" style="width:180px;height:180px;border-radius:50%;background:#1a2744;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:52px;overflow:hidden">AD</div>
+        <div id="adminFullPhotoView" style="width:180px;height:180px;border-radius:50%;background:#1a2a5e;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:52px;overflow:hidden">AD</div>
       </div>
       <div class="px-4 pb-4 text-center">
         <div class="fw-semibold text-white" style="font-size:15px">Admin User</div>
@@ -1364,7 +1364,7 @@ $p = $profiles[$profileId] ?? null;
   <div class="modal-dialog modal-lg modal-dialog-scrollable">
     <div class="modal-content border-0 shadow-lg" style="border-radius:16px;overflow:hidden">
       <?php if($p): ?>
-      <div style="background:linear-gradient(135deg,#1e3a8a 0%,#0d9488 100%);padding:28px 28px 20px;position:relative">
+      <div style="background:linear-gradient(135deg,#1a2a5e 0%,#111d42 100%);padding:28px 28px 20px;position:relative">
         <a href="<?= $closeHref ?>" class="btn-close btn-close-white position-absolute top-0 end-0 m-3"></a>
         <div class="d-flex align-items-center gap-3 flex-wrap">
           <div style="width:72px;height:72px;border-radius:50%;background:rgba(255,255,255,.2);border:3px solid rgba(255,255,255,.5);display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:800;color:#fff">
@@ -1408,7 +1408,7 @@ $p = $profiles[$profileId] ?? null;
           <div style="background:#fff;border:1px solid #e2e8f0;border-radius:14px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.04)">
             <!-- Section Header -->
             <div style="padding:13px 18px;background:#f8fafc;border-bottom:1px solid #e2e8f0;display:flex;align-items:center;gap:10px">
-              <div style="width:30px;height:30px;border-radius:8px;background:#1e3a8a;display:flex;align-items:center;justify-content:center;font-size:13px;color:#fff;flex-shrink:0">
+              <div style="width:30px;height:30px;border-radius:8px;background:#1a2a5e;display:flex;align-items:center;justify-content:center;font-size:13px;color:#fff;flex-shrink:0">
                 <i class="bi bi-person-fill"></i>
               </div>
               <span style="font-size:13px;font-weight:700;color:#1e293b;letter-spacing:.01em">Learner Information</span>
@@ -1449,7 +1449,7 @@ $p = $profiles[$profileId] ?? null;
                 </div>
                 <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:11px 14px;text-align:center">
                   <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#94a3b8;margin-bottom:4px">Age</div>
-                  <div style="font-size:17px;font-weight:800;color:#1e3a8a"><?= $p['age'] ?></div>
+                  <div style="font-size:17px;font-weight:800;color:#1a2a5e"><?= $p['age'] ?></div>
                 </div>
               </div>
 
@@ -1460,7 +1460,7 @@ $p = $profiles[$profileId] ?? null;
                   <?php
                   $sexIcon  = $p['sex'] === 'Male' ? 'bi-gender-male' : 'bi-gender-female';
                   $sexColor = $p['sex'] === 'Male' ? '#2563eb' : '#db2777';
-                  $sexBg    = $p['sex'] === 'Male' ? '#eff6ff' : '#fdf2f8';
+                  $sexBg    = $p['sex'] === 'Male' ? '#f0f4ff' : '#fdf2f8';
                   ?>
                   <span style="display:inline-flex;align-items:center;gap:5px;background:<?= $sexBg ?>;color:<?= $sexColor ?>;font-size:12px;font-weight:700;padding:4px 12px;border-radius:20px">
                     <i class="bi <?= $sexIcon ?>"></i><?= $p['sex'] ?>
@@ -1502,7 +1502,7 @@ $p = $profiles[$profileId] ?? null;
           <!-- Current Address -->
           <div style="background:#fff;border:1px solid #e2e8f0;border-radius:14px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.04)">
             <div style="padding:13px 18px;background:#f8fafc;border-bottom:1px solid #e2e8f0;display:flex;align-items:center;gap:10px">
-              <div style="width:30px;height:30px;border-radius:8px;background:#0d9488;display:flex;align-items:center;justify-content:center;font-size:13px;color:#fff;flex-shrink:0">
+              <div style="width:30px;height:30px;border-radius:8px;background:#111d42;display:flex;align-items:center;justify-content:center;font-size:13px;color:#fff;flex-shrink:0">
                 <i class="bi bi-geo-alt-fill"></i>
               </div>
               <span style="font-size:13px;font-weight:700;color:#1e293b">Current Address</span>
@@ -1529,13 +1529,13 @@ $p = $profiles[$profileId] ?? null;
           <div style="background:#fff;border:1px solid #e2e8f0;border-radius:14px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.04)">
             <div style="padding:13px 18px;background:#f8fafc;border-bottom:1px solid #e2e8f0;display:flex;align-items:center;justify-content:space-between;gap:10px">
               <div style="display:flex;align-items:center;gap:10px">
-                <div style="width:30px;height:30px;border-radius:8px;background:#0d9488;display:flex;align-items:center;justify-content:center;font-size:13px;color:#fff;flex-shrink:0">
+                <div style="width:30px;height:30px;border-radius:8px;background:#111d42;display:flex;align-items:center;justify-content:center;font-size:13px;color:#fff;flex-shrink:0">
                   <i class="bi bi-house-fill"></i>
                 </div>
                 <span style="font-size:13px;font-weight:700;color:#1e293b">Permanent Address</span>
               </div>
               <?php if($p['perm_same']): ?>
-              <span style="background:#eff6ff;color:#2563eb;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;border:1px solid #bfdbfe">
+              <span style="background:#f0f4ff;color:#2563eb;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;border:1px solid #bfdbfe">
                 <i class="bi bi-check2 me-1"></i>Same as Current
               </span>
               <?php endif; ?>
@@ -1630,7 +1630,7 @@ $p = $profiles[$profileId] ?? null;
           <div style="background:#fff;border:1px solid #e2e8f0;border-radius:12px;overflow:hidden">
             <div style="padding:12px 16px;background:#f1f5f9;border-bottom:1px solid #e2e8f0;display:flex;align-items:center;justify-content:space-between;gap:8px">
               <div style="display:flex;align-items:center;gap:8px">
-                <div style="width:28px;height:28px;border-radius:8px;background:#7c3aed;display:flex;align-items:center;justify-content:center;font-size:13px;color:#fff"><i class="bi bi-folder2-open"></i></div>
+                <div style="width:28px;height:28px;border-radius:8px;background:#1a2a5e;display:flex;align-items:center;justify-content:center;font-size:13px;color:#fff"><i class="bi bi-folder2-open"></i></div>
                 <span style="font-size:13px;font-weight:700;color:#1e293b">Submitted Requirements</span>
               </div>
               <?php
@@ -1655,7 +1655,7 @@ $p = $profiles[$profileId] ?? null;
               <div style="border:1px solid <?= $doc['status']==='missing' ? '#fecaca' : ($doc['status']==='verified' ? '#bbf7d0' : '#e2e8f0') ?>;border-radius:10px;overflow:hidden;background:<?= $doc['status']==='missing' ? '#fff5f5' : '#fff' ?>">
                 <div style="padding:10px 14px;display:flex;align-items:center;justify-content:space-between;gap:8px;border-bottom:1px solid <?= $doc['status']==='missing' ? '#fecaca' : '#f1f5f9' ?>">
                   <div style="display:flex;align-items:center;gap:8px">
-                    <div style="width:30px;height:30px;border-radius:8px;background:<?= $doc['status']==='missing' ? '#fef2f2' : ($doc['status']==='verified' ? '#f0fdf4' : '#eff6ff') ?>;display:flex;align-items:center;justify-content:center;font-size:14px;color:<?= $doc['status']==='missing' ? '#dc2626' : ($doc['status']==='verified' ? '#16a34a' : '#2563eb') ?>">
+                    <div style="width:30px;height:30px;border-radius:8px;background:<?= $doc['status']==='missing' ? '#fef2f2' : ($doc['status']==='verified' ? '#f0fdf4' : '#f0f4ff') ?>;display:flex;align-items:center;justify-content:center;font-size:14px;color:<?= $doc['status']==='missing' ? '#dc2626' : ($doc['status']==='verified' ? '#16a34a' : '#2563eb') ?>">
                       <i class="bi bi-<?= $doc['type']==='pdf' ? 'file-earmark-pdf' : 'file-earmark-image' ?>"></i>
                     </div>
                     <div>
@@ -1714,7 +1714,7 @@ $p = $profiles[$profileId] ?? null;
                 <?php elseif($doc['status'] !== 'missing' && $doc['type'] === 'pdf'): ?>
                 <div style="padding:12px 14px;background:#f8fafc">
                   <a href="/uploads/requirements/<?= htmlspecialchars($doc['file']) ?>" target="_blank"
-                     style="display:inline-flex;align-items:center;gap:6px;background:#eff6ff;color:#1e40af;border:1px solid #bfdbfe;font-size:12px;font-weight:600;padding:6px 14px;border-radius:8px;text-decoration:none">
+                     style="display:inline-flex;align-items:center;gap:6px;background:#f0f4ff;color:#1e40af;border:1px solid #bfdbfe;font-size:12px;font-weight:600;padding:6px 14px;border-radius:8px;text-decoration:none">
                     <i class="bi bi-file-earmark-pdf me-1"></i>Open PDF — <?= htmlspecialchars($doc['file']) ?>
                     <i class="bi bi-box-arrow-up-right"></i>
                   </a>
@@ -1969,7 +1969,7 @@ function asCopyPass() {
 <div class="modal fade" id="phpModal" tabindex="-1" data-bs-backdrop="static">
   <div class="modal-dialog modal-dialog-centered" style="max-width:460px">
     <div class="modal-content border-0 shadow-lg" style="border-radius:16px;overflow:hidden">
-      <div style="background:linear-gradient(135deg,#1e3a8a,#0d9488);padding:22px 28px 18px;position:relative">
+      <div style="background:linear-gradient(135deg,#1a2a5e,#111d42);padding:22px 28px 18px;position:relative">
         <a href="/admin" class="btn-close btn-close-white position-absolute top-0 end-0 m-3"></a>
         <div class="d-flex align-items-center gap-3">
           <div style="width:44px;height:44px;border-radius:12px;background:rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;font-size:20px;color:#fff"><i class="bi bi-arrow-left-right"></i></div>
@@ -2008,7 +2008,7 @@ function asCopyPass() {
 <div class="modal fade" id="phpModal" tabindex="-1" data-bs-backdrop="static">
   <div class="modal-dialog modal-dialog-centered" style="max-width:520px">
     <div class="modal-content border-0 shadow-lg" style="border-radius:18px;overflow:hidden">
-      <div style="background:linear-gradient(135deg,#1e3a8a,#0d9488);padding:24px 28px 20px;position:relative">
+      <div style="background:linear-gradient(135deg,#1a2a5e,#111d42);padding:24px 28px 20px;position:relative">
         <a href="/admin" class="btn-close btn-close-white position-absolute top-0 end-0 m-3"></a>
         <div class="d-flex align-items-center gap-3">
           <div style="width:44px;height:44px;border-radius:12px;background:rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;font-size:22px;color:#fff"><i class="bi bi-layout-text-sidebar-reverse"></i></div>
@@ -2021,15 +2021,15 @@ function asCopyPass() {
       <div class="modal-body p-4" style="background:#f8fafc;max-height:70vh;overflow-y:auto">
 
         <!-- Pre-Elementary -->
-        <div class="mb-1" style="font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:#7c3aed;padding:4px 8px;background:#f5f3ff;border-radius:6px;display:inline-block">
+        <div class="mb-1" style="font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:#1a2a5e;padding:4px 8px;background:#fffbea;border-radius:6px;display:inline-block">
           <i class="bi bi-stars me-1"></i>Pre-Elementary
         </div>
         <div class="row g-2 mb-3 mt-1">
           <?php
           $csGrades = [
             // Pre-Elementary
-            ['id'=>'nursery','label'=>'Nursery',  'count'=>22,'bg'=>'#f5f3ff','color'=>'#7c3aed','group'=>'pre'],
-            ['id'=>'kinder', 'label'=>'Kinder',   'count'=>28,'bg'=>'#f5f3ff','color'=>'#7c3aed','group'=>'pre'],
+            ['id'=>'nursery','label'=>'Nursery',  'count'=>22,'bg'=>'#fffbea','color'=>'#1a2a5e','group'=>'pre'],
+            ['id'=>'kinder', 'label'=>'Kinder',   'count'=>28,'bg'=>'#fffbea','color'=>'#1a2a5e','group'=>'pre'],
             // Elementary
             ['id'=>'g1','label'=>'Grade 1','count'=>45,'bg'=>'var(--teal-light,#ccfbf1)','color'=>'var(--teal,#0f766e)','group'=>'elem'],
             ['id'=>'g2','label'=>'Grade 2','count'=>42,'bg'=>'var(--teal-light,#ccfbf1)','color'=>'var(--teal,#0f766e)','group'=>'elem'],
@@ -2038,10 +2038,10 @@ function asCopyPass() {
             ['id'=>'g5','label'=>'Grade 5','count'=>38,'bg'=>'var(--teal-light,#ccfbf1)','color'=>'var(--teal,#0f766e)','group'=>'elem'],
             ['id'=>'g6','label'=>'Grade 6','count'=>36,'bg'=>'var(--teal-light,#ccfbf1)','color'=>'var(--teal,#0f766e)','group'=>'elem'],
             // Junior High School
-            ['id'=>'g7', 'label'=>'Grade 7', 'count'=>64,'bg'=>'#eff6ff','color'=>'#1e40af','group'=>'jhs'],
+            ['id'=>'g7', 'label'=>'Grade 7', 'count'=>64,'bg'=>'#f0f4ff','color'=>'#1e40af','group'=>'jhs'],
             ['id'=>'g8', 'label'=>'Grade 8', 'count'=>58,'bg'=>'#fef3c7','color'=>'#b45309','group'=>'jhs'],
             ['id'=>'g9', 'label'=>'Grade 9', 'count'=>52,'bg'=>'#fce7f3','color'=>'#be185d','group'=>'jhs'],
-            ['id'=>'g10','label'=>'Grade 10','count'=>47,'bg'=>'#eff6ff','color'=>'#1e3a8a','group'=>'jhs'],
+            ['id'=>'g10','label'=>'Grade 10','count'=>47,'bg'=>'#f0f4ff','color'=>'#1a2a5e','group'=>'jhs'],
           ];
           $preGrades  = array_filter($csGrades, fn($g)=>$g['group']==='pre');
           $elemGrades = array_filter($csGrades, fn($g)=>$g['group']==='elem');
@@ -2060,7 +2060,7 @@ function asCopyPass() {
         </div>
 
         <!-- Elementary -->
-        <div class="mb-1" style="font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:#0d9488;padding:4px 8px;background:#f0fdfa;border-radius:6px;display:inline-block">
+        <div class="mb-1" style="font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:#111d42;padding:4px 8px;background:#f0fdfa;border-radius:6px;display:inline-block">
           <i class="bi bi-book-fill me-1"></i>Elementary
         </div>
         <div class="row g-2 mb-3 mt-1">
@@ -2077,7 +2077,7 @@ function asCopyPass() {
         </div>
 
         <!-- Junior High School -->
-        <div class="mb-1" style="font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:#1e40af;padding:4px 8px;background:#eff6ff;border-radius:6px;display:inline-block">
+        <div class="mb-1" style="font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:#1e40af;padding:4px 8px;background:#f0f4ff;border-radius:6px;display:inline-block">
           <i class="bi bi-mortarboard-fill me-1"></i>Junior High School
         </div>
         <div class="row g-2 mt-1">
@@ -2112,7 +2112,7 @@ foreach($payments as $p) { if($p['id'] === $payId) { $viewedPay = $p; break; } }
 <div class="modal fade" id="phpModal" tabindex="-1" data-bs-backdrop="static">
   <div class="modal-dialog modal-dialog-centered" style="max-width:520px">
     <div class="modal-content border-0 shadow-lg" style="border-radius:18px;overflow:hidden">
-      <div style="background:linear-gradient(135deg,#1e3a8a,#0d9488);padding:22px 28px 18px;position:relative">
+      <div style="background:linear-gradient(135deg,#1a2a5e,#111d42);padding:22px 28px 18px;position:relative">
         <a href="?tab=payments" class="btn-close btn-close-white position-absolute top-0 end-0 m-3"></a>
         <div class="d-flex align-items-center gap-3">
           <div style="width:44px;height:44px;border-radius:12px;background:rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;font-size:20px;color:#fff"><i class="bi bi-receipt"></i></div>
@@ -2254,7 +2254,7 @@ $payName = $_GET['pay_name'] ?? '';
 <div class="modal fade" id="syArchiveModal" tabindex="-1">
   <div class="modal-dialog modal-lg modal-dialog-scrollable modal-dialog-centered">
     <div class="modal-content border-0 shadow-lg" style="border-radius:18px;overflow:hidden">
-      <div style="background:linear-gradient(135deg,#1e3a8a,#0d9488);padding:24px 28px 20px;position:relative">
+      <div style="background:linear-gradient(135deg,#1a2a5e,#111d42);padding:24px 28px 20px;position:relative">
         <button type="button" class="btn-close btn-close-white position-absolute top-0 end-0 m-3" data-bs-dismiss="modal"></button>
         <div class="d-flex align-items-center gap-3">
           <div style="width:44px;height:44px;border-radius:12px;background:rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;font-size:22px;color:#fff">
@@ -2278,7 +2278,7 @@ $payName = $_GET['pay_name'] ?? '';
 
 <!-- Approve toast (shown via URL param) -->
 <?php if($action === 'approve' && $appId): ?>
-<div class="dpnhs-toast" id="approveToast">
+<div class="PHLCI-toast" id="approveToast">
   <i class="bi bi-check-circle-fill" style="color:#4ade80;font-size:18px"></i>
   <?= htmlspecialchars($appName) ?> (<?= htmlspecialchars($appId) ?>) has been approved!
 </div>
@@ -2352,7 +2352,7 @@ function submitRejectForm() {
 /* ── Toast helper ── */
 function showToast(msg) {
   const t = document.createElement('div');
-  t.className = 'dpnhs-toast';
+  t.className = 'PHLCI-toast';
   t.innerHTML = `<i class="bi bi-check-circle-fill" style="color:#4ade80;font-size:18px"></i>${msg}`;
   document.body.appendChild(t);
   setTimeout(() => t.remove(), 3500);
@@ -2393,7 +2393,7 @@ const gradeArchiveColors = {
   'Grade 7':  { bg: '#ccfbf1', color: '#0f766e' },
   'Grade 8':  { bg: '#fef3c7', color: '#b45309' },
   'Grade 9':  { bg: '#fce7f3', color: '#be185d' },
-  'Grade 10': { bg: '#eff6ff', color: '#1e40af' },
+  'Grade 10': { bg: '#f0f4ff', color: '#1e40af' },
 };
 
 function openSYArchiveModal() {
@@ -2413,9 +2413,9 @@ function openSYArchiveModal() {
         '</div></div>';
     }).join('');
     var exportBtn = '<button class="btn btn-sm btn-outline-secondary" onclick="alert(\'Exporting '+rec.sy+' data...\')"><i class="bi bi-download me-1"></i>Export</button>';
-    var reportBtn = !isActive ? '<button class="btn btn-sm ms-2" style="background:#eff6ff;color:#1e40af;border:1px solid #bfdbfe" onclick="alert(\'Viewing '+rec.sy+' report...\')"><i class="bi bi-eye me-1"></i>View Report</button>' : '';
+    var reportBtn = !isActive ? '<button class="btn btn-sm ms-2" style="background:#f0f4ff;color:#1e40af;border:1px solid #bfdbfe" onclick="alert(\'Viewing '+rec.sy+' report...\')"><i class="bi bi-eye me-1"></i>View Report</button>' : '';
     return '<div class="card border rounded-3 mb-3 overflow-hidden">' +
-      '<div class="d-flex align-items-center justify-content-between p-3 flex-wrap gap-2" style="background:'+(isActive?'linear-gradient(135deg,#1e3a8a,#0d9488)':'#f8fafc')+';cursor:pointer" onclick="this.nextElementSibling.classList.toggle(\'d-none\')">' +
+      '<div class="d-flex align-items-center justify-content-between p-3 flex-wrap gap-2" style="background:'+(isActive?'linear-gradient(135deg,#1a2a5e,#111d42)':'#f8fafc')+';cursor:pointer" onclick="this.nextElementSibling.classList.toggle(\'d-none\')">' +
         '<div class="d-flex align-items-center gap-3">' +
           '<div style="width:40px;height:40px;border-radius:10px;background:'+(isActive?'rgba(255,255,255,.18)':'#e2e8f0')+';display:flex;align-items:center;justify-content:center;font-size:18px;color:'+(isActive?'#fff':'#64748b')+'">' +
             '<i class="bi bi-calendar2-week-fill"></i></div>' +
@@ -2438,20 +2438,20 @@ const enrolledCounts = {
   g7:64, g8:58, g9:52, g10:47
 };
 const LETTERS = ['A','B','C','D','E','F'];
-const CAP = 40;
+const CAP = 15;
 const gradeColors = {
-  nursery: { fill:'fill-violet', bg:'#f5f3ff',  color:'#7c3aed' },
-  kinder:  { fill:'fill-violet', bg:'#f5f3ff',  color:'#7c3aed' },
+  nursery: { fill:'fill-violet', bg:'#fffbea',  color:'#1a2a5e' },
+  kinder:  { fill:'fill-violet', bg:'#fffbea',  color:'#1a2a5e' },
   g1:  { fill:'fill-teal',  bg:'#ccfbf1', color:'#0f766e' },
   g2:  { fill:'fill-teal',  bg:'#ccfbf1', color:'#0f766e' },
   g3:  { fill:'fill-teal',  bg:'#ccfbf1', color:'#0f766e' },
   g4:  { fill:'fill-teal',  bg:'#ccfbf1', color:'#0f766e' },
   g5:  { fill:'fill-teal',  bg:'#ccfbf1', color:'#0f766e' },
   g6:  { fill:'fill-teal',  bg:'#ccfbf1', color:'#0f766e' },
-  g7:  { fill:'fill-navy',  bg:'#eff6ff', color:'#1e40af' },
+  g7:  { fill:'fill-navy',  bg:'#f0f4ff', color:'#1e40af' },
   g8:  { fill:'fill-amber', bg:'#fef3c7', color:'#b45309' },
   g9:  { fill:'fill-rose',  bg:'#fce7f3', color:'#be185d' },
-  g10: { fill:'fill-navy',  bg:'#dbeafe', color:'#1e3a8a' },
+  g10: { fill:'fill-navy',  bg:'#dbeafe', color:'#1a2a5e' },
 };
 
 function triggerAutoSection(gradeId, gradeLabel) {
@@ -2509,7 +2509,7 @@ function initAdminCharts() {
   });
   new Chart(document.getElementById('pieChart'), {
     type:'doughnut',
-    data:{ labels:['Male','Female'], datasets:[{data:[640,605],backgroundColor:['#1e3a8a','#0d9488'],borderWidth:2,borderColor:'#ffffff'}] },
+    data:{ labels:['Male','Female'], datasets:[{data:[640,605],backgroundColor:['#1a2a5e','#111d42'],borderWidth:2,borderColor:'#ffffff'}] },
     options:{ responsive:true, maintainAspectRatio:false, cutout:'60%', plugins:{legend:{display:false}} }
   });
   new Chart(document.getElementById('appStatusChart'), {
@@ -2519,7 +2519,7 @@ function initAdminCharts() {
   });
   new Chart(document.getElementById('trendChart'), {
     type:'line',
-    data:{ labels:['SY 2023–2024','SY 2024–2025','SY 2025–2026'], datasets:[{ label:'Enrolled', data:[244,258,271], borderColor:'#7c3aed', backgroundColor:'rgba(124,58,237,.1)', fill:true, tension:.35, pointBackgroundColor:'#7c3aed', pointRadius:5 }] },
+    data:{ labels:['SY 2023–2024','SY 2024–2025','SY 2025–2026'], datasets:[{ label:'Enrolled', data:[244,258,271], borderColor:'#1a2a5e', backgroundColor:'rgba(124,58,237,.1)', fill:true, tension:.35, pointBackgroundColor:'#1a2a5e', pointRadius:5 }] },
     options:{ responsive:true, maintainAspectRatio:false, plugins:{legend:{display:false}}, scales:{ y:{beginAtZero:false,ticks:{color:'#94a3b8',font:{size:11}},grid:{color:'rgba(148,163,184,.15)'}}, x:{ticks:{color:'#64748b',font:{size:11}},grid:{display:false}} } }
   });
 }
@@ -2546,10 +2546,10 @@ function openMasterList(gradeLabel, sectionName, studentCount, gradeId) {
   const students = _masterListData[key] || generateSampleStudents(studentCount, gradeLabel, sectionName);
 
   const gradeColorMap = {
-    g7: {bg:'#ccfbf1',color:'#0f766e',gradient:'#0d9488,#065f46'},
+    g7: {bg:'#ccfbf1',color:'#0f766e',gradient:'#111d42,#065f46'},
     g8: {bg:'#fef3c7',color:'#b45309',gradient:'#d97706,#92400e'},
     g9: {bg:'#fce7f3',color:'#be185d',gradient:'#db2777,#9d174d'},
-    g10:{bg:'#eff6ff',color:'#1e40af',gradient:'#1e3a8a,#1e40af'},
+    g10:{bg:'#f0f4ff',color:'#1e40af',gradient:'#1a2a5e,#1e40af'},
   };
   const gc = gradeColorMap[gradeId] || {bg:'#f1f5f9',color:'#475569',gradient:'#475569,#1e293b'};
 
@@ -2586,7 +2586,7 @@ function openMasterList(gradeLabel, sectionName, studentCount, gradeId) {
       <div class="table-responsive">
         <table style="width:100%;border-collapse:collapse;font-size:13px" class="master-table">
           <thead>
-            <tr style="background:#1e3a8a;color:#fff">
+            <tr style="background:#1a2a5e;color:#fff">
               <th style="padding:9px 10px;text-align:center;font-size:11.5px;text-transform:uppercase;letter-spacing:.05em;width:42px">#</th>
               <th style="padding:9px 10px;font-size:11.5px;text-transform:uppercase;letter-spacing:.05em;white-space:nowrap">LRN</th>
               <th style="padding:9px 10px;font-size:11.5px;text-transform:uppercase;letter-spacing:.05em">Student Name</th>
@@ -2665,7 +2665,7 @@ function adminRemovePhoto() {
     var el = document.getElementById(id);
     if (!el) return;
     el.innerHTML = 'AD';
-    el.style.background = '#1a2744';
+    el.style.background = '#1a2a5e';
   });
   bootstrap.Modal.getInstance(document.getElementById('adminPhotoActionModal')).hide();
 }
@@ -2792,16 +2792,16 @@ document.addEventListener('DOMContentLoaded', () => {
     <div class="modal-content border-0 shadow-lg" style="border-radius:16px;overflow:hidden">
       <div class="modal-header border-0 px-4 pt-4 pb-2 no-print">
         <div class="d-flex align-items-center gap-3">
-          <div style="width:40px;height:40px;border-radius:10px;background:#1e3a8a;display:flex;align-items:center;justify-content:center;font-size:18px;color:#fff">
+          <div style="width:40px;height:40px;border-radius:10px;background:#1a2a5e;display:flex;align-items:center;justify-content:center;font-size:18px;color:#fff">
             <i class="bi bi-list-columns-reverse"></i>
           </div>
           <div>
             <h5 class="modal-title fw-bold mb-0" style="color:#1e293b">Class Master List</h5>
-            <div class="text-muted" style="font-size:12px">SY 2025–2026 &nbsp;|&nbsp; DPNHS</div>
+            <div class="text-muted" style="font-size:12px">SY 2025–2026 &nbsp;|&nbsp; PHLCI</div>
           </div>
         </div>
         <div class="d-flex gap-2 align-items-center ms-auto">
-          <button class="btn btn-sm fw-semibold px-3" style="background:#1e3a8a;color:#fff" onclick="window.print()">
+          <button class="btn btn-sm fw-semibold px-3" style="background:#1a2a5e;color:#fff" onclick="window.print()">
             <i class="bi bi-printer-fill me-1"></i>Print Master List
           </button>
           <button type="button" class="btn-close" data-bs-dismiss="modal"></button>

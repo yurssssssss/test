@@ -1,12 +1,12 @@
-<?php $pageTitle = 'Login – DPNHS'; ?>
+<?php $pageTitle = 'Login – PHLCI'; ?>
 <?php include 'header.php'; ?>
 
 <nav class="bg-white border-bottom py-2">
   <div class="container d-flex align-items-center justify-content-between">
     <div class="d-flex align-items-center gap-2">
-      <img src="logo.png" class="brand-logo" alt="DPNHS Logo" style="width: 55px; height: 55px;">
+      <img src="logo.png" class="brand-logo" alt="PHLCI Logo" style="width: 55px; height: 55px;">
       <div>
-        <div class="fw-bold text-navy" style="font-size:15px;line-height:1.2">DPNHS</div>
+        <div class="fw-bold text-navy" style="font-size:15px;line-height:1.2">Premiere Heights Learning Center</div>
         <div class="text-muted" style="font-size:11px">Enrollment System</div>
       </div>
     </div>
@@ -20,7 +20,7 @@
   <div class="bg-white rounded-4 border shadow-sm p-4 p-md-5 w-100" style="max-width:460px;margin:40px auto">
 
     <div class="text-center mb-4">
-      <img src="logo.png" class="brand-logo mx-auto mb-3" style="width:72px;height:72px" alt="DPNHS Logo">
+      <img src="logo.png" class="brand-logo mx-auto mb-3" style="width:72px;height:72px" alt="PHLCI Logo">
       <h3 class="fw-bold mb-1" style="color:#1e293b">Welcome Back</h3>
       <p class="text-muted" style="font-size:13.5px">Sign in to access your account</p>
     </div>
@@ -32,11 +32,11 @@
 
     <!-- Student Panel -->
     <div id="login-student-panel">
-      <p class="fw-bold mb-1" style="font-size:15px;color:#1e293b">Student Login</p>
-      <p class="text-muted mb-3" style="font-size:13px">Enter your credentials to access your student portal</p>
+      <p class="fw-bold mb-1" style="font-size:15px;color:#1e293b">Parent Login</p>
+      <p class="text-muted mb-3" style="font-size:13px">Enter your credentials to access your parent portal</p>
       <div class="mb-3">
-        <label class="form-label fw-semibold" style="font-size:13px">LRN</label>
-        <input type="text" class="form-control" id="stu-id" placeholder="Enter your LRN"> 
+        <label class="form-label fw-semibold" style="font-size:13px">Email Address</label>
+        <input type="text" class="form-control" id="stu-id" placeholder="Enter your email"> 
       </div>
       <div class="mb-3">
         <div class="d-flex justify-content-between align-items-center mb-1">
@@ -100,7 +100,7 @@
     const id = document.getElementById('stu-id').value.trim();
     if (!id) { toast('Please enter your Student ID'); return; }
     toast('Login successful! Welcome back.', 'success');
-    localStorage.setItem('dpnhs_just_logged_in', '1');
+    localStorage.setItem('phlci_just_logged_in', '1');
     setTimeout(() => window.location.href = '/student', 800);
   }
 
@@ -131,5 +131,3 @@
     }
   }
 </script>
-
-  

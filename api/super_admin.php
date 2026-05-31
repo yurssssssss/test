@@ -1,4 +1,4 @@
-<?php $pageTitle = 'Super Admin – DPNHS'; ?>
+<?php $pageTitle = 'Super Admin – PHLCI'; ?>
 <?php include 'header.php'; ?>
 
 <style>
@@ -9,7 +9,7 @@ body { margin:0; background:#f1f5f9; }
 /* ── LEFT SIDEBAR ── */
 .left-sidebar {
   width: 240px; min-width: 240px;
-  background: #1a1240;
+  background: #1a2a5e;
   display: flex; flex-direction: column;
   position: fixed; top:0; left:0;
   height: 100vh; z-index:200;
@@ -35,7 +35,7 @@ body { margin:0; background:#f1f5f9; }
 }
 .sb-avatar {
   width:36px; height:36px; border-radius:50%;
-  background:#7c3aed;
+  background:#1a2a5e;
   display:flex; align-items:center; justify-content:center;
   font-size:13px; font-weight:800; color:#fff; flex-shrink:0;
   border:2px solid rgba(255,255,255,.2);
@@ -63,7 +63,7 @@ body { margin:0; background:#f1f5f9; }
 .sb-nav-item i { font-size:16px; width:20px; text-align:center; flex-shrink:0; }
 .sb-nav-item:hover { background:rgba(255,255,255,.07); color:#fff; text-decoration:none; }
 .sb-nav-item.active {
-  background:rgba(124,58,237,.25);
+  background:rgba(245,200,0,.18);
   color:#fff; font-weight:700;
   border-left-color:#a78bfa;
 }
@@ -148,7 +148,7 @@ body { margin:0; background:#f1f5f9; }
 }
 @media (max-width:575px) { .admin-content { padding:14px; } }
 
-.av-purple { background:#7c3aed; }
+.av-purple { background:#1a2a5e; }
 .btn-outline-navy { border-color:var(--navy); color:var(--navy); }
 .btn-outline-navy:hover { background:var(--navy); color:#fff; }
 </style>
@@ -163,9 +163,9 @@ body { margin:0; background:#f1f5f9; }
   <aside class="left-sidebar" id="leftSidebar">
 
     <div class="sb-brand">
-      <img src="// logo.png" alt="DPNHS Logo">
+      <img src="// logo.png" alt="PHLCI Logo">
       <div>
-        <div class="sb-brand-name">DPNHS</div>
+        <div class="sb-brand-name">PHLCI</div>
         <div class="sb-brand-sub">Super Admin Panel</div>
       </div>
     </div>
@@ -174,7 +174,7 @@ body { margin:0; background:#f1f5f9; }
       <div class="sb-avatar">SA</div>
       <div>
         <div class="sb-user-name">Super Admin</div>
-        <div class="sb-user-role">superadmin@dpnhs.edu.ph</div>
+        <div class="sb-user-role">superadmin@phlci.edu.ph</div>
       </div>
     </div>
 
@@ -226,7 +226,7 @@ body { margin:0; background:#f1f5f9; }
       <div class="topbar-right">
         <span class="topbar-icon"><i class="bi bi-bell"></i></span>
         <span class="topbar-icon"><i class="bi bi-gear"></i></span>
-        <div style="width:34px;height:34px;border-radius:50%;background:#7c3aed;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:#fff">SA</div>
+        <div style="width:34px;height:34px;border-radius:50%;background:#1a2a5e;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:#fff">SA</div>
       </div>
     </div>
 
@@ -237,7 +237,7 @@ body { margin:0; background:#f1f5f9; }
   <div class="text-muted mb-4" style="font-size:14px">System-wide control: manage admin accounts, enrollment periods, and monitor all activities</div>
 
   <!-- ENROLLMENT PERIOD BANNER -->
-  <div class="card border-0 rounded-3 p-4 mb-4 position-relative overflow-hidden" style="background:linear-gradient(135deg,#7c3aed 0%,#1e3a8a 100%)">
+  <div class="card border-0 rounded-3 p-4 mb-4 position-relative overflow-hidden" style="background:linear-gradient(135deg,#1a2a5e 0%,#111d42 100%)">
     <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
       <div>
         <div class="d-flex align-items-center gap-2 mb-1">
@@ -267,7 +267,7 @@ body { margin:0; background:#f1f5f9; }
   <div class="row g-3 mb-4">
     <div class="col-md-3 col-6">
       <div class="card border rounded-3 p-3 h-100 position-relative overflow-hidden">
-        <div class="stat-icon" style="background:#f5f3ff;color:#7c3aed;width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;margin-bottom:12px"><i class="bi bi-shield-lock-fill"></i></div>
+        <div class="stat-icon" style="background:#fffbea;color:#1a2a5e;width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;margin-bottom:12px"><i class="bi bi-shield-lock-fill"></i></div>
         <div class="fw-bold mb-1" style="font-size:28px;color:#1e293b">4</div>
         <div class="text-muted" style="font-size:13px">Active Admins</div>
       </div>
@@ -303,14 +303,14 @@ body { margin:0; background:#f1f5f9; }
           <div class="fw-bold mb-1" style="font-size:15px;color:#1e293b">Admin Account Management</div>
           <div class="text-muted" style="font-size:13px">Each admin handles one grade level (Gr 7–10)</div>
         </div>
-        <button class="btn btn-sm fw-semibold px-3" style="background:#7c3aed;color:#fff" onclick="openCreateAdminModal()">
+        <button class="btn btn-sm fw-semibold px-3" style="background:#1a2a5e;color:#fff" onclick="openCreateAdminModal()">
           <i class="bi bi-person-plus-fill me-1"></i>Create Admin Account
         </button>
       </div>
 
       <!-- Grade assignment legend -->
       <div class="d-flex flex-wrap gap-2 mb-3">
-        <span class="badge rounded-pill px-3 py-2" style="background:#eff6ff;color:#1e40af;font-size:12px;font-weight:600"><i class="bi bi-mortarboard-fill me-1"></i>Grade 7 – Admin</span>
+        <span class="badge rounded-pill px-3 py-2" style="background:#f0f4ff;color:#1e40af;font-size:12px;font-weight:600"><i class="bi bi-mortarboard-fill me-1"></i>Grade 7 – Admin</span>
         <span class="badge rounded-pill px-3 py-2" style="background:#f0fdf4;color:#166534;font-size:12px;font-weight:600"><i class="bi bi-mortarboard-fill me-1"></i>Grade 8 – Admin</span>
         <span class="badge rounded-pill px-3 py-2" style="background:#fff7ed;color:#9a3412;font-size:12px;font-weight:600"><i class="bi bi-mortarboard-fill me-1"></i>Grade 9 – Admin</span>
         <span class="badge rounded-pill px-3 py-2" style="background:#fdf4ff;color:#7e22ce;font-size:12px;font-weight:600"><i class="bi bi-mortarboard-fill me-1"></i>Grade 10 – Admin</span>
@@ -336,15 +336,15 @@ body { margin:0; background:#f1f5f9; }
           <tbody style="font-size:13.5px" id="adminTableBody">
             <tr>
               <td><span class="stu-avatar av-blue">G7</span>Ana Reyes</td>
-              <td>ana.reyes@dpnhs.edu.ph</td>
-              <td><span class="badge rounded-pill px-3" style="background:#eff6ff;color:#1e40af">Grade 7</span></td>
+              <td>ana.reyes@phlci.edu.ph</td>
+              <td><span class="badge rounded-pill px-3" style="background:#f0f4ff;color:#1e40af">Grade 7</span></td>
               <td><span class="badge-enrolled">Active</span></td>
               <td class="text-muted" style="font-size:12px">Apr 8, 2026 – 9:14 AM</td>
               <td>
                 <div class="action-menu-wrap position-relative">
                   <button class="btn btn-sm btn-light border action-dots-btn" onclick="toggleActionMenu(event,this)"><i class="bi bi-three-dots-vertical"></i></button>
                   <div class="action-dropdown shadow-sm">
-                    <button class="action-item" onclick="closeMenuThen(()=>openEditAdminModal('Ana Reyes','Grade 7','ana.reyes@dpnhs.edu.ph'))"><i class="bi bi-pencil text-navy"></i> Edit</button>
+                    <button class="action-item" onclick="closeMenuThen(()=>openEditAdminModal('Ana Reyes','Grade 7','ana.reyes@phlci.edu.ph'))"><i class="bi bi-pencil text-navy"></i> Edit</button>
                     <button class="action-item" onclick="closeMenuThen(()=>resetAdminPassword('Ana Reyes'))"><i class="bi bi-key text-warning"></i> Reset Password</button>
                     <button class="action-item text-danger" onclick="closeMenuThen(()=>deactivateAdmin('Ana Reyes'))"><i class="bi bi-slash-circle"></i> Deactivate</button>
                   </div>
@@ -353,7 +353,7 @@ body { margin:0; background:#f1f5f9; }
             </tr>
             <tr>
               <td><span class="stu-avatar av-green">G8</span>Ben Santos</td>
-              <td>ben.santos@dpnhs.edu.ph</td>
+              <td>ben.santos@phlci.edu.ph</td>
               <td><span class="badge rounded-pill px-3" style="background:#f0fdf4;color:#166534">Grade 8</span></td>
               <td><span class="badge-enrolled">Active</span></td>
               <td class="text-muted" style="font-size:12px">Apr 8, 2026 – 8:50 AM</td>
@@ -361,7 +361,7 @@ body { margin:0; background:#f1f5f9; }
                 <div class="action-menu-wrap position-relative">
                   <button class="btn btn-sm btn-light border action-dots-btn" onclick="toggleActionMenu(event,this)"><i class="bi bi-three-dots-vertical"></i></button>
                   <div class="action-dropdown shadow-sm">
-                    <button class="action-item" onclick="closeMenuThen(()=>openEditAdminModal('Ben Santos','Grade 8','ben.santos@dpnhs.edu.ph'))"><i class="bi bi-pencil text-navy"></i> Edit</button>
+                    <button class="action-item" onclick="closeMenuThen(()=>openEditAdminModal('Ben Santos','Grade 8','ben.santos@phlci.edu.ph'))"><i class="bi bi-pencil text-navy"></i> Edit</button>
                     <button class="action-item" onclick="closeMenuThen(()=>resetAdminPassword('Ben Santos'))"><i class="bi bi-key text-warning"></i> Reset Password</button>
                     <button class="action-item text-danger" onclick="closeMenuThen(()=>deactivateAdmin('Ben Santos'))"><i class="bi bi-slash-circle"></i> Deactivate</button>
                   </div>
@@ -370,7 +370,7 @@ body { margin:0; background:#f1f5f9; }
             </tr>
             <tr>
               <td><span class="stu-avatar av-orange">G9</span>Clara Dela Cruz</td>
-              <td>clara.delacruz@dpnhs.edu.ph</td>
+              <td>clara.delacruz@phlci.edu.ph</td>
               <td><span class="badge rounded-pill px-3" style="background:#fff7ed;color:#9a3412">Grade 9</span></td>
               <td><span class="badge-enrolled">Active</span></td>
               <td class="text-muted" style="font-size:12px">Apr 7, 2026 – 4:03 PM</td>
@@ -378,7 +378,7 @@ body { margin:0; background:#f1f5f9; }
                 <div class="action-menu-wrap position-relative">
                   <button class="btn btn-sm btn-light border action-dots-btn" onclick="toggleActionMenu(event,this)"><i class="bi bi-three-dots-vertical"></i></button>
                   <div class="action-dropdown shadow-sm">
-                    <button class="action-item" onclick="closeMenuThen(()=>openEditAdminModal('Clara Dela Cruz','Grade 9','clara.delacruz@dpnhs.edu.ph'))"><i class="bi bi-pencil text-navy"></i> Edit</button>
+                    <button class="action-item" onclick="closeMenuThen(()=>openEditAdminModal('Clara Dela Cruz','Grade 9','clara.delacruz@phlci.edu.ph'))"><i class="bi bi-pencil text-navy"></i> Edit</button>
                     <button class="action-item" onclick="closeMenuThen(()=>resetAdminPassword('Clara Dela Cruz'))"><i class="bi bi-key text-warning"></i> Reset Password</button>
                     <button class="action-item text-danger" onclick="closeMenuThen(()=>deactivateAdmin('Clara Dela Cruz'))"><i class="bi bi-slash-circle"></i> Deactivate</button>
                   </div>
@@ -387,7 +387,7 @@ body { margin:0; background:#f1f5f9; }
             </tr>
             <tr>
               <td><span class="stu-avatar av-purple">G10</span>Diego Lim</td>
-              <td>diego.lim@dpnhs.edu.ph</td>
+              <td>diego.lim@phlci.edu.ph</td>
               <td><span class="badge rounded-pill px-3" style="background:#fdf4ff;color:#7e22ce">Grade 10</span></td>
               <td><span class="badge" style="background:#fef9c3;color:#713f12;font-size:12px;padding:4px 10px;border-radius:20px">Inactive</span></td>
               <td class="text-muted" style="font-size:12px">Apr 1, 2026 – 2:15 PM</td>
@@ -395,7 +395,7 @@ body { margin:0; background:#f1f5f9; }
                 <div class="action-menu-wrap position-relative">
                   <button class="btn btn-sm btn-light border action-dots-btn" onclick="toggleActionMenu(event,this)"><i class="bi bi-three-dots-vertical"></i></button>
                   <div class="action-dropdown shadow-sm">
-                    <button class="action-item" onclick="closeMenuThen(()=>openEditAdminModal('Diego Lim','Grade 10','diego.lim@dpnhs.edu.ph'))"><i class="bi bi-pencil text-navy"></i> Edit</button>
+                    <button class="action-item" onclick="closeMenuThen(()=>openEditAdminModal('Diego Lim','Grade 10','diego.lim@phlci.edu.ph'))"><i class="bi bi-pencil text-navy"></i> Edit</button>
                     <button class="action-item" onclick="closeMenuThen(()=>resetAdminPassword('Diego Lim'))"><i class="bi bi-key text-warning"></i> Reset Password</button>
                     <button class="action-item text-success" onclick="closeMenuThen(()=>activateAdmin('Diego Lim'))"><i class="bi bi-check-circle"></i> Activate</button>
                   </div>
@@ -484,8 +484,8 @@ body { margin:0; background:#f1f5f9; }
               ['Apr 7, 2026 – 2:00 PM','Super Admin','Super Admin','Enrollment Period Updated','Enrollment set OPEN: June 1 – July 31, 2025','purple'],
               ['Apr 6, 2026 – 11:15 AM','Ana Reyes','Admin (Gr 7)','Validated Student','Student info confirmed: Lisa Davis (STU2025007)','success'],
             ];
-            $logColors = ['success'=>'#166534','danger'=>'#991b1b','info'=>'#0369a1','purple'=>'#7c3aed','warning'=>'#92400e'];
-            $logBg = ['success'=>'#dcfce7','danger'=>'#fee2e2','info'=>'#e0f2fe','purple'=>'#f5f3ff','warning'=>'#fef3c7'];
+            $logColors = ['success'=>'#166534','danger'=>'#991b1b','info'=>'#0369a1','purple'=>'#1a2a5e','warning'=>'#92400e'];
+            $logBg = ['success'=>'#dcfce7','danger'=>'#fee2e2','info'=>'#e0f2fe','purple'=>'#fffbea','warning'=>'#fef3c7'];
             foreach($logs as $log): ?>
             <tr>
               <td class="text-muted" style="font-size:12px;white-space:nowrap"><?= $log[0] ?></td>
@@ -506,17 +506,17 @@ body { margin:0; background:#f1f5f9; }
     <div class="card border rounded-3 p-3 p-md-4">
       <div class="d-flex align-items-start justify-content-between mb-3 flex-wrap gap-2">
         <div>
-          <div class="fw-bold mb-1" style="font-size:15px;color:#1e293b"><i class="bi bi-megaphone-fill me-2" style="color:#7c3aed"></i>Announcements</div>
+          <div class="fw-bold mb-1" style="font-size:15px;color:#1e293b"><i class="bi bi-megaphone-fill me-2" style="color:#1a2a5e"></i>Announcements</div>
           <div class="text-muted" style="font-size:13px">Create and manage popup announcements shown to students on login</div>
         </div>
-        <button class="btn btn-sm fw-semibold px-3" style="background:#7c3aed;color:#fff" onclick="openCreateAnnouncementModal()">
+        <button class="btn btn-sm fw-semibold px-3" style="background:#1a2a5e;color:#fff" onclick="openCreateAnnouncementModal()">
           <i class="bi bi-plus-circle me-1"></i>New Announcement
         </button>
       </div>
 
       <!-- Active announcement banner -->
-      <div id="activeAnnouncementBanner" class="alert d-flex align-items-start gap-3 mb-3" style="background:#f5f3ff;border:1px solid #c4b5fd;border-radius:12px">
-        <i class="bi bi-bell-fill" style="color:#7c3aed;font-size:18px;flex-shrink:0;margin-top:2px"></i>
+      <div id="activeAnnouncementBanner" class="alert d-flex align-items-start gap-3 mb-3" style="background:#fffbea;border:1px solid #c4b5fd;border-radius:12px">
+        <i class="bi bi-bell-fill" style="color:#1a2a5e;font-size:18px;flex-shrink:0;margin-top:2px"></i>
         <div class="flex-grow-1">
           <div class="fw-bold mb-1" style="font-size:13.5px;color:#5b21b6">Active Announcement</div>
           <div id="activeAnnTitle" class="fw-semibold" style="font-size:14px;color:#1e293b">Welcome to SY 2025–2026 Enrollment!</div>
@@ -534,7 +534,7 @@ body { margin:0; background:#f1f5f9; }
   <div id="sa-tab-history" class="d-none">
 
     <!-- Summary banner -->
-    <div class="card border-0 rounded-3 p-4 mb-4 position-relative overflow-hidden" style="background:linear-gradient(135deg,#7c3aed 0%,#1e3a8a 100%)">
+    <div class="card border-0 rounded-3 p-4 mb-4 position-relative overflow-hidden" style="background:linear-gradient(135deg,#1a2a5e 0%,#111d42 100%)">
       <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
         <div>
           <div class="d-flex align-items-center gap-2 mb-1">
@@ -551,7 +551,7 @@ body { margin:0; background:#f1f5f9; }
 
     <!-- SY filter pills -->
     <div class="d-flex flex-wrap gap-2 mb-4" id="syFilterPills">
-      <button class="btn btn-sm fw-semibold px-3 sy-pill active" data-sy="all" onclick="filterSYHistory('all',this)" style="background:#7c3aed;color:#fff;border:none">All Years</button>
+      <button class="btn btn-sm fw-semibold px-3 sy-pill active" data-sy="all" onclick="filterSYHistory('all',this)" style="background:#1a2a5e;color:#fff;border:none">All Years</button>
       <button class="btn btn-sm fw-semibold px-3 sy-pill" data-sy="2025-2026" onclick="filterSYHistory('2025-2026',this)" style="background:#f1f5f9;color:#475569;border:1px solid #e2e8f0">SY 2025–2026</button>
     </div>
 
@@ -568,18 +568,18 @@ body { margin:0; background:#f1f5f9; }
 
       <!-- Profile Picture Card -->
       <div class="card border rounded-3 p-4 mb-4">
-        <h5 class="fw-bold mb-1 pb-2 border-bottom" style="color:#1e293b"><i class="bi bi-image me-2" style="color:#7c3aed"></i>Profile Picture</h5>
+        <h5 class="fw-bold mb-1 pb-2 border-bottom" style="color:#1e293b"><i class="bi bi-image me-2" style="color:#1a2a5e"></i>Profile Picture</h5>
         <div class="d-flex flex-column flex-sm-row align-items-center gap-4 pt-3">
           <div class="position-relative flex-shrink-0" style="cursor:pointer" onclick="openSAPhotoModal()" title="Click to manage photo">
-            <div id="saAvatarPreview" style="width:90px;height:90px;border-radius:50%;background:#7c3aed;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:28px;overflow:hidden">SA</div>
-            <div class="position-absolute bottom-0 end-0" style="background:#7c3aed;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;border:2px solid #fff;pointer-events:none">
+            <div id="saAvatarPreview" style="width:90px;height:90px;border-radius:50%;background:#1a2a5e;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:28px;overflow:hidden">SA</div>
+            <div class="position-absolute bottom-0 end-0" style="background:#1a2a5e;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;border:2px solid #fff;pointer-events:none">
               <i class="bi bi-camera-fill text-white" style="font-size:12px"></i>
             </div>
           </div>
           <div>
             <div class="fw-semibold mb-1" style="font-size:14px;color:#1e293b">Super Admin</div>
-            <div class="text-muted mb-2" style="font-size:12px">superadmin@dpnhs.edu.ph &nbsp;·&nbsp; DPNHS System Administrator</div>
-            <button class="btn btn-sm fw-semibold px-3" style="background:#7c3aed;color:#fff;font-size:13px" onclick="openSAPhotoModal()">
+            <div class="text-muted mb-2" style="font-size:12px">superadmin@phlci.edu.ph &nbsp;·&nbsp; PHLCI System Administrator</div>
+            <button class="btn btn-sm fw-semibold px-3" style="background:#1a2a5e;color:#fff;font-size:13px" onclick="openSAPhotoModal()">
               <i class="bi bi-camera me-1"></i>Manage Photo
             </button>
           </div>
@@ -588,9 +588,9 @@ body { margin:0; background:#f1f5f9; }
 
       <!-- Change Password Card -->
       <div class="card border rounded-3 p-4 mb-4">
-        <h5 class="fw-bold mb-1 pb-2 border-bottom" style="color:#1e293b"><i class="bi bi-shield-lock me-2" style="color:#7c3aed"></i>Change Password</h5>
-        <div class="d-flex align-items-start gap-2 rounded-2 p-3 mt-3 mb-3" style="background:#f5f3ff;border:1px solid #c4b5fd">
-          <i class="bi bi-info-circle-fill mt-1" style="color:#7c3aed;font-size:14px;flex-shrink:0"></i>
+        <h5 class="fw-bold mb-1 pb-2 border-bottom" style="color:#1e293b"><i class="bi bi-shield-lock me-2" style="color:#1a2a5e"></i>Change Password</h5>
+        <div class="d-flex align-items-start gap-2 rounded-2 p-3 mt-3 mb-3" style="background:#fffbea;border:1px solid #c4b5fd">
+          <i class="bi bi-info-circle-fill mt-1" style="color:#1a2a5e;font-size:14px;flex-shrink:0"></i>
           <div style="font-size:12.5px;color:#5b21b6">For your security, choose a strong password with at least 8 characters including uppercase, lowercase, numbers, and symbols.</div>
         </div>
         <div class="row g-3">
@@ -623,7 +623,7 @@ body { margin:0; background:#f1f5f9; }
             <div id="saMatchMsg" class="mt-1" style="font-size:11px"></div>
           </div>
           <div class="col-12 pt-1">
-            <button class="btn btn-sm fw-semibold px-4" style="background:#7c3aed;color:#fff;font-size:13px">
+            <button class="btn btn-sm fw-semibold px-4" style="background:#1a2a5e;color:#fff;font-size:13px">
               <i class="bi bi-shield-check me-1"></i>Update Password
             </button>
           </div>
@@ -646,7 +646,7 @@ body { margin:0; background:#f1f5f9; }
 <div class="modal fade" id="saPhotoActionModal" tabindex="-1">
   <div class="modal-dialog modal-dialog-centered" style="max-width:360px">
     <div class="modal-content border-0 shadow-lg" style="border-radius:16px;overflow:hidden">
-      <div style="background:#7c3aed;padding:20px 24px 16px">
+      <div style="background:#1a2a5e;padding:20px 24px 16px">
         <div class="d-flex align-items-center gap-3">
           <div id="saModalThumb" style="width:46px;height:46px;border-radius:50%;background:rgba(255,255,255,.2);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px;flex-shrink:0;overflow:hidden">SA</div>
           <div>
@@ -700,11 +700,11 @@ body { margin:0; background:#f1f5f9; }
         <button class="btn-close btn-close-white btn-sm" data-bs-dismiss="modal"></button>
       </div>
       <div class="d-flex align-items-center justify-content-center p-4" style="min-height:300px">
-        <div id="saFullPhotoView" style="width:180px;height:180px;border-radius:50%;background:#7c3aed;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:52px;overflow:hidden">SA</div>
+        <div id="saFullPhotoView" style="width:180px;height:180px;border-radius:50%;background:#1a2a5e;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:52px;overflow:hidden">SA</div>
       </div>
       <div class="px-4 pb-4 text-center">
         <div class="fw-semibold text-white" style="font-size:15px">Super Admin</div>
-        <div style="font-size:12px;color:rgba(255,255,255,.5)">superadmin@dpnhs.edu.ph</div>
+        <div style="font-size:12px;color:rgba(255,255,255,.5)">superadmin@phlci.edu.ph</div>
       </div>
     </div>
   </div>
@@ -714,7 +714,7 @@ body { margin:0; background:#f1f5f9; }
 <div class="modal fade" id="createAdminModal" tabindex="-1">
   <div class="modal-dialog modal-dialog-centered" style="max-width:520px">
     <div class="modal-content border-0 shadow-lg" style="border-radius:18px;overflow:hidden">
-      <div style="background:linear-gradient(135deg,#7c3aed,#1e3a8a);padding:24px 28px 20px;position:relative">
+      <div style="background:linear-gradient(135deg,#1a2a5e,#111d42);padding:24px 28px 20px;position:relative">
         <button type="button" class="btn-close btn-close-white position-absolute top-0 end-0 m-3" data-bs-dismiss="modal"></button>
         <div class="d-flex align-items-center gap-3">
           <div style="width:44px;height:44px;border-radius:12px;background:rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;font-size:22px;color:#fff">
@@ -738,7 +738,7 @@ body { margin:0; background:#f1f5f9; }
           </div>
           <div class="col-12">
             <label class="form-label fw-medium" style="font-size:13px">Email Address *</label>
-            <input type="email" class="form-control" placeholder="admin@dpnhs.edu.ph" id="ca-email">
+            <input type="email" class="form-control" placeholder="admin@phlci.edu.ph" id="ca-email">
           </div>
           <div class="col-12">
             <label class="form-label fw-medium" style="font-size:13px">Assigned Grade Level *</label>
@@ -766,7 +766,7 @@ body { margin:0; background:#f1f5f9; }
       </div>
       <div class="modal-footer border-0 pt-0 px-4 pb-4">
         <button class="btn btn-outline-secondary btn-sm" data-bs-dismiss="modal">Cancel</button>
-        <button class="btn btn-sm fw-semibold px-4" style="background:#7c3aed;color:#fff" onclick="submitCreateAdmin()">
+        <button class="btn btn-sm fw-semibold px-4" style="background:#1a2a5e;color:#fff" onclick="submitCreateAdmin()">
           <i class="bi bi-person-check me-1"></i>Create Admin
         </button>
       </div>
@@ -781,7 +781,7 @@ body { margin:0; background:#f1f5f9; }
     <div class="modal-content border-0 shadow-lg" style="border-radius:16px">
       <div class="modal-header border-0 pb-0 px-4 pt-4">
         <div>
-          <h5 class="modal-title fw-bold" style="color:#1e293b"><i class="bi bi-pencil-fill me-2" style="color:#7c3aed"></i>Edit Admin Account</h5>
+          <h5 class="modal-title fw-bold" style="color:#1e293b"><i class="bi bi-pencil-fill me-2" style="color:#1a2a5e"></i>Edit Admin Account</h5>
           <div class="text-muted" style="font-size:13px">Editing: <strong id="ea-name-label"></strong></div>
         </div>
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
@@ -800,7 +800,7 @@ body { margin:0; background:#f1f5f9; }
       </div>
       <div class="modal-footer border-0 px-4 pb-4">
         <button class="btn btn-outline-secondary btn-sm" data-bs-dismiss="modal">Cancel</button>
-        <button class="btn btn-sm fw-semibold px-4" style="background:#7c3aed;color:#fff" onclick="submitEditAdmin()">Save Changes</button>
+        <button class="btn btn-sm fw-semibold px-4" style="background:#1a2a5e;color:#fff" onclick="submitEditAdmin()">Save Changes</button>
       </div>
     </div>
   </div>
@@ -812,7 +812,7 @@ body { margin:0; background:#f1f5f9; }
   <div class="modal-dialog modal-dialog-centered" style="max-width:440px">
     <div class="modal-content border-0 shadow-lg" style="border-radius:16px">
       <div class="modal-header border-0 pb-0 px-4 pt-4">
-        <h5 class="modal-title fw-bold" style="color:#1e293b"><i class="bi bi-calendar-check-fill me-2" style="color:#7c3aed"></i>Edit Enrollment Period</h5>
+        <h5 class="modal-title fw-bold" style="color:#1e293b"><i class="bi bi-calendar-check-fill me-2" style="color:#1a2a5e"></i>Edit Enrollment Period</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
       </div>
       <div class="modal-body px-4">
@@ -838,7 +838,7 @@ body { margin:0; background:#f1f5f9; }
 </div>
 
 <style>
-  .av-purple { background:#7c3aed; }
+  .av-purple { background:#1a2a5e; }
   .btn-outline-navy { border-color:var(--navy); color:var(--navy); }
   .btn-outline-navy:hover { background:var(--navy); color:#fff; }
 </style>
@@ -886,7 +886,7 @@ const _saGradeColors = {
   'Grade 7':  { bg: '#ccfbf1', color: '#0f766e' },
   'Grade 8':  { bg: '#fef3c7', color: '#b45309' },
   'Grade 9':  { bg: '#fce7f3', color: '#be185d' },
-  'Grade 10': { bg: '#eff6ff', color: '#1e40af' },
+  'Grade 10': { bg: '#f0f4ff', color: '#1e40af' },
 };
 
 function renderSYHistory(filter) {
@@ -895,12 +895,12 @@ function renderSYHistory(filter) {
   var data = filter === 'all' ? _saHistoryData : _saHistoryData.filter(function(d){ return d.key === filter; });
   list.innerHTML = data.map(function(rec) {
     var isActive = rec.status === 'active';
-    var headerBg = isActive ? 'linear-gradient(135deg,#7c3aed,#1e3a8a)' : '#f8fafc';
+    var headerBg = isActive ? 'linear-gradient(135deg,#1a2a5e,#111d42)' : '#f8fafc';
     var headerColor = isActive ? '#fff' : '#1e293b';
     var subColor = isActive ? 'rgba(255,255,255,.7)' : '#64748b';
 
     var statCards = [
-      { icon: 'bi-people-fill',       label: 'Total Enrolled',      val: rec.totalEnrolled,     bg: isActive ? 'rgba(255,255,255,.15)' : '#eff6ff', c: isActive ? '#fff' : '#1e40af' },
+      { icon: 'bi-people-fill',       label: 'Total Enrolled',      val: rec.totalEnrolled,     bg: isActive ? 'rgba(255,255,255,.15)' : '#f0f4ff', c: isActive ? '#fff' : '#1e40af' },
       { icon: 'bi-file-earmark-text', label: 'Applications',        val: rec.totalApplications, bg: isActive ? 'rgba(255,255,255,.15)' : '#fefce8', c: isActive ? '#fff' : '#713f12' },
     ].map(function(s) {
       return '<div class="col-6 col-md-3">' +
@@ -955,7 +955,7 @@ function renderSYHistory(filter) {
           '</div>' +
           '<div class="d-flex gap-2 mt-3 justify-content-end">' +
             '<button class="btn btn-sm btn-outline-secondary" onclick="alert(\'Exporting '+rec.sy+'...\')"><i class="bi bi-download me-1"></i>Export</button>' +
-            (!isActive ? '<button class="btn btn-sm" style="background:#eff6ff;color:#1e40af;border:1px solid #bfdbfe" onclick="alert(\'Full report for '+rec.sy+'...\')"><i class="bi bi-eye me-1"></i>Full Report</button>' : '') +
+            (!isActive ? '<button class="btn btn-sm" style="background:#f0f4ff;color:#1e40af;border:1px solid #bfdbfe" onclick="alert(\'Full report for '+rec.sy+'...\')"><i class="bi bi-eye me-1"></i>Full Report</button>' : '') +
           '</div>' +
         '</div>' +
       '</div>' +
@@ -969,7 +969,7 @@ function filterSYHistory(sy, btn) {
     p.style.color = '#475569';
     p.style.border = '1px solid #e2e8f0';
   });
-  btn.style.background = '#7c3aed';
+  btn.style.background = '#1a2a5e';
   btn.style.color = '#fff';
   btn.style.border = 'none';
   renderSYHistory(sy);
@@ -1096,7 +1096,7 @@ function renderAnnouncements() {
           <div class="d-flex align-items-center gap-2 mb-1">
             <div class="fw-bold" style="font-size:14.5px;color:#1e293b">${a.title}</div>
             <span class="badge rounded-pill px-3" style="background:${a.status==='active'?'#dcfce7':'#f1f5f9'};color:${a.status==='active'?'#166534':'#64748b'};font-size:11px">${a.status==='active'?'● Active':'○ Inactive'}</span>
-            ${a.popup ? '<span class="badge rounded-pill px-2" style="background:#ede9fe;color:#7c3aed;font-size:11px"><i class="bi bi-bell-fill"></i> Popup</span>' : ''}
+            ${a.popup ? '<span class="badge rounded-pill px-2" style="background:#ede9fe;color:#1a2a5e;font-size:11px"><i class="bi bi-bell-fill"></i> Popup</span>' : ''}
           </div>
           <div class="text-muted mb-2" style="font-size:13px">${a.message}</div>
           <div class="text-muted" style="font-size:11.5px"><i class="bi bi-calendar3 me-1"></i>${a.from} – ${a.until} &nbsp;&bull;&nbsp; Created by: ${a.by} &nbsp;&bull;&nbsp; ${a.date}</div>
@@ -1214,7 +1214,7 @@ function saRemovePhoto() {
     var el = document.getElementById(id);
     if (!el) return;
     el.innerHTML = 'SA';
-    el.style.background = '#7c3aed';
+    el.style.background = '#1a2a5e';
   });
   bootstrap.Modal.getInstance(document.getElementById('saPhotoActionModal')).hide();
 }
@@ -1290,7 +1290,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <div class="modal fade" id="createAnnouncementModal" tabindex="-1">
   <div class="modal-dialog modal-dialog-centered" style="max-width:540px">
     <div class="modal-content border-0 shadow-lg" style="border-radius:18px;overflow:hidden">
-      <div style="background:linear-gradient(135deg,#7c3aed,#1e3a8a);padding:24px 28px 20px;position:relative">
+      <div style="background:linear-gradient(135deg,#1a2a5e,#111d42);padding:24px 28px 20px;position:relative">
         <button type="button" class="btn-close btn-close-white position-absolute top-0 end-0 m-3" data-bs-dismiss="modal"></button>
         <div class="d-flex align-items-center gap-3">
           <div style="width:44px;height:44px;border-radius:12px;background:rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;font-size:22px;color:#fff">
@@ -1338,7 +1338,7 @@ document.addEventListener('DOMContentLoaded', function() {
       </div>
       <div class="modal-footer border-0 pt-0 px-4 pb-4">
         <button class="btn btn-outline-secondary btn-sm" data-bs-dismiss="modal">Cancel</button>
-        <button class="btn btn-sm fw-semibold px-4" style="background:#7c3aed;color:#fff" onclick="submitAnnouncement()">
+        <button class="btn btn-sm fw-semibold px-4" style="background:#1a2a5e;color:#fff" onclick="submitAnnouncement()">
           <i class="bi bi-check-circle me-1"></i><span id="annSubmitLabel">Create Announcement</span>
         </button>
       </div>
