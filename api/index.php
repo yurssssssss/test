@@ -162,7 +162,7 @@
 <nav class="phlc-nav sticky-top py-2">
   <div class="container d-flex align-items-center justify-content-between">
     <a href="/index" class="d-flex align-items-center gap-2 text-decoration-none">
-      <img src="/logo.png" alt="PHLC Logo" style="width:50px;height:50px;border-radius:50%;border:2px solid var(--phlc-gold)">
+      <img src="/logo.png" alt="PHLC Logo" style="width:50px;height:50px;border-radius:50%;border:2px solid var(--phlc-gold);background:#fff;padding:2px;">
       <div>
         <div class="fw-bold text-white" style="font-size:14px;line-height:1.2">Premiere Heights Learning Center</div>
         <div style="font-size:10.5px;color:var(--phlc-gold);">Online Enrollment System</div>
@@ -196,8 +196,9 @@
         </div>
       </div>
       <div class="col-lg-5 text-center d-none d-lg-block">
-        <img src="/test/logo.png" alt="PHLC Logo"
-         style="width:50px;height:50px;border-radius:50%;border:2px solid var(--phlc-gold)">
+        <img src="/logo.png" alt="PHLC Logo"
+          style="width:280px;height:280px;object-fit:contain;background:#fff;border-radius:50%;padding:12px;
+                 filter:drop-shadow(0 8px 32px rgba(245,200,0,.25))">
       </div>
     </div>
   </div>
@@ -303,7 +304,8 @@
     <div class="row align-items-center g-5">
       <div class="col-lg-5 text-center">
         <img src="/logo.png" alt="PHLC Logo"
-         style="width:50%;height:50%;border-radius:50%;border:2px solid var(--phlc-gold)">
+          style="width:220px;height:220px;object-fit:contain;background:#fff;border-radius:50%;padding:10px;
+                 filter:drop-shadow(0 6px 24px rgba(26,42,94,.18))">
       </div>
       <div class="col-lg-7">
         <div class="hero-badge" style="background:rgba(26,42,94,.08);border-color:rgba(26,42,94,.2);color:var(--phlc-navy);">Our Story</div>
