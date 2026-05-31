@@ -361,7 +361,7 @@ body { margin:0; background:#f1f5f9; }
   <!-- ── LEFT SIDEBAR ── -->
   <aside class="left-sidebar sb-admin" id="leftSidebar">
     <div class="sb-brand">
-      <img src="/logo.png" alt="PHLCI Logo">
+      <img src="/logo.png" alt="PHLCI Logo" style ="background:#fff;padding:4px;border-radius:8px">
       <div class="sb-brand-text">
         <div class="sb-brand-name">PHLCI</div>
         <div class="sb-brand-sub">Admin Dashboard</div>

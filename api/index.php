@@ -371,11 +371,6 @@
               </div>
             </div>
           </div>
-          <div class="pt-3 mt-1" style="border-top:1px solid rgba(255,255,255,.1)">
-            <div class="text-center">
-              <a href="/admission" class="hero-cta-primary me-3"><i class="bi bi-person-plus-fill me-1"></i>Apply Now</a>
-              <a href="/login"     class="hero-cta-outline"><i class="bi bi-box-arrow-in-right me-1"></i>Student Login</a>
-            </div>
           </div>
         </div>
       </div>

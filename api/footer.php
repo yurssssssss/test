@@ -1,7 +1,7 @@
 
 <footer class="site-footer">
   <div class="container">
-    <div class="row g-4 pb-3 border-bottom border-footer">
+    <div class="row g-4 pb-2 border-bottom border-footer">
 
 
       <div class="col-lg-4 col-md-6">
@@ -43,27 +43,7 @@
       </div>
 
     
-      <div class="col-lg-4 col-md-6">
-        <div class="footer-heading">Contact Us</div>
-        <ul class="footer-contact">
-          <li>
-            <i class="bi bi-geo-alt-fill footer-contact-icon"></i>
-            <span>Blk 3 Lot 29 & 31 Justice Corner Gladness St, Cityland Carmona City Cavite</span>
-          </li>
-          <li>
-            <i class="bi bi-telephone-fill footer-contact-icon"></i>
-            <span>(054) 000-0000</span>
-          </li>
-          <li>
-            <i class="bi bi-envelope-fill footer-contact-icon"></i>
-            <span>PHLCI.nhs@deped.gov.ph</span>
-          </li>
-          <li>
-            <i class="bi bi-clock-fill footer-contact-icon"></i>
-            <span>Mon – Fri &nbsp;·&nbsp; 7:00 AM – 5:00 PM</span>
-          </li>
-        </ul>
-      </div>
+  
 
     </div>
 
